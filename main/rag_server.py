@@ -1,0 +1,67 @@
+from __future__ import annotations
+
+import os
+import sys
+from contextlib import asynccontextmanager
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+os.environ["TQDM_DISABLE"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["TRANSFORMERS_NO_ADVISORY_WARNINGS"] = "1"
+
+from fastapi import FastAPI, HTTPException
+from fastapi.concurrency import run_in_threadpool
+from pydantic import BaseModel
+import uvicorn
+
+from src.en.pipeline import ENPipeline
+
+_en_pipeline: ENPipeline | None = None
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global _en_pipeline
+    print("[RAG Server] Starting EN pipeline...")
+    _en_pipeline = ENPipeline()
+    print("[RAG Server] EN pipeline ready.")
+    yield
+    print("[RAG Server] Shutting down.")
+
+
+app = FastAPI(title="HealthCare RAG", lifespan=lifespan)
+
+
+class AskRequest(BaseModel):
+    message: str
+
+
+@app.post("/ask")
+async def ask(req: AskRequest):
+    if _en_pipeline is None:
+        raise HTTPException(status_code=503, detail="Pipeline not ready.")
+    result = await run_in_threadpool(_en_pipeline.answer, req.message)
+    ner_entities = result.get("entities", {})
+    return {
+        "answer":   result.get("answer", ""),
+        "intent":   result.get("intent", ""),
+        "entities": {
+            "foods":     ner_entities.get("FOOD",     []),
+            "diseases":  ner_entities.get("DISEASE",  []),
+            "nutrients": ner_entities.get("NUTRIENT", []),
+            "symptoms":  ner_entities.get("SYMPTOM",  []),
+        },
+        "sources": sorted(set(result.get("sources", []))),
+    }
+
+
+@app.get("/health")
+async def health():
+    return {"status": "ok", "pipeline_ready": _en_pipeline is not None}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

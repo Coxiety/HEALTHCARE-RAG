@@ -1,0 +1,55 @@
+# USDA source CSV (3.1GB)
+FoodData_Central_csv_2025-12-18/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+
+# Data — generated, rebuild locally
+data/usda_food.db
+data/chroma_db/
+data/.embedded_manifest.json
+data/chunks/
+data/raw/
+src/data/
+
+# Large generated data — rebuild via scripts
+data/en/triplets.jsonl
+data/en/triplets.zip
+data/nfcorpus/
+
+# Notebook local data dirs
+notebooks/en/data/
+
+# Model weights — share via HuggingFace Hub
+models/
+
+# Maven build output
+chatbot/target/
+
+# H2 database runtime files
+chatbot/data/
+
+# Internal / Claude config
+.claude/
+CLAUDE.md
+BILINGUAL_UPGRADE_PLAN.md
+PROJECT_CHECKLIST.md

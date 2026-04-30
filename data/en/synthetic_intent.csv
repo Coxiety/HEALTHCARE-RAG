@@ -1,0 +1,1801 @@
+question,intent_label
+Is kiwi high in sodium and beneficial for gout?,BOTH
+Can people with depression eat sweet potatoes?,HEALTH_ADVICE
+Which foods are beneficial for people with cardiovascular disease?,HEALTH_ADVICE
+Is eggs recommended or not recommended for rheumatoid arthritis?,HEALTH_ADVICE
+What percentage of daily zinc is in pumpkin seeds?,NUTRITION_LOOKUP
+Is olive oil recommended or not recommended for gastritis?,HEALTH_ADVICE
+How does the phosphorus in skim milk compare to the daily requirement?,NUTRITION_LOOKUP
+Can carrots help control diabetes because of its vitamin B12?,BOTH
+"For fatty liver disease management, how much quinoa can I eat given its vitamin C content?",BOTH
+Is chicken breast good for elevated LDL cholesterol? How much folate does it contain?,BOTH
+What is the nutritional value of quinoa in terms of iron?,NUTRITION_LOOKUP
+Is turkey breast a good source of sodium for people with elevated LDL cholesterol?,BOTH
+How many grams of potassium are in sweet potatoes?,NUTRITION_LOOKUP
+Is white rice recommended for lactose intolerance? What is its vitamin A content per serving?,BOTH
+Is the magnesium content of beets beneficial or harmful for hypertension?,BOTH
+Is a medium portion of watermelon too much calcium for a acid reflux patient?,BOTH
+How should someone with gout attacks adjust their diet?,HEALTH_ADVICE
+What makes cheddar cheese suitable or unsuitable for hyperthyroidism based on its vitamin D?,BOTH
+Is a 150g portion of strawberries too much vitamin D for a diabetes patient?,BOTH
+What percentage of daily vitamin B12 is in white bread?,NUTRITION_LOOKUP
+Is bell peppers good for anemia? How much total fat does it contain?,BOTH
+What role does the vitamin A in pumpkin seeds play for people with irritable bowel syndrome?,BOTH
+How many saturated fat are in half a cup of almond butter?,NUTRITION_LOOKUP
+Is peaches good for anemia? How much zinc does it contain?,BOTH
+What are the fiber levels in lamb?,NUTRITION_LOOKUP
+What is the protein content of mushrooms?,NUTRITION_LOOKUP
+Can you tell me the omega-6 fatty acids in one cup of peanut butter?,NUTRITION_LOOKUP
+Is flaxseeds high in calcium and beneficial for depression?,BOTH
+How many thiamine calories does mango have?,NUTRITION_LOOKUP
+What proteins are best for a person with lactose intolerance?,HEALTH_ADVICE
+How many grams of sugar are in lentils?,NUTRITION_LOOKUP
+Is white rice high in omega-3 fatty acids and beneficial for gastritis?,BOTH
+What is the cholesterol macro for whole wheat bread?,NUTRITION_LOOKUP
+What is the best diet for controlling obesity?,HEALTH_ADVICE
+Is tempeh good for rheumatoid arthritis? How much fiber does it contain?,BOTH
+Diet recommendations for osteoporosis patients?,HEALTH_ADVICE
+Is peanuts recommended or not recommended for chronic kidney disease?,HEALTH_ADVICE
+Is kale a good source of sodium for people with hyperthyroidism?,BOTH
+How much magnesium is in a 150g portion of salmon and is that good for gout attacks?,BOTH
+What makes lobster suitable or unsuitable for depression based on its sodium?,BOTH
+How rich is cauliflower in vitamin D?,NUTRITION_LOOKUP
+Is lentils good for metabolic syndrome? How much total fat does it contain?,BOTH
+Is green peas recommended for acid reflux? What is its phosphorus content per serving?,BOTH
+How does kidney beans's riboflavin level relate to fatty liver disease?,BOTH
+I need the selenium count for dark chocolate.,NUTRITION_LOOKUP
+How should someone with cardiovascular disease adjust their diet?,HEALTH_ADVICE
+I need the calories count for spinach.,NUTRITION_LOOKUP
+What is the exact potassium in a small bowl Greek yogurt?,NUTRITION_LOOKUP
+How many calories are in strawberries and is it safe for hypothyroidism?,BOTH
+What is the total potassium per 200 calories worth of coconut oil?,NUTRITION_LOOKUP
+How does eating cashews affect diabetes given its high iron content?,BOTH
+Does almonds have a lot of vitamin D?,NUTRITION_LOOKUP
+Is the sodium content of apples beneficial or harmful for high cholesterol?,BOTH
+How does chickpeas's vitamin C level relate to metabolic syndrome?,BOTH
+Is it safe to eat whole milk with heart disease?,HEALTH_ADVICE
+What is a healthy diet for someone with chronic kidney disease?,HEALTH_ADVICE
+What is the best diet for controlling fatty liver disease?,HEALTH_ADVICE
+How rich is cabbage in omega-6 fatty acids?,NUTRITION_LOOKUP
+What percentage of daily riboflavin is in peaches?,NUTRITION_LOOKUP
+Is peanut butter recommended for elevated LDL cholesterol? What is its sodium content per serving?,BOTH
+What is the total phosphorus per 100 grams of kiwi?,NUTRITION_LOOKUP
+Does celery have a lot of zinc?,NUTRITION_LOOKUP
+What snacks are suitable for someone with arthritis?,HEALTH_ADVICE
+What role does the thiamine in garlic play for people with elevated LDL cholesterol?,BOTH
+What is the potassium breakdown for duck?,NUTRITION_LOOKUP
+Is turkey breast a good source of folate for people with lactose intolerance?,BOTH
+How much potassium is there in a 150g portion of mango?,NUTRITION_LOOKUP
+What is the best diet for controlling low blood pressure?,HEALTH_ADVICE
+How does the iron in spinach compare to the daily requirement?,NUTRITION_LOOKUP
+What is the total vitamin C per one tablespoon of watermelon?,NUTRITION_LOOKUP
+Is half a cup of soybeans too much vitamin C for a heart disease patient?,BOTH
+How much potassium is in a handful of of pasta and is that good for PCOS?,BOTH
+Can fatty liver disease patients eat walnuts? What is the calcium content?,BOTH
+Diet recommendations for metabolic syndrome patients?,HEALTH_ADVICE
+What is the best diet for controlling irritable bowel syndrome?,HEALTH_ADVICE
+What snacks are suitable for someone with type 1 diabetes?,HEALTH_ADVICE
+Does tuna have a lot of thiamine?,NUTRITION_LOOKUP
+Can the cholesterol in oranges benefit hyperthyroidism patients?,BOTH
+Can the vitamin B12 in brown rice benefit depression patients?,BOTH
+Is it safe to eat sardines with anemia?,HEALTH_ADVICE
+Can people with lactose intolerance eat cabbage?,HEALTH_ADVICE
+How much thiamine is in one serving of pasta and is that good for high cholesterol?,BOTH
+Should someone with fatty liver disease eat bell peppers given its calories content?,BOTH
+Can people with celiac disease eat carrots?,HEALTH_ADVICE
+Is the vitamin A level in almond butter appropriate for someone with lactose intolerance?,BOTH
+Does asparagus have a lot of sodium?,NUTRITION_LOOKUP
+How rich is blueberries in selenium?,NUTRITION_LOOKUP
+Is sardines high in sodium?,NUTRITION_LOOKUP
+How many riboflavin calories does grapes have?,NUTRITION_LOOKUP
+What is a healthy diet for someone with celiac disease?,HEALTH_ADVICE
+Can hypothyroidism patients eat asparagus? What is the omega-6 fatty acids content?,BOTH
+Is apples high in phosphorus?,NUTRITION_LOOKUP
+What is the exact protein in two tablespoons whole wheat bread?,NUTRITION_LOOKUP
+What vegetables are recommended for irritable bowel syndrome?,HEALTH_ADVICE
+Does oranges have enough riboflavin to help with coronary artery disease?,BOTH
+Should I avoid peanuts if I have gout attacks?,HEALTH_ADVICE
+Are grains good for someone with metabolic syndrome?,HEALTH_ADVICE
+How much niacin is there in a 150g portion of mango?,NUTRITION_LOOKUP
+I need the vitamin A count for celery.,NUTRITION_LOOKUP
+What is the exact selenium in a handful of turkey breast?,NUTRITION_LOOKUP
+What dietary changes help with diabetes?,HEALTH_ADVICE
+Can eating tofu help with arthritis?,HEALTH_ADVICE
+How does eating potatoes affect chronic kidney disease given its high omega-3 fatty acids content?,BOTH
+What foods help reduce symptoms of arthritis?,HEALTH_ADVICE
+How rich is shrimp in zinc?,NUTRITION_LOOKUP
+How many carbohydrates calories does peanuts have?,NUTRITION_LOOKUP
+Is the omega-6 fatty acids level in lamb appropriate for someone with low blood pressure?,BOTH
+Should someone with polycystic ovary syndrome limit dairy intake?,HEALTH_ADVICE
+What dietary changes help with hypertension?,HEALTH_ADVICE
+Is potatoes high in thiamine?,NUTRITION_LOOKUP
+I need the potassium count for lobster.,NUTRITION_LOOKUP
+What is the thiamine macro for shrimp?,NUTRITION_LOOKUP
+How does diet affect obesity?,HEALTH_ADVICE
+How much iron is there in a 3-ounce portion of tomatoes?,NUTRITION_LOOKUP
+How does the calories in coconut oil compare to the daily requirement?,NUTRITION_LOOKUP
+What eating habits help manage inflammatory bowel disease?,HEALTH_ADVICE
+Is the sugar content of asparagus beneficial or harmful for insomnia?,BOTH
+What should I eat if I have type 1 diabetes?,HEALTH_ADVICE
+What is a healthy diet for someone with acid reflux?,HEALTH_ADVICE
+How many riboflavin are in one serving of kiwi?,NUTRITION_LOOKUP
+How does diet affect inflammatory bowel disease?,HEALTH_ADVICE
+Are grains good for someone with kidney disease?,HEALTH_ADVICE
+What role does the total fat in pumpkin seeds play for people with gout attacks?,BOTH
+What proteins are best for a person with celiac disease?,HEALTH_ADVICE
+What foods should people with diabetes avoid?,HEALTH_ADVICE
+Can hyperthyroidism patients eat oranges? What is the riboflavin content?,BOTH
+What is the nutritional value of kidney beans in terms of folate?,NUTRITION_LOOKUP
+Is Greek yogurt a good source of zinc for people with diabetes?,BOTH
+Should someone with type 2 diabetes eat pasta given its phosphorus content?,BOTH
+What role does the cholesterol in bell peppers play for people with rheumatoid arthritis?,BOTH
+Is almond butter good for gout attacks? How much omega-6 fatty acids does it contain?,BOTH
+Is the carbohydrates content of sweet potatoes beneficial or harmful for hypothyroidism?,BOTH
+Can low blood pressure patients eat white rice? What is the vitamin A content?,BOTH
+How rich is tuna in riboflavin?,NUTRITION_LOOKUP
+How much sugar is there in one cup of almonds?,NUTRITION_LOOKUP
+Should I avoid edamame if I have PCOS?,HEALTH_ADVICE
+How many grams of phosphorus are in walnuts?,NUTRITION_LOOKUP
+How should someone with high blood pressure adjust their diet?,HEALTH_ADVICE
+What fruits are safe for arthritis patients?,HEALTH_ADVICE
+How should someone with acid reflux adjust their diet?,HEALTH_ADVICE
+Is pinto beans high in vitamin A and beneficial for PCOS?,BOTH
+What makes broccoli suitable or unsuitable for heart disease based on its vitamin D?,BOTH
+I need the iron count for broccoli.,NUTRITION_LOOKUP
+What proteins are best for a person with metabolic syndrome?,HEALTH_ADVICE
+What is the exact magnesium in a 150g portion edamame?,NUTRITION_LOOKUP
+What is the exact cholesterol in a 3-ounce portion peanuts?,NUTRITION_LOOKUP
+How much sugar does chia seeds contain per serving?,NUTRITION_LOOKUP
+What is the total selenium per a small bowl of cauliflower?,NUTRITION_LOOKUP
+How does diet affect insomnia?,HEALTH_ADVICE
+Are grains good for someone with iron-deficiency anemia?,HEALTH_ADVICE
+Can you tell me the saturated fat in a 150g portion of coconut oil?,NUTRITION_LOOKUP
+What fruits are safe for type 2 diabetes patients?,HEALTH_ADVICE
+How many calories calories does plain yogurt have?,NUTRITION_LOOKUP
+How much potassium does celery contain per serving?,NUTRITION_LOOKUP
+Are there foods that worsen gluten intolerance?,HEALTH_ADVICE
+Is cheddar cheese recommended or not recommended for anxiety?,HEALTH_ADVICE
+What snacks are suitable for someone with lactose intolerance?,HEALTH_ADVICE
+Are grains good for someone with gastritis?,HEALTH_ADVICE
+How should someone with heart disease adjust their diet?,HEALTH_ADVICE
+Can the potassium in mushrooms benefit anemia patients?,BOTH
+How much phosphorus does black beans contain per serving?,NUTRITION_LOOKUP
+Is plain yogurt recommended or not recommended for lactose intolerance?,HEALTH_ADVICE
+Is the iron content of duck beneficial or harmful for GERD?,BOTH
+Is apples a good source of thiamine for people with high blood pressure?,BOTH
+What are the cholesterol levels in peaches?,NUTRITION_LOOKUP
+How many saturated fat are in whole milk and is it safe for GERD?,BOTH
+What foods help reduce symptoms of anxiety?,HEALTH_ADVICE
+What vegetables are recommended for gastritis?,HEALTH_ADVICE
+"For hyperthyroidism management, how much flaxseeds can I eat given its calcium content?",BOTH
+Is oats recommended for chronic kidney disease? What is its protein content per serving?,BOTH
+What is the vitamin D in chicken breast and is it good for type 2 diabetes?,BOTH
+Is beets high in zinc?,NUTRITION_LOOKUP
+Does tilapia have enough potassium to help with type 1 diabetes?,BOTH
+What snacks are suitable for someone with metabolic syndrome?,HEALTH_ADVICE
+What makes cauliflower suitable or unsuitable for heart disease based on its sugar?,BOTH
+How many omega-3 fatty acids are in tempeh and is it safe for hypothyroidism?,BOTH
+What fruits are safe for irritable bowel syndrome patients?,HEALTH_ADVICE
+Is tempeh a good source of potassium for people with kidney disease?,BOTH
+Is turkey breast high in magnesium?,NUTRITION_LOOKUP
+How much calcium is in one serving of lentils and is that good for iron-deficiency anemia?,BOTH
+How rich is tempeh in sugar?,NUTRITION_LOOKUP
+What is the calories in spinach and is it good for gestational diabetes?,BOTH
+What proteins are best for a person with type 1 diabetes?,HEALTH_ADVICE
+What is the phosphorus macro for peanut butter?,NUTRITION_LOOKUP
+What is a healthy diet for someone with arthritis?,HEALTH_ADVICE
+What percentage of daily omega-3 fatty acids is in zucchini?,NUTRITION_LOOKUP
+What foods help reduce symptoms of osteoporosis?,HEALTH_ADVICE
+How does the sugar in duck compare to the daily requirement?,NUTRITION_LOOKUP
+Diet recommendations for low blood pressure patients?,HEALTH_ADVICE
+What fruits are safe for metabolic syndrome patients?,HEALTH_ADVICE
+Is broccoli recommended or not recommended for kidney disease?,HEALTH_ADVICE
+What role does the calcium in mushrooms play for people with irritable bowel syndrome?,BOTH
+What vegetables are recommended for cardiovascular disease?,HEALTH_ADVICE
+What is the iron content of quinoa?,NUTRITION_LOOKUP
+What is the total calories per 100 grams of kiwi?,NUTRITION_LOOKUP
+How many grams of sodium are in apples?,NUTRITION_LOOKUP
+What are the carbohydrates levels in sardines?,NUTRITION_LOOKUP
+What role does the vitamin C in butter play for people with PCOS?,BOTH
+Is sardines high in vitamin C and beneficial for insomnia?,BOTH
+What is a healthy diet for someone with gout attacks?,HEALTH_ADVICE
+Is brown rice high in vitamin A and beneficial for celiac disease?,BOTH
+Give me the vitamin D value for 100 grams of edamame.,NUTRITION_LOOKUP
+"For low blood pressure management, how much lentils can I eat given its folate content?",BOTH
+Best foods for managing anemia?,HEALTH_ADVICE
+What is the best diet for controlling depression?,HEALTH_ADVICE
+Give me the iron value for a small bowl of chia seeds.,NUTRITION_LOOKUP
+Can gout patients eat blueberries? What is the sugar content?,BOTH
+Is bell peppers recommended for high blood pressure? What is its riboflavin content per serving?,BOTH
+How much total fat does sardines contain per serving?,NUTRITION_LOOKUP
+Diet recommendations for coronary artery disease patients?,HEALTH_ADVICE
+How many iron are in one serving of oats?,NUTRITION_LOOKUP
+Can eating beets help with gestational diabetes?,HEALTH_ADVICE
+What is the thiamine content of coconut oil?,NUTRITION_LOOKUP
+How does the sugar in peanuts compare to the daily requirement?,NUTRITION_LOOKUP
+What is the total vitamin D per 200 calories worth of celery?,NUTRITION_LOOKUP
+How much vitamin D is in one serving of pineapple and is that good for diabetes?,BOTH
+How much niacin is there in one ounce of coconut oil?,NUTRITION_LOOKUP
+Is watermelon high in zinc and beneficial for gluten intolerance?,BOTH
+What proteins are best for a person with elevated LDL cholesterol?,HEALTH_ADVICE
+Is spinach recommended for type 2 diabetes? What is its vitamin B12 content per serving?,BOTH
+What is the omega-6 fatty acids macro for tofu?,NUTRITION_LOOKUP
+Is skim milk high in total fat?,NUTRITION_LOOKUP
+Should I avoid whole milk if I have hypertension?,HEALTH_ADVICE
+What role does the magnesium in crab play for people with iron-deficiency anemia?,BOTH
+Diet recommendations for PCOS patients?,HEALTH_ADVICE
+What foods should people with chronic kidney disease avoid?,HEALTH_ADVICE
+What role does the omega-6 fatty acids in sweet potatoes play for people with insomnia?,BOTH
+How does mozzarella's protein level relate to heart disease?,BOTH
+Are there foods that worsen metabolic syndrome?,HEALTH_ADVICE
+Is one ounce of cashews too much fiber for a anxiety patient?,BOTH
+How much cholesterol does kiwi contain per serving?,NUTRITION_LOOKUP
+What fruits are safe for acid reflux patients?,HEALTH_ADVICE
+What proteins are best for a person with obesity?,HEALTH_ADVICE
+What eating habits help manage fatty liver disease?,HEALTH_ADVICE
+Which foods are beneficial for people with fatty liver disease?,HEALTH_ADVICE
+Is almond butter recommended or not recommended for cardiovascular disease?,HEALTH_ADVICE
+How many iron are in plain yogurt and is it safe for anxiety?,BOTH
+Is grapes high in fiber?,NUTRITION_LOOKUP
+Can people with anemia eat peanut butter?,HEALTH_ADVICE
+How does the vitamin C in broccoli compare to the daily requirement?,NUTRITION_LOOKUP
+What foods should people with gout attacks avoid?,HEALTH_ADVICE
+Can people with iron-deficiency anemia eat kale?,HEALTH_ADVICE
+"For cardiovascular disease management, how much turkey breast can I eat given its fiber content?",BOTH
+Is kidney beans high in folate?,NUTRITION_LOOKUP
+What proteins are best for a person with hypertension?,HEALTH_ADVICE
+Is beets a good source of calcium for people with depression?,BOTH
+Should I avoid avocado if I have lactose intolerance?,HEALTH_ADVICE
+What are the sugar levels in brown rice?,NUTRITION_LOOKUP
+What fruits are safe for insomnia patients?,HEALTH_ADVICE
+How much calories is there in one tablespoon of walnuts?,NUTRITION_LOOKUP
+How many iron calories does cabbage have?,NUTRITION_LOOKUP
+What are the fiber levels in quinoa?,NUTRITION_LOOKUP
+What is the total thiamine per one ounce of tilapia?,NUTRITION_LOOKUP
+Does sweet potatoes have a lot of vitamin A?,NUTRITION_LOOKUP
+Is the vitamin B12 level in duck appropriate for someone with GERD?,BOTH
+How should someone with metabolic syndrome adjust their diet?,HEALTH_ADVICE
+What is the exact saturated fat in one cup plain yogurt?,NUTRITION_LOOKUP
+Can you tell me the total fat in two tablespoons of chia seeds?,NUTRITION_LOOKUP
+Is Greek yogurt high in selenium?,NUTRITION_LOOKUP
+What is the total zinc per a 3-ounce portion of whole milk?,NUTRITION_LOOKUP
+What is the exact niacin in one cup oats?,NUTRITION_LOOKUP
+How much vitamin C is in one tablespoon of pasta and is that good for gout?,BOTH
+How rich is edamame in sodium?,NUTRITION_LOOKUP
+How much total fat is there in a handful of of barley?,NUTRITION_LOOKUP
+Can Greek yogurt help control osteoporosis because of its selenium?,BOTH
+How many zinc are in beets and is it safe for osteoporosis?,BOTH
+How much protein is in a small bowl of mushrooms and is that good for kidney disease?,BOTH
+How does lobster's carbohydrates level relate to obesity?,BOTH
+How does eating cheddar cheese affect diabetes given its high riboflavin content?,BOTH
+Can salmon help control hypertension because of its thiamine?,BOTH
+Which foods are beneficial for people with arthritis?,HEALTH_ADVICE
+Is cabbage high in riboflavin?,NUTRITION_LOOKUP
+"For high blood pressure management, how much peanuts can I eat given its protein content?",BOTH
+How much omega-3 fatty acids does mango contain per serving?,NUTRITION_LOOKUP
+What foods help reduce symptoms of PCOS?,HEALTH_ADVICE
+What fruits are safe for depression patients?,HEALTH_ADVICE
+What is the total fiber per 200 calories worth of cabbage?,NUTRITION_LOOKUP
+Is cod a good source of zinc for people with gluten intolerance?,BOTH
+What is the best diet for controlling anxiety?,HEALTH_ADVICE
+How rich is whole wheat bread in vitamin C?,NUTRITION_LOOKUP
+Is it safe to eat salmon with elevated LDL cholesterol?,HEALTH_ADVICE
+Is a low-carb diet good for high blood pressure?,HEALTH_ADVICE
+What is the calcium macro for carrots?,NUTRITION_LOOKUP
+I need the calcium count for beets.,NUTRITION_LOOKUP
+What is the riboflavin breakdown for cheddar cheese?,NUTRITION_LOOKUP
+Is the calcium level in almonds appropriate for someone with chronic kidney disease?,BOTH
+Is a low-carb diet good for cardiovascular disease?,HEALTH_ADVICE
+Is tofu high in zinc?,NUTRITION_LOOKUP
+Should someone with gout attacks limit dairy intake?,HEALTH_ADVICE
+What is the exact omega-3 fatty acids in one ounce brown rice?,NUTRITION_LOOKUP
+Does lobster have a lot of potassium?,NUTRITION_LOOKUP
+Should I avoid oats if I have hyperthyroidism?,HEALTH_ADVICE
+Does lentils have enough sugar to help with rheumatoid arthritis?,BOTH
+How much potassium is there in a handful of of tilapia?,NUTRITION_LOOKUP
+What should I eat if I have acid reflux?,HEALTH_ADVICE
+What dietary changes help with insomnia?,HEALTH_ADVICE
+I need the niacin count for lentils.,NUTRITION_LOOKUP
+How does diet affect cardiovascular disease?,HEALTH_ADVICE
+How does diet affect coronary artery disease?,HEALTH_ADVICE
+Can eating pineapple help with gout?,HEALTH_ADVICE
+Is shrimp high in vitamin D?,NUTRITION_LOOKUP
+What is a healthy diet for someone with type 1 diabetes?,HEALTH_ADVICE
+Can eating pumpkin seeds help with anxiety?,HEALTH_ADVICE
+What is the vitamin A breakdown for potatoes?,NUTRITION_LOOKUP
+Is quinoa a good source of carbohydrates for people with polycystic ovary syndrome?,BOTH
+Should someone with gastritis limit dairy intake?,HEALTH_ADVICE
+I need the saturated fat count for coconut oil.,NUTRITION_LOOKUP
+How many grams of total fat are in bananas?,NUTRITION_LOOKUP
+What is the cholesterol breakdown for coconut oil?,NUTRITION_LOOKUP
+What is the exact carbohydrates in one tablespoon Greek yogurt?,NUTRITION_LOOKUP
+How many sugar are in a 3-ounce portion of lamb?,NUTRITION_LOOKUP
+Can lamb help control gluten intolerance because of its total fat?,BOTH
+Can people with chronic kidney disease eat kiwi?,HEALTH_ADVICE
+Best foods for managing depression?,HEALTH_ADVICE
+How does the calories in oranges compare to the daily requirement?,NUTRITION_LOOKUP
+What is the best diet for controlling rheumatoid arthritis?,HEALTH_ADVICE
+Best foods for managing insomnia?,HEALTH_ADVICE
+"For elevated LDL cholesterol management, how much black beans can I eat given its vitamin B12 content?",BOTH
+Is the omega-3 fatty acids level in tempeh appropriate for someone with hypertension?,BOTH
+Does strawberries have a lot of riboflavin?,NUTRITION_LOOKUP
+Is the fiber content of soybeans beneficial or harmful for gestational diabetes?,BOTH
+Is a low-carb diet good for hypothyroidism?,HEALTH_ADVICE
+Is the riboflavin content of chicken breast beneficial or harmful for depression?,BOTH
+What is the best diet for controlling high blood pressure?,HEALTH_ADVICE
+Should someone with chronic kidney disease eat duck given its zinc content?,BOTH
+Can eating pasta help with anemia?,HEALTH_ADVICE
+What is the niacin in walnuts and is it good for diabetes?,BOTH
+Is cucumber recommended or not recommended for obesity?,HEALTH_ADVICE
+Is two tablespoons of plain yogurt too much calories for a high blood pressure patient?,BOTH
+Best foods for managing osteoporosis?,HEALTH_ADVICE
+Is a low-carb diet good for inflammatory bowel disease?,HEALTH_ADVICE
+Are there foods that worsen low blood pressure?,HEALTH_ADVICE
+Which foods are beneficial for people with rheumatoid arthritis?,HEALTH_ADVICE
+What is the total phosphorus per one piece of salmon?,NUTRITION_LOOKUP
+Is it safe to eat kiwi with anemia?,HEALTH_ADVICE
+Give me the selenium value for one cup of flaxseeds.,NUTRITION_LOOKUP
+What foods should people with low blood pressure avoid?,HEALTH_ADVICE
+What should I eat if I have hypertension?,HEALTH_ADVICE
+What role does the fiber in oranges play for people with gout?,BOTH
+What snacks are suitable for someone with high cholesterol?,HEALTH_ADVICE
+Which foods are beneficial for people with gastritis?,HEALTH_ADVICE
+What snacks are suitable for someone with gastritis?,HEALTH_ADVICE
+How many cholesterol are in whole wheat bread and is it safe for anemia?,BOTH
+I need the phosphorus count for kale.,NUTRITION_LOOKUP
+How many riboflavin are in grapes and is it safe for hyperthyroidism?,BOTH
+How rich is plain yogurt in potassium?,NUTRITION_LOOKUP
+What eating habits help manage rheumatoid arthritis?,HEALTH_ADVICE
+Is kale a good source of sodium for people with type 2 diabetes?,BOTH
+How many niacin calories does tempeh have?,NUTRITION_LOOKUP
+Is pineapple recommended for lactose intolerance? What is its vitamin A content per serving?,BOTH
+Is mango recommended or not recommended for coronary artery disease?,HEALTH_ADVICE
+How many grams of potassium are in cashews?,NUTRITION_LOOKUP
+What proteins are best for a person with insomnia?,HEALTH_ADVICE
+Best foods for managing hyperthyroidism?,HEALTH_ADVICE
+How many grams of omega-3 fatty acids are in almond butter?,NUTRITION_LOOKUP
+What are the vitamin C levels in butter?,NUTRITION_LOOKUP
+Is coconut oil recommended or not recommended for fatty liver disease?,HEALTH_ADVICE
+How does eating white rice affect chronic kidney disease given its high protein content?,BOTH
+Is pork loin high in omega-6 fatty acids and beneficial for hypothyroidism?,BOTH
+How many vitamin A are in green peas and is it safe for insomnia?,BOTH
+What snacks are suitable for someone with high blood pressure?,HEALTH_ADVICE
+How many phosphorus calories does chickpeas have?,NUTRITION_LOOKUP
+I need the vitamin A count for broccoli.,NUTRITION_LOOKUP
+What makes crab suitable or unsuitable for gout attacks based on its phosphorus?,BOTH
+What is the vitamin C breakdown for watermelon?,NUTRITION_LOOKUP
+How does olive oil's omega-3 fatty acids level relate to coronary artery disease?,BOTH
+What is the best diet for controlling gout attacks?,HEALTH_ADVICE
+Can you tell me the vitamin D in 200 calories worth of chicken breast?,NUTRITION_LOOKUP
+What role does the protein in tomatoes play for people with coronary artery disease?,BOTH
+Is cabbage recommended or not recommended for heart disease?,HEALTH_ADVICE
+What is the phosphorus breakdown for whole wheat bread?,NUTRITION_LOOKUP
+Can people with gout eat shrimp?,HEALTH_ADVICE
+What should I eat if I have elevated LDL cholesterol?,HEALTH_ADVICE
+How much selenium is in two tablespoons of coconut oil and is that good for high cholesterol?,BOTH
+How many calcium are in crab and is it safe for chronic kidney disease?,BOTH
+What is the exact omega-6 fatty acids in half a cup grapes?,NUTRITION_LOOKUP
+What is a healthy diet for someone with heart disease?,HEALTH_ADVICE
+Can people with gastritis eat spinach?,HEALTH_ADVICE
+What should I eat if I have inflammatory bowel disease?,HEALTH_ADVICE
+How rich is strawberries in vitamin A?,NUTRITION_LOOKUP
+What is the omega-3 fatty acids macro for grapes?,NUTRITION_LOOKUP
+Should someone with gluten intolerance eat cottage cheese given its calories content?,BOTH
+Can hyperthyroidism patients eat beef? What is the riboflavin content?,BOTH
+Is potatoes a good source of vitamin B12 for people with high blood pressure?,BOTH
+Is salmon recommended for lactose intolerance? What is its fiber content per serving?,BOTH
+What is the total protein per a small bowl of crab?,NUTRITION_LOOKUP
+Is the selenium level in zucchini appropriate for someone with obesity?,BOTH
+Are there foods that worsen inflammatory bowel disease?,HEALTH_ADVICE
+How does garlic's calories level relate to hyperthyroidism?,BOTH
+What foods help reduce symptoms of hyperthyroidism?,HEALTH_ADVICE
+What role does the vitamin C in garlic play for people with iron-deficiency anemia?,BOTH
+What is a healthy diet for someone with rheumatoid arthritis?,HEALTH_ADVICE
+How should someone with kidney disease adjust their diet?,HEALTH_ADVICE
+Can people with anxiety eat oats?,HEALTH_ADVICE
+Can osteoporosis patients eat olive oil? What is the vitamin C content?,BOTH
+Is pinto beans recommended or not recommended for osteoporosis?,HEALTH_ADVICE
+Is sunflower seeds recommended or not recommended for iron-deficiency anemia?,HEALTH_ADVICE
+What is the sodium breakdown for potatoes?,NUTRITION_LOOKUP
+Can the niacin in broccoli benefit low blood pressure patients?,BOTH
+How many vitamin B12 are in Greek yogurt and is it safe for cardiovascular disease?,BOTH
+Best foods for managing celiac disease?,HEALTH_ADVICE
+How many selenium are in a 3-ounce portion of potatoes?,NUTRITION_LOOKUP
+Does whole milk have enough phosphorus to help with celiac disease?,BOTH
+I need the folate count for lamb.,NUTRITION_LOOKUP
+How much carbohydrates does tempeh contain per serving?,NUTRITION_LOOKUP
+What vegetables are recommended for low blood pressure?,HEALTH_ADVICE
+What is the omega-6 fatty acids in mozzarella and is it good for PCOS?,BOTH
+How does eating whole milk affect PCOS given its high cholesterol content?,BOTH
+Is strawberries recommended or not recommended for iron-deficiency anemia?,HEALTH_ADVICE
+Are there foods that worsen high cholesterol?,HEALTH_ADVICE
+Give me the vitamin C value for two tablespoons of cauliflower.,NUTRITION_LOOKUP
+How should someone with elevated LDL cholesterol adjust their diet?,HEALTH_ADVICE
+Give me the potassium value for a 3-ounce portion of shrimp.,NUTRITION_LOOKUP
+I need the selenium count for zucchini.,NUTRITION_LOOKUP
+Are grains good for someone with type 1 diabetes?,HEALTH_ADVICE
+Can high cholesterol patients eat skim milk? What is the folate content?,BOTH
+What are the magnesium levels in black beans?,NUTRITION_LOOKUP
+How much vitamin A is there in 100 grams of broccoli?,NUTRITION_LOOKUP
+What should I eat if I have hyperthyroidism?,HEALTH_ADVICE
+What is the exact cholesterol in a medium portion sunflower seeds?,NUTRITION_LOOKUP
+How much sugar is in 100g of beets and is that good for coronary artery disease?,BOTH
+How many omega-3 fatty acids calories does black beans have?,NUTRITION_LOOKUP
+How much vitamin C is there in one cup of crab?,NUTRITION_LOOKUP
+How much vitamin D is there in one tablespoon of whole milk?,NUTRITION_LOOKUP
+Can eating cashews help with kidney disease?,HEALTH_ADVICE
+Is celery high in folate?,NUTRITION_LOOKUP
+What is the best diet for controlling gastritis?,HEALTH_ADVICE
+What should I eat if I have irritable bowel syndrome?,HEALTH_ADVICE
+Can eating white bread help with osteoporosis?,HEALTH_ADVICE
+How does butter's omega-3 fatty acids level relate to insomnia?,BOTH
+Can carrots help control coronary artery disease because of its vitamin A?,BOTH
+"For high blood pressure management, how much kiwi can I eat given its sugar content?",BOTH
+What dietary changes help with gastritis?,HEALTH_ADVICE
+What foods help reduce symptoms of insomnia?,HEALTH_ADVICE
+How many sodium are in 100 grams of pumpkin seeds?,NUTRITION_LOOKUP
+Can carrots help control hyperthyroidism because of its sugar?,BOTH
+What are the saturated fat levels in plain yogurt?,NUTRITION_LOOKUP
+Is two tablespoons of tilapia too much vitamin C for a gout attacks patient?,BOTH
+Can gout attacks patients eat white bread? What is the vitamin C content?,BOTH
+I need the sugar count for celery.,NUTRITION_LOOKUP
+What vegetables are recommended for anxiety?,HEALTH_ADVICE
+How many calories calories does peaches have?,NUTRITION_LOOKUP
+Give me the folate value for a medium portion of whole wheat bread.,NUTRITION_LOOKUP
+Can cabbage help control depression because of its sugar?,BOTH
+What makes tempeh suitable or unsuitable for heart disease based on its carbohydrates?,BOTH
+What foods should people with celiac disease avoid?,HEALTH_ADVICE
+Does chia seeds have a lot of folate?,NUTRITION_LOOKUP
+What is the nutritional value of cottage cheese in terms of sodium?,NUTRITION_LOOKUP
+What snacks are suitable for someone with iron-deficiency anemia?,HEALTH_ADVICE
+Should I avoid edamame if I have fatty liver disease?,HEALTH_ADVICE
+Is the cholesterol level in pumpkin seeds appropriate for someone with gout attacks?,BOTH
+Is a 3-ounce portion of tempeh too much vitamin C for a celiac disease patient?,BOTH
+How much selenium is in a small bowl of green peas and is that good for inflammatory bowel disease?,BOTH
+How many cholesterol calories does whole wheat bread have?,NUTRITION_LOOKUP
+Is tilapia recommended or not recommended for anxiety?,HEALTH_ADVICE
+Is the sodium content of peanuts beneficial or harmful for osteoporosis?,BOTH
+Can apples help control chronic kidney disease because of its vitamin C?,BOTH
+Is it safe to eat cabbage with metabolic syndrome?,HEALTH_ADVICE
+Is a low-carb diet good for coronary artery disease?,HEALTH_ADVICE
+Does cod have a lot of carbohydrates?,NUTRITION_LOOKUP
+What proteins are best for a person with polycystic ovary syndrome?,HEALTH_ADVICE
+How much selenium is in a 150g portion of almonds and is that good for type 1 diabetes?,BOTH
+What are the total fat levels in pork loin?,NUTRITION_LOOKUP
+What is the omega-6 fatty acids content of sardines?,NUTRITION_LOOKUP
+"For chronic kidney disease management, how much barley can I eat given its calories content?",BOTH
+Is a low-carb diet good for chronic kidney disease?,HEALTH_ADVICE
+How much carbohydrates is there in two tablespoons of blueberries?,NUTRITION_LOOKUP
+Is strawberries a good source of carbohydrates for people with hyperthyroidism?,BOTH
+What snacks are suitable for someone with hyperthyroidism?,HEALTH_ADVICE
+Is the phosphorus content of coconut oil beneficial or harmful for hyperthyroidism?,BOTH
+I need the cholesterol count for mozzarella.,NUTRITION_LOOKUP
+How does diet affect acid reflux?,HEALTH_ADVICE
+What snacks are suitable for someone with anemia?,HEALTH_ADVICE
+What makes blueberries suitable or unsuitable for chronic kidney disease based on its cholesterol?,BOTH
+Give me the niacin value for 100 grams of olive oil.,NUTRITION_LOOKUP
+What is the calcium macro for chicken breast?,NUTRITION_LOOKUP
+How many grams of fiber are in dark chocolate?,NUTRITION_LOOKUP
+What fruits are safe for heart disease patients?,HEALTH_ADVICE
+Should someone with gout limit dairy intake?,HEALTH_ADVICE
+Are grains good for someone with rheumatoid arthritis?,HEALTH_ADVICE
+Is the potassium content of cheddar cheese beneficial or harmful for anxiety?,BOTH
+What fruits are safe for obesity patients?,HEALTH_ADVICE
+Can people with gestational diabetes eat cucumber?,HEALTH_ADVICE
+Is chicken breast recommended or not recommended for inflammatory bowel disease?,HEALTH_ADVICE
+Should someone with coronary artery disease eat turkey breast given its carbohydrates content?,BOTH
+What snacks are suitable for someone with heart disease?,HEALTH_ADVICE
+How much riboflavin does garlic contain per serving?,NUTRITION_LOOKUP
+Is soybeans good for coronary artery disease? How much sugar does it contain?,BOTH
+How rich is coconut oil in sugar?,NUTRITION_LOOKUP
+Which foods are beneficial for people with iron-deficiency anemia?,HEALTH_ADVICE
+Can chronic kidney disease patients eat mushrooms? What is the cholesterol content?,BOTH
+What role does the thiamine in Greek yogurt play for people with polycystic ovary syndrome?,BOTH
+Is brown rice high in calories?,NUTRITION_LOOKUP
+What dietary changes help with irritable bowel syndrome?,HEALTH_ADVICE
+Is the omega-6 fatty acids content of cauliflower beneficial or harmful for insomnia?,BOTH
+Can chickpeas help control gastritis because of its potassium?,BOTH
+Is cottage cheese a good source of saturated fat for people with gestational diabetes?,BOTH
+"For high blood pressure management, how much tempeh can I eat given its cholesterol content?",BOTH
+What percentage of daily total fat is in flaxseeds?,NUTRITION_LOOKUP
+Give me the calcium value for one ounce of beets.,NUTRITION_LOOKUP
+How much saturated fat is there in one piece of asparagus?,NUTRITION_LOOKUP
+Does spinach have enough vitamin C to help with kidney disease?,BOTH
+What makes duck suitable or unsuitable for gluten intolerance based on its carbohydrates?,BOTH
+How many omega-6 fatty acids calories does almonds have?,NUTRITION_LOOKUP
+Are there foods that worsen type 1 diabetes?,HEALTH_ADVICE
+Should someone with osteoporosis limit dairy intake?,HEALTH_ADVICE
+Can the fiber in kale benefit diabetes patients?,BOTH
+What is a healthy diet for someone with gout?,HEALTH_ADVICE
+What are the total fat levels in garlic?,NUTRITION_LOOKUP
+How many iron are in a 150g portion of white rice?,NUTRITION_LOOKUP
+Is lobster high in niacin?,NUTRITION_LOOKUP
+What is the nutritional value of soybeans in terms of total fat?,NUTRITION_LOOKUP
+Give me the vitamin C value for 100g of broccoli.,NUTRITION_LOOKUP
+What snacks are suitable for someone with cardiovascular disease?,HEALTH_ADVICE
+Can cottage cheese help control insomnia because of its folate?,BOTH
+What is the vitamin B12 breakdown for cashews?,NUTRITION_LOOKUP
+I need the cholesterol count for soybeans.,NUTRITION_LOOKUP
+How many saturated fat are in one cup of skim milk?,NUTRITION_LOOKUP
+Should someone with gout attacks eat carrots given its riboflavin content?,BOTH
+What eating habits help manage acid reflux?,HEALTH_ADVICE
+How should someone with gout adjust their diet?,HEALTH_ADVICE
+How does diet affect celiac disease?,HEALTH_ADVICE
+I need the magnesium count for asparagus.,NUTRITION_LOOKUP
+How much phosphorus does shrimp contain per serving?,NUTRITION_LOOKUP
+Is crab a good source of vitamin A for people with low blood pressure?,BOTH
+How much vitamin B12 is there in a medium portion of lentils?,NUTRITION_LOOKUP
+Best foods for managing gout?,HEALTH_ADVICE
+Is one cup of cashews too much calcium for a insomnia patient?,BOTH
+How many grams of thiamine are in cabbage?,NUTRITION_LOOKUP
+Is white rice a good source of potassium for people with iron-deficiency anemia?,BOTH
+What proteins are best for a person with coronary artery disease?,HEALTH_ADVICE
+"For gout attacks management, how much green peas can I eat given its total fat content?",BOTH
+How much omega-3 fatty acids is in two tablespoons of salmon and is that good for anxiety?,BOTH
+What foods help reduce symptoms of chronic kidney disease?,HEALTH_ADVICE
+Is carrots good for coronary artery disease? How much phosphorus does it contain?,BOTH
+Can eating sardines help with PCOS?,HEALTH_ADVICE
+How many omega-6 fatty acids are in eggs and is it safe for gestational diabetes?,BOTH
+I need the magnesium count for cod.,NUTRITION_LOOKUP
+Are there foods that worsen GERD?,HEALTH_ADVICE
+How many calcium calories does salmon have?,NUTRITION_LOOKUP
+How rich is whole wheat bread in vitamin B12?,NUTRITION_LOOKUP
+What makes pineapple suitable or unsuitable for hypothyroidism based on its calories?,BOTH
+Can eating tuna help with hyperthyroidism?,HEALTH_ADVICE
+How does the vitamin D in coconut oil compare to the daily requirement?,NUTRITION_LOOKUP
+How many saturated fat calories does cabbage have?,NUTRITION_LOOKUP
+Is grapes recommended for iron-deficiency anemia? What is its calcium content per serving?,BOTH
+Should I avoid white rice if I have lactose intolerance?,HEALTH_ADVICE
+Does plain yogurt have a lot of fiber?,NUTRITION_LOOKUP
+Is it safe to eat kale with high blood pressure?,HEALTH_ADVICE
+Is a low-carb diet good for heart disease?,HEALTH_ADVICE
+What dietary changes help with type 2 diabetes?,HEALTH_ADVICE
+What is a healthy diet for someone with depression?,HEALTH_ADVICE
+What is a healthy diet for someone with iron-deficiency anemia?,HEALTH_ADVICE
+Can elevated LDL cholesterol patients eat onions? What is the vitamin B12 content?,BOTH
+Give me the saturated fat value for half a cup of plain yogurt.,NUTRITION_LOOKUP
+What foods should people with cardiovascular disease avoid?,HEALTH_ADVICE
+What is the exact sugar in one tablespoon beef?,NUTRITION_LOOKUP
+How much vitamin A does walnuts contain per serving?,NUTRITION_LOOKUP
+Is flaxseeds recommended for low blood pressure? What is its carbohydrates content per serving?,BOTH
+What fruits are safe for high blood pressure patients?,HEALTH_ADVICE
+Is lamb recommended for heart disease? What is its riboflavin content per serving?,BOTH
+What is the omega-6 fatty acids in cottage cheese and is it good for coronary artery disease?,BOTH
+Best foods for managing gastritis?,HEALTH_ADVICE
+How many iron are in half a cup of duck?,NUTRITION_LOOKUP
+What makes dark chocolate suitable or unsuitable for gout attacks based on its potassium?,BOTH
+How does the saturated fat in bananas compare to the daily requirement?,NUTRITION_LOOKUP
+Is the phosphorus content of beef beneficial or harmful for elevated LDL cholesterol?,BOTH
+Is the omega-6 fatty acids level in olive oil appropriate for someone with hypertension?,BOTH
+What is the nutritional value of butter in terms of omega-3 fatty acids?,NUTRITION_LOOKUP
+What role does the vitamin C in olive oil play for people with depression?,BOTH
+Give me the sodium value for one piece of coconut oil.,NUTRITION_LOOKUP
+What are the vitamin B12 levels in chia seeds?,NUTRITION_LOOKUP
+Is whole milk recommended or not recommended for fatty liver disease?,HEALTH_ADVICE
+How rich is lamb in carbohydrates?,NUTRITION_LOOKUP
+Is salmon good for elevated LDL cholesterol? How much vitamin B12 does it contain?,BOTH
+What are the carbohydrates levels in tempeh?,NUTRITION_LOOKUP
+What is a healthy diet for someone with kidney disease?,HEALTH_ADVICE
+I need the carbohydrates count for Greek yogurt.,NUTRITION_LOOKUP
+How much sugar is there in one piece of walnuts?,NUTRITION_LOOKUP
+What is the cholesterol macro for tilapia?,NUTRITION_LOOKUP
+How many sodium are in two tablespoons of cabbage?,NUTRITION_LOOKUP
+Can celiac disease patients eat pasta? What is the magnesium content?,BOTH
+Best foods for managing polycystic ovary syndrome?,HEALTH_ADVICE
+I need the sodium count for bananas.,NUTRITION_LOOKUP
+Is coconut oil a good source of sodium for people with acid reflux?,BOTH
+Is oranges recommended for irritable bowel syndrome? What is its thiamine content per serving?,BOTH
+What is the nutritional value of tilapia in terms of vitamin C?,NUTRITION_LOOKUP
+What dietary changes help with acid reflux?,HEALTH_ADVICE
+How rich is asparagus in calories?,NUTRITION_LOOKUP
+What snacks are suitable for someone with depression?,HEALTH_ADVICE
+I need the saturated fat count for grapes.,NUTRITION_LOOKUP
+Are there foods that worsen depression?,HEALTH_ADVICE
+Does strawberries have a lot of phosphorus?,NUTRITION_LOOKUP
+Is soybeans recommended for elevated LDL cholesterol? What is its phosphorus content per serving?,BOTH
+What is the total zinc per one ounce of cashews?,NUTRITION_LOOKUP
+How does the protein in sweet potatoes compare to the daily requirement?,NUTRITION_LOOKUP
+How many selenium calories does sweet potatoes have?,NUTRITION_LOOKUP
+How much calcium is there in a handful of of duck?,NUTRITION_LOOKUP
+Is the sodium level in apples appropriate for someone with acid reflux?,BOTH
+How much niacin is there in a medium portion of pasta?,NUTRITION_LOOKUP
+How many zinc are in half a cup of peanut butter?,NUTRITION_LOOKUP
+How rich is quinoa in vitamin B12?,NUTRITION_LOOKUP
+What is the sugar in beef and is it good for arthritis?,BOTH
+What is the omega-3 fatty acids content of sardines?,NUTRITION_LOOKUP
+How does eating sunflower seeds affect hypertension given its high fiber content?,BOTH
+Give me the omega-6 fatty acids value for one tablespoon of avocado.,NUTRITION_LOOKUP
+Does broccoli have a lot of carbohydrates?,NUTRITION_LOOKUP
+What is the best diet for controlling polycystic ovary syndrome?,HEALTH_ADVICE
+Does chia seeds have enough total fat to help with hypothyroidism?,BOTH
+Should someone with high blood pressure eat asparagus given its calcium content?,BOTH
+What dietary changes help with elevated LDL cholesterol?,HEALTH_ADVICE
+What is the carbohydrates breakdown for olive oil?,NUTRITION_LOOKUP
+How does kale's selenium level relate to GERD?,BOTH
+What role does the potassium in mozzarella play for people with obesity?,BOTH
+Does cucumber have enough cholesterol to help with anemia?,BOTH
+How much vitamin D does duck contain per serving?,NUTRITION_LOOKUP
+Diet recommendations for irritable bowel syndrome patients?,HEALTH_ADVICE
+How much folate is in 100g of pasta and is that good for iron-deficiency anemia?,BOTH
+What dietary changes help with anemia?,HEALTH_ADVICE
+Give me the thiamine value for two tablespoons of apples.,NUTRITION_LOOKUP
+How does plain yogurt's vitamin A level relate to elevated LDL cholesterol?,BOTH
+Does grapes have a lot of thiamine?,NUTRITION_LOOKUP
+How much vitamin A does oranges contain per serving?,NUTRITION_LOOKUP
+Can eating eggs help with metabolic syndrome?,HEALTH_ADVICE
+How does diet affect PCOS?,HEALTH_ADVICE
+How does diet affect elevated LDL cholesterol?,HEALTH_ADVICE
+How does edamame's vitamin D level relate to rheumatoid arthritis?,BOTH
+What dietary changes help with gestational diabetes?,HEALTH_ADVICE
+What is the vitamin D macro for shrimp?,NUTRITION_LOOKUP
+Is garlic recommended for osteoporosis? What is its niacin content per serving?,BOTH
+Can skim milk help control osteoporosis because of its thiamine?,BOTH
+Does dark chocolate have enough calories to help with iron-deficiency anemia?,BOTH
+Are grains good for someone with anxiety?,HEALTH_ADVICE
+What role does the folate in cashews play for people with cardiovascular disease?,BOTH
+How does the phosphorus in salmon compare to the daily requirement?,NUTRITION_LOOKUP
+How does cod's vitamin C level relate to chronic kidney disease?,BOTH
+What fruits are safe for diabetes patients?,HEALTH_ADVICE
+I need the vitamin A count for crab.,NUTRITION_LOOKUP
+What proteins are best for a person with anxiety?,HEALTH_ADVICE
+How many grams of fiber are in almonds?,NUTRITION_LOOKUP
+What dietary changes help with celiac disease?,HEALTH_ADVICE
+How does the vitamin A in blueberries compare to the daily requirement?,NUTRITION_LOOKUP
+How does the calcium in edamame compare to the daily requirement?,NUTRITION_LOOKUP
+What is the nutritional value of kale in terms of carbohydrates?,NUTRITION_LOOKUP
+What are the total fat levels in zucchini?,NUTRITION_LOOKUP
+How many carbohydrates calories does whole milk have?,NUTRITION_LOOKUP
+What eating habits help manage GERD?,HEALTH_ADVICE
+Can eating tuna help with metabolic syndrome?,HEALTH_ADVICE
+What are the riboflavin levels in cod?,NUTRITION_LOOKUP
+What foods should people with fatty liver disease avoid?,HEALTH_ADVICE
+Best foods for managing rheumatoid arthritis?,HEALTH_ADVICE
+How does eating kidney beans affect anemia given its high omega-3 fatty acids content?,BOTH
+I need the protein count for olive oil.,NUTRITION_LOOKUP
+What role does the vitamin B12 in coconut oil play for people with type 1 diabetes?,BOTH
+Are grains good for someone with depression?,HEALTH_ADVICE
+What role does the carbohydrates in almond butter play for people with gastritis?,BOTH
+Is the phosphorus content of onions beneficial or harmful for type 1 diabetes?,BOTH
+Is strawberries high in cholesterol and beneficial for hypertension?,BOTH
+What dietary changes help with high blood pressure?,HEALTH_ADVICE
+What role does the fiber in dark chocolate play for people with anxiety?,BOTH
+What is the zinc macro for soybeans?,NUTRITION_LOOKUP
+How does diet affect gout?,HEALTH_ADVICE
+What snacks are suitable for someone with coronary artery disease?,HEALTH_ADVICE
+Is a low-carb diet good for irritable bowel syndrome?,HEALTH_ADVICE
+What foods help reduce symptoms of lactose intolerance?,HEALTH_ADVICE
+What are the thiamine levels in shrimp?,NUTRITION_LOOKUP
+What is the total zinc per one piece of kiwi?,NUTRITION_LOOKUP
+Is asparagus a good source of selenium for people with metabolic syndrome?,BOTH
+How does the vitamin A in whole wheat bread compare to the daily requirement?,NUTRITION_LOOKUP
+How many omega-3 fatty acids are in white bread and is it safe for hyperthyroidism?,BOTH
+Can eating green peas help with metabolic syndrome?,HEALTH_ADVICE
+Does pinto beans have a lot of niacin?,NUTRITION_LOOKUP
+How much omega-3 fatty acids is there in a 150g portion of spinach?,NUTRITION_LOOKUP
+Is skim milk high in calories and beneficial for hypertension?,BOTH
+Does almonds have a lot of riboflavin?,NUTRITION_LOOKUP
+Is plain yogurt high in selenium?,NUTRITION_LOOKUP
+How does pinto beans's fiber level relate to insomnia?,BOTH
+Should someone with anxiety eat cucumber given its vitamin D content?,BOTH
+Does butter have enough vitamin B12 to help with obesity?,BOTH
+How many sugar calories does oranges have?,NUTRITION_LOOKUP
+What makes tempeh suitable or unsuitable for high cholesterol based on its magnesium?,BOTH
+What fruits are safe for PCOS patients?,HEALTH_ADVICE
+How does diet affect arthritis?,HEALTH_ADVICE
+What percentage of daily zinc is in sweet potatoes?,NUTRITION_LOOKUP
+What is a healthy diet for someone with GERD?,HEALTH_ADVICE
+Does onions have a lot of phosphorus?,NUTRITION_LOOKUP
+What is the exact potassium in one cup strawberries?,NUTRITION_LOOKUP
+Can you tell me the protein in a small bowl of almond butter?,NUTRITION_LOOKUP
+What proteins are best for a person with gout attacks?,HEALTH_ADVICE
+Is it safe to eat tilapia with anxiety?,HEALTH_ADVICE
+Is barley high in vitamin D and beneficial for type 1 diabetes?,BOTH
+Is flaxseeds high in saturated fat?,NUTRITION_LOOKUP
+Is oranges recommended or not recommended for gout?,HEALTH_ADVICE
+"For hyperthyroidism management, how much cottage cheese can I eat given its vitamin D content?",BOTH
+What is the total calcium per one piece of skim milk?,NUTRITION_LOOKUP
+I need the vitamin A count for almonds.,NUTRITION_LOOKUP
+Is potatoes a good source of vitamin A for people with hypertension?,BOTH
+Can eating pork loin help with cardiovascular disease?,HEALTH_ADVICE
+Does Greek yogurt have a lot of protein?,NUTRITION_LOOKUP
+How many grams of omega-3 fatty acids are in kale?,NUTRITION_LOOKUP
+What is a healthy diet for someone with hyperthyroidism?,HEALTH_ADVICE
+Which foods are beneficial for people with depression?,HEALTH_ADVICE
+Is garlic high in vitamin B12 and beneficial for polycystic ovary syndrome?,BOTH
+"For high cholesterol management, how much carrots can I eat given its iron content?",BOTH
+Best foods for managing heart disease?,HEALTH_ADVICE
+Is peaches high in fiber?,NUTRITION_LOOKUP
+How should someone with lactose intolerance adjust their diet?,HEALTH_ADVICE
+How many cholesterol calories does kale have?,NUTRITION_LOOKUP
+How many grams of protein are in sunflower seeds?,NUTRITION_LOOKUP
+What vegetables are recommended for anemia?,HEALTH_ADVICE
+What should I eat if I have gout?,HEALTH_ADVICE
+Can eggs help control coronary artery disease because of its iron?,BOTH
+Is turkey breast recommended for cardiovascular disease? What is its omega-3 fatty acids content per serving?,BOTH
+Is the sodium level in grapes appropriate for someone with coronary artery disease?,BOTH
+Is the sugar content of almond butter beneficial or harmful for iron-deficiency anemia?,BOTH
+How does eating lamb affect gestational diabetes given its high vitamin A content?,BOTH
+Should I avoid zucchini if I have high cholesterol?,HEALTH_ADVICE
+Is black beans recommended for insomnia? What is its sugar content per serving?,BOTH
+Is the folate content of flaxseeds beneficial or harmful for chronic kidney disease?,BOTH
+Is a handful of of olive oil too much vitamin A for a metabolic syndrome patient?,BOTH
+Should someone with anemia eat beets given its folate content?,BOTH
+Does watermelon have a lot of fiber?,NUTRITION_LOOKUP
+What role does the calories in lobster play for people with rheumatoid arthritis?,BOTH
+Can polycystic ovary syndrome patients eat sweet potatoes? What is the magnesium content?,BOTH
+Can you tell me the potassium in one piece of shrimp?,NUTRITION_LOOKUP
+What snacks are suitable for someone with hypothyroidism?,HEALTH_ADVICE
+How does dark chocolate's carbohydrates level relate to hypertension?,BOTH
+What proteins are best for a person with low blood pressure?,HEALTH_ADVICE
+What is the riboflavin macro for asparagus?,NUTRITION_LOOKUP
+How many riboflavin calories does lentils have?,NUTRITION_LOOKUP
+How does cucumber's potassium level relate to gout?,BOTH
+How many folate are in pineapple and is it safe for chronic kidney disease?,BOTH
+Should someone with depression limit dairy intake?,HEALTH_ADVICE
+What fruits are safe for hypothyroidism patients?,HEALTH_ADVICE
+Is the fiber level in black beans appropriate for someone with irritable bowel syndrome?,BOTH
+Is onions recommended or not recommended for metabolic syndrome?,HEALTH_ADVICE
+How does eating mozzarella affect GERD given its high phosphorus content?,BOTH
+Is bananas recommended or not recommended for metabolic syndrome?,HEALTH_ADVICE
+How many grams of iron are in apples?,NUTRITION_LOOKUP
+Is pumpkin seeds good for fatty liver disease? How much riboflavin does it contain?,BOTH
+What vegetables are recommended for gestational diabetes?,HEALTH_ADVICE
+Is tomatoes high in calcium?,NUTRITION_LOOKUP
+How many iron are in a small bowl of almonds?,NUTRITION_LOOKUP
+How many grams of thiamine are in plain yogurt?,NUTRITION_LOOKUP
+I need the saturated fat count for almond butter.,NUTRITION_LOOKUP
+Is the omega-6 fatty acids level in quinoa appropriate for someone with arthritis?,BOTH
+Is black beans a good source of vitamin B12 for people with gestational diabetes?,BOTH
+How many grams of total fat are in beets?,NUTRITION_LOOKUP
+Diet recommendations for fatty liver disease patients?,HEALTH_ADVICE
+Is black beans high in protein and beneficial for PCOS?,BOTH
+Can black beans help control type 1 diabetes because of its zinc?,BOTH
+Can you tell me the folate in a small bowl of turkey breast?,NUTRITION_LOOKUP
+Is tofu recommended for diabetes? What is its protein content per serving?,BOTH
+What role does the riboflavin in pasta play for people with insomnia?,BOTH
+How does sardines's zinc level relate to chronic kidney disease?,BOTH
+Can people with rheumatoid arthritis eat coconut oil?,HEALTH_ADVICE
+"For osteoporosis management, how much pinto beans can I eat given its vitamin A content?",BOTH
+Can the zinc in skim milk benefit irritable bowel syndrome patients?,BOTH
+Can type 1 diabetes patients eat kale? What is the fiber content?,BOTH
+What is the phosphorus in sardines and is it good for gestational diabetes?,BOTH
+What is the exact niacin in one serving quinoa?,NUTRITION_LOOKUP
+Is potatoes recommended for type 1 diabetes? What is its sugar content per serving?,BOTH
+Should I avoid celery if I have type 1 diabetes?,HEALTH_ADVICE
+"For hypertension management, how much whole wheat bread can I eat given its fiber content?",BOTH
+Can sardines help control inflammatory bowel disease because of its omega-3 fatty acids?,BOTH
+What makes skim milk suitable or unsuitable for gastritis based on its phosphorus?,BOTH
+Best foods for managing inflammatory bowel disease?,HEALTH_ADVICE
+Can you tell me the protein in one serving of bananas?,NUTRITION_LOOKUP
+How does diet affect high blood pressure?,HEALTH_ADVICE
+Is the saturated fat level in dark chocolate appropriate for someone with coronary artery disease?,BOTH
+What proteins are best for a person with heart disease?,HEALTH_ADVICE
+Is the vitamin B12 content of walnuts beneficial or harmful for coronary artery disease?,BOTH
+Is it safe to eat blueberries with irritable bowel syndrome?,HEALTH_ADVICE
+Can you tell me the calories in one serving of lentils?,NUTRITION_LOOKUP
+How much total fat is in one cup of chia seeds and is that good for iron-deficiency anemia?,BOTH
+How many grams of fiber are in beets?,NUTRITION_LOOKUP
+How much calcium does kale contain per serving?,NUTRITION_LOOKUP
+Can people with elevated LDL cholesterol eat spinach?,HEALTH_ADVICE
+What foods should people with type 2 diabetes avoid?,HEALTH_ADVICE
+How should someone with rheumatoid arthritis adjust their diet?,HEALTH_ADVICE
+What is the best diet for controlling hypothyroidism?,HEALTH_ADVICE
+How many omega-3 fatty acids calories does lamb have?,NUTRITION_LOOKUP
+"For cardiovascular disease management, how much white rice can I eat given its sodium content?",BOTH
+Is the thiamine level in cheddar cheese appropriate for someone with anxiety?,BOTH
+Is chickpeas high in saturated fat and beneficial for gluten intolerance?,BOTH
+How much zinc is there in a 150g portion of lobster?,NUTRITION_LOOKUP
+What are the thiamine levels in potatoes?,NUTRITION_LOOKUP
+Best foods for managing lactose intolerance?,HEALTH_ADVICE
+What is the iron macro for walnuts?,NUTRITION_LOOKUP
+How rich is zucchini in calcium?,NUTRITION_LOOKUP
+How rich is cucumber in carbohydrates?,NUTRITION_LOOKUP
+Is almond butter a good source of zinc for people with heart disease?,BOTH
+Which foods are beneficial for people with heart disease?,HEALTH_ADVICE
+How does lentils's sodium level relate to hypertension?,BOTH
+Does pinto beans have a lot of calcium?,NUTRITION_LOOKUP
+What snacks are suitable for someone with kidney disease?,HEALTH_ADVICE
+Can eating Greek yogurt help with arthritis?,HEALTH_ADVICE
+Best foods for managing low blood pressure?,HEALTH_ADVICE
+Should someone with type 2 diabetes limit dairy intake?,HEALTH_ADVICE
+Diet recommendations for insomnia patients?,HEALTH_ADVICE
+What dietary changes help with obesity?,HEALTH_ADVICE
+Diet recommendations for rheumatoid arthritis patients?,HEALTH_ADVICE
+How many phosphorus are in cashews and is it safe for elevated LDL cholesterol?,BOTH
+Should I avoid chicken breast if I have kidney disease?,HEALTH_ADVICE
+Give me the protein value for one tablespoon of kidney beans.,NUTRITION_LOOKUP
+What is the best diet for controlling chronic kidney disease?,HEALTH_ADVICE
+What is the total vitamin D per 100g of almonds?,NUTRITION_LOOKUP
+Should someone with insomnia eat pork loin given its omega-6 fatty acids content?,BOTH
+What is the total vitamin A per one ounce of spinach?,NUTRITION_LOOKUP
+What is a healthy diet for someone with gluten intolerance?,HEALTH_ADVICE
+Which foods are beneficial for people with type 2 diabetes?,HEALTH_ADVICE
+Can eating mushrooms help with inflammatory bowel disease?,HEALTH_ADVICE
+Which foods are beneficial for people with low blood pressure?,HEALTH_ADVICE
+What proteins are best for a person with hyperthyroidism?,HEALTH_ADVICE
+Is avocado high in omega-6 fatty acids?,NUTRITION_LOOKUP
+Should someone with gout eat carrots given its vitamin D content?,BOTH
+What is the zinc content of blueberries?,NUTRITION_LOOKUP
+How much vitamin B12 is in a medium portion of strawberries and is that good for diabetes?,BOTH
+Is cashews recommended for GERD? What is its vitamin A content per serving?,BOTH
+Are there foods that worsen chronic kidney disease?,HEALTH_ADVICE
+How does the cholesterol in chicken breast compare to the daily requirement?,NUTRITION_LOOKUP
+Is chicken breast recommended for hypothyroidism? What is its riboflavin content per serving?,BOTH
+Is whole wheat bread good for metabolic syndrome? How much niacin does it contain?,BOTH
+Can eating grapes help with fatty liver disease?,HEALTH_ADVICE
+How many grams of saturated fat are in oranges?,NUTRITION_LOOKUP
+Can eating grapes help with depression?,HEALTH_ADVICE
+Are there foods that worsen diabetes?,HEALTH_ADVICE
+Give me the omega-6 fatty acids value for 100g of grapes.,NUTRITION_LOOKUP
+How should someone with gluten intolerance adjust their diet?,HEALTH_ADVICE
+Are grains good for someone with inflammatory bowel disease?,HEALTH_ADVICE
+Is chia seeds good for type 2 diabetes? How much sugar does it contain?,BOTH
+What is the folate in dark chocolate and is it good for type 1 diabetes?,BOTH
+How many grams of omega-6 fatty acids are in chia seeds?,NUTRITION_LOOKUP
+Is sardines good for high cholesterol? How much selenium does it contain?,BOTH
+Can the sodium in lamb benefit GERD patients?,BOTH
+Can type 1 diabetes patients eat crab? What is the fiber content?,BOTH
+What dietary changes help with anxiety?,HEALTH_ADVICE
+Is the riboflavin level in chicken breast appropriate for someone with rheumatoid arthritis?,BOTH
+How much magnesium is there in a handful of of beef?,NUTRITION_LOOKUP
+Is the saturated fat level in dark chocolate appropriate for someone with elevated LDL cholesterol?,BOTH
+How many calories calories does flaxseeds have?,NUTRITION_LOOKUP
+What foods help reduce symptoms of elevated LDL cholesterol?,HEALTH_ADVICE
+How many magnesium are in a small bowl of white bread?,NUTRITION_LOOKUP
+What percentage of daily vitamin D is in cod?,NUTRITION_LOOKUP
+What are the saturated fat levels in quinoa?,NUTRITION_LOOKUP
+How much vitamin B12 is in a medium portion of mango and is that good for low blood pressure?,BOTH
+How much vitamin B12 is in 200 calories worth of watermelon and is that good for depression?,BOTH
+How much riboflavin does tomatoes contain per serving?,NUTRITION_LOOKUP
+Is kale high in selenium and beneficial for gestational diabetes?,BOTH
+What is the magnesium macro for sweet potatoes?,NUTRITION_LOOKUP
+Is the folate content of watermelon beneficial or harmful for hypothyroidism?,BOTH
+What are the omega-6 fatty acids levels in garlic?,NUTRITION_LOOKUP
+Is the carbohydrates content of tempeh beneficial or harmful for gout?,BOTH
+How does the phosphorus in barley compare to the daily requirement?,NUTRITION_LOOKUP
+What makes cabbage suitable or unsuitable for metabolic syndrome based on its vitamin B12?,BOTH
+Can the omega-3 fatty acids in bananas benefit fatty liver disease patients?,BOTH
+"For gastritis management, how much blueberries can I eat given its total fat content?",BOTH
+Can eating potatoes help with type 2 diabetes?,HEALTH_ADVICE
+What is the best diet for controlling inflammatory bowel disease?,HEALTH_ADVICE
+How does diet affect diabetes?,HEALTH_ADVICE
+How much fiber is there in a 150g portion of oranges?,NUTRITION_LOOKUP
+What is the vitamin D in peanut butter and is it good for inflammatory bowel disease?,BOTH
+What is the total zinc per half a cup of sardines?,NUTRITION_LOOKUP
+How many calcium are in a handful of of white bread?,NUTRITION_LOOKUP
+What are the cholesterol levels in whole milk?,NUTRITION_LOOKUP
+What is the best diet for controlling elevated LDL cholesterol?,HEALTH_ADVICE
+Are there foods that worsen fatty liver disease?,HEALTH_ADVICE
+How does eating cottage cheese affect metabolic syndrome given its high omega-3 fatty acids content?,BOTH
+Is cabbage recommended for chronic kidney disease? What is its niacin content per serving?,BOTH
+How does quinoa's vitamin A level relate to rheumatoid arthritis?,BOTH
+Is carrots a good source of iron for people with GERD?,BOTH
+How does diet affect kidney disease?,HEALTH_ADVICE
+Is it safe to eat garlic with depression?,HEALTH_ADVICE
+What proteins are best for a person with cardiovascular disease?,HEALTH_ADVICE
+What fruits are safe for coronary artery disease patients?,HEALTH_ADVICE
+Is peanuts recommended for gout? What is its zinc content per serving?,BOTH
+Does sweet potatoes have enough folate to help with celiac disease?,BOTH
+How much protein is there in two tablespoons of cod?,NUTRITION_LOOKUP
+What is the best diet for controlling acid reflux?,HEALTH_ADVICE
+Which foods are beneficial for people with polycystic ovary syndrome?,HEALTH_ADVICE
+Is the potassium content of almond butter beneficial or harmful for type 1 diabetes?,BOTH
+How does eating kiwi affect cardiovascular disease given its high sugar content?,BOTH
+What snacks are suitable for someone with gout?,HEALTH_ADVICE
+How does eating kidney beans affect gout given its high calories content?,BOTH
+Does zucchini have a lot of zinc?,NUTRITION_LOOKUP
+What role does the vitamin B12 in beets play for people with iron-deficiency anemia?,BOTH
+What are the magnesium levels in mango?,NUTRITION_LOOKUP
+Should I avoid cottage cheese if I have hypertension?,HEALTH_ADVICE
+What foods help reduce symptoms of hypothyroidism?,HEALTH_ADVICE
+Give me the niacin value for a small bowl of peanut butter.,NUTRITION_LOOKUP
+How much omega-3 fatty acids is there in two tablespoons of chia seeds?,NUTRITION_LOOKUP
+Can eating cheddar cheese help with celiac disease?,HEALTH_ADVICE
+How many grams of vitamin A are in walnuts?,NUTRITION_LOOKUP
+What makes mango suitable or unsuitable for arthritis based on its niacin?,BOTH
+Should someone with high cholesterol limit dairy intake?,HEALTH_ADVICE
+What is the thiamine breakdown for almonds?,NUTRITION_LOOKUP
+Should someone with high blood pressure limit dairy intake?,HEALTH_ADVICE
+Is one tablespoon of garlic too much omega-6 fatty acids for a acid reflux patient?,BOTH
+How much vitamin B12 is in a 3-ounce portion of bell peppers and is that good for kidney disease?,BOTH
+What eating habits help manage gestational diabetes?,HEALTH_ADVICE
+What should I eat if I have anxiety?,HEALTH_ADVICE
+Give me the folate value for a 150g portion of crab.,NUTRITION_LOOKUP
+Is it safe to eat mozzarella with gout?,HEALTH_ADVICE
+What fruits are safe for type 1 diabetes patients?,HEALTH_ADVICE
+How should someone with anemia adjust their diet?,HEALTH_ADVICE
+Is plain yogurt good for gout? How much zinc does it contain?,BOTH
+Can eating grapes help with anemia?,HEALTH_ADVICE
+How does the vitamin A in avocado compare to the daily requirement?,NUTRITION_LOOKUP
+What foods should people with hypothyroidism avoid?,HEALTH_ADVICE
+Does onions have enough vitamin C to help with low blood pressure?,BOTH
+What eating habits help manage arthritis?,HEALTH_ADVICE
+How many omega-6 fatty acids are in one tablespoon of pasta?,NUTRITION_LOOKUP
+"For anxiety management, how much mozzarella can I eat given its protein content?",BOTH
+How much magnesium is there in 100g of cod?,NUTRITION_LOOKUP
+Give me the thiamine value for a 3-ounce portion of watermelon.,NUTRITION_LOOKUP
+What percentage of daily sodium is in avocado?,NUTRITION_LOOKUP
+Is 100g of peanuts too much saturated fat for a fatty liver disease patient?,BOTH
+Can you tell me the selenium in a 150g portion of bell peppers?,NUTRITION_LOOKUP
+Is whole milk good for diabetes? How much vitamin B12 does it contain?,BOTH
+What proteins are best for a person with high cholesterol?,HEALTH_ADVICE
+What is the riboflavin macro for skim milk?,NUTRITION_LOOKUP
+"For diabetes management, how much skim milk can I eat given its omega-3 fatty acids content?",BOTH
+What eating habits help manage anxiety?,HEALTH_ADVICE
+What foods should people with gastritis avoid?,HEALTH_ADVICE
+Should I avoid lamb if I have fatty liver disease?,HEALTH_ADVICE
+How does bananas's omega-3 fatty acids level relate to inflammatory bowel disease?,BOTH
+I need the calcium count for coconut oil.,NUTRITION_LOOKUP
+Is a low-carb diet good for rheumatoid arthritis?,HEALTH_ADVICE
+Is pork loin a good source of sodium for people with acid reflux?,BOTH
+What makes kiwi suitable or unsuitable for gluten intolerance based on its zinc?,BOTH
+Is the calories content of asparagus beneficial or harmful for lactose intolerance?,BOTH
+How many vitamin D are in 100 grams of plain yogurt?,NUTRITION_LOOKUP
+Give me the magnesium value for a handful of of green peas.,NUTRITION_LOOKUP
+What role does the fiber in beef play for people with gout?,BOTH
+Is spinach recommended or not recommended for lactose intolerance?,HEALTH_ADVICE
+Are there foods that worsen lactose intolerance?,HEALTH_ADVICE
+How much sugar is in a handful of of eggs and is that good for hypertension?,BOTH
+Is plain yogurt recommended for diabetes? What is its protein content per serving?,BOTH
+Is one cup of sweet potatoes too much cholesterol for a osteoporosis patient?,BOTH
+What is the calories breakdown for cheddar cheese?,NUTRITION_LOOKUP
+What should I eat if I have gastritis?,HEALTH_ADVICE
+Is cheddar cheese recommended for metabolic syndrome? What is its niacin content per serving?,BOTH
+How many grams of vitamin B12 are in turkey breast?,NUTRITION_LOOKUP
+Is the sodium content of cashews beneficial or harmful for low blood pressure?,BOTH
+Can eating coconut oil help with anemia?,HEALTH_ADVICE
+How many total fat are in walnuts and is it safe for iron-deficiency anemia?,BOTH
+What proteins are best for a person with depression?,HEALTH_ADVICE
+Is one piece of apples too much vitamin B12 for a heart disease patient?,BOTH
+Give me the vitamin B12 value for a medium portion of eggs.,NUTRITION_LOOKUP
+Can the protein in olive oil benefit cardiovascular disease patients?,BOTH
+What is the nutritional value of strawberries in terms of fiber?,NUTRITION_LOOKUP
+Can eating edamame help with celiac disease?,HEALTH_ADVICE
+How does grapes's vitamin A level relate to heart disease?,BOTH
+What role does the vitamin B12 in potatoes play for people with high blood pressure?,BOTH
+What is the nutritional value of turkey breast in terms of vitamin C?,NUTRITION_LOOKUP
+Is one cup of cheddar cheese too much niacin for a metabolic syndrome patient?,BOTH
+Can osteoporosis patients eat blueberries? What is the calories content?,BOTH
+Should I avoid asparagus if I have rheumatoid arthritis?,HEALTH_ADVICE
+What is a healthy diet for someone with hypothyroidism?,HEALTH_ADVICE
+Can the vitamin D in bananas benefit hyperthyroidism patients?,BOTH
+How much omega-3 fatty acids is there in one serving of green peas?,NUTRITION_LOOKUP
+How should someone with type 2 diabetes adjust their diet?,HEALTH_ADVICE
+Is one ounce of peanut butter too much niacin for a chronic kidney disease patient?,BOTH
+Is pinto beans a good source of niacin for people with coronary artery disease?,BOTH
+How many grams of phosphorus are in almonds?,NUTRITION_LOOKUP
+"For elevated LDL cholesterol management, how much bell peppers can I eat given its calories content?",BOTH
+How much omega-6 fatty acids is there in one serving of sunflower seeds?,NUTRITION_LOOKUP
+What is a healthy diet for someone with polycystic ovary syndrome?,HEALTH_ADVICE
+Is oranges high in iron?,NUTRITION_LOOKUP
+Does chicken breast have enough selenium to help with diabetes?,BOTH
+How does diet affect heart disease?,HEALTH_ADVICE
+Does pumpkin seeds have enough total fat to help with low blood pressure?,BOTH
+What percentage of daily magnesium is in barley?,NUTRITION_LOOKUP
+Which foods are beneficial for people with GERD?,HEALTH_ADVICE
+Can the total fat in kale benefit hypothyroidism patients?,BOTH
+What is the best diet for controlling type 2 diabetes?,HEALTH_ADVICE
+What is the nutritional value of mango in terms of thiamine?,NUTRITION_LOOKUP
+What foods should people with lactose intolerance avoid?,HEALTH_ADVICE
+What should I eat if I have insomnia?,HEALTH_ADVICE
+How does cauliflower's cholesterol level relate to GERD?,BOTH
+Should someone with heart disease limit dairy intake?,HEALTH_ADVICE
+What eating habits help manage heart disease?,HEALTH_ADVICE
+What is the nutritional value of lentils in terms of magnesium?,NUTRITION_LOOKUP
+What is the exact folate in half a cup cottage cheese?,NUTRITION_LOOKUP
+Can you tell me the folate in 100 grams of tilapia?,NUTRITION_LOOKUP
+What percentage of daily vitamin D is in whole wheat bread?,NUTRITION_LOOKUP
+Best foods for managing type 1 diabetes?,HEALTH_ADVICE
+Which foods are beneficial for people with type 1 diabetes?,HEALTH_ADVICE
+Is a low-carb diet good for gestational diabetes?,HEALTH_ADVICE
+Is tempeh recommended or not recommended for depression?,HEALTH_ADVICE
+Give me the protein value for one tablespoon of celery.,NUTRITION_LOOKUP
+How many grams of saturated fat are in soybeans?,NUTRITION_LOOKUP
+What is the fiber in potatoes and is it good for chronic kidney disease?,BOTH
+Should I avoid lobster if I have insomnia?,HEALTH_ADVICE
+How does pasta's magnesium level relate to anemia?,BOTH
+What fruits are safe for gastritis patients?,HEALTH_ADVICE
+How many vitamin B12 are in tomatoes and is it safe for polycystic ovary syndrome?,BOTH
+Can kidney disease patients eat potatoes? What is the omega-6 fatty acids content?,BOTH
+How does pumpkin seeds's sodium level relate to metabolic syndrome?,BOTH
+Can eating blueberries help with type 1 diabetes?,HEALTH_ADVICE
+Is the zinc content of sweet potatoes beneficial or harmful for high blood pressure?,BOTH
+How does pineapple's niacin level relate to hyperthyroidism?,BOTH
+Is it safe to eat pineapple with celiac disease?,HEALTH_ADVICE
+Is black beans high in protein?,NUTRITION_LOOKUP
+Can eating green peas help with gluten intolerance?,HEALTH_ADVICE
+Is the vitamin D level in celery appropriate for someone with arthritis?,BOTH
+Is black beans a good source of niacin for people with obesity?,BOTH
+What is the riboflavin breakdown for crab?,NUTRITION_LOOKUP
+Is crab high in riboflavin and beneficial for chronic kidney disease?,BOTH
+What is the exact vitamin D in one ounce pineapple?,NUTRITION_LOOKUP
+Are grains good for someone with heart disease?,HEALTH_ADVICE
+Should I avoid kale if I have iron-deficiency anemia?,HEALTH_ADVICE
+What is a healthy diet for someone with elevated LDL cholesterol?,HEALTH_ADVICE
+Should I avoid flaxseeds if I have low blood pressure?,HEALTH_ADVICE
+How should someone with type 1 diabetes adjust their diet?,HEALTH_ADVICE
+Can osteoporosis patients eat cashews? What is the zinc content?,BOTH
+Best foods for managing metabolic syndrome?,HEALTH_ADVICE
+How should someone with celiac disease adjust their diet?,HEALTH_ADVICE
+Is the vitamin D content of Greek yogurt beneficial or harmful for gluten intolerance?,BOTH
+Is plain yogurt recommended for gestational diabetes? What is its cholesterol content per serving?,BOTH
+What is the total fat breakdown for whole milk?,NUTRITION_LOOKUP
+What is the total carbohydrates per a handful of of salmon?,NUTRITION_LOOKUP
+I need the calories count for peanuts.,NUTRITION_LOOKUP
+How does diet affect high cholesterol?,HEALTH_ADVICE
+What is the vitamin C content of bananas?,NUTRITION_LOOKUP
+What vegetables are recommended for polycystic ovary syndrome?,HEALTH_ADVICE
+What is the carbohydrates in grapes and is it good for type 1 diabetes?,BOTH
+Is brown rice recommended or not recommended for kidney disease?,HEALTH_ADVICE
+What percentage of daily total fat is in pineapple?,NUTRITION_LOOKUP
+Can chickpeas help control depression because of its vitamin B12?,BOTH
+Diet recommendations for cardiovascular disease patients?,HEALTH_ADVICE
+Is almonds recommended or not recommended for gout attacks?,HEALTH_ADVICE
+Should I avoid lamb if I have inflammatory bowel disease?,HEALTH_ADVICE
+Is brown rice high in iron?,NUTRITION_LOOKUP
+Does whole wheat bread have a lot of vitamin C?,NUTRITION_LOOKUP
+What role does the fiber in mushrooms play for people with low blood pressure?,BOTH
+What is the vitamin C breakdown for sardines?,NUTRITION_LOOKUP
+What makes grapes suitable or unsuitable for elevated LDL cholesterol based on its zinc?,BOTH
+Is bananas recommended for fatty liver disease? What is its zinc content per serving?,BOTH
+How does white bread's selenium level relate to gastritis?,BOTH
+Should I avoid edamame if I have kidney disease?,HEALTH_ADVICE
+Is the omega-3 fatty acids level in kiwi appropriate for someone with polycystic ovary syndrome?,BOTH
+How much vitamin D is there in 200 calories worth of oranges?,NUTRITION_LOOKUP
+How much omega-6 fatty acids does celery contain per serving?,NUTRITION_LOOKUP
+How much selenium is there in a 150g portion of lobster?,NUTRITION_LOOKUP
+Can the niacin in oats benefit osteoporosis patients?,BOTH
+Is duck high in magnesium?,NUTRITION_LOOKUP
+Can metabolic syndrome patients eat walnuts? What is the folate content?,BOTH
+What is the total protein per a small bowl of whole milk?,NUTRITION_LOOKUP
+Is sunflower seeds high in saturated fat and beneficial for obesity?,BOTH
+Can people with elevated LDL cholesterol eat tilapia?,HEALTH_ADVICE
+What makes quinoa suitable or unsuitable for hyperthyroidism based on its zinc?,BOTH
+Is mushrooms high in omega-3 fatty acids?,NUTRITION_LOOKUP
+Give me the selenium value for two tablespoons of walnuts.,NUTRITION_LOOKUP
+Can you tell me the saturated fat in a 150g portion of cauliflower?,NUTRITION_LOOKUP
+How many grams of protein are in shrimp?,NUTRITION_LOOKUP
+Are there foods that worsen hypothyroidism?,HEALTH_ADVICE
+What fruits are safe for celiac disease patients?,HEALTH_ADVICE
+How much calcium is in a handful of of carrots and is that good for type 1 diabetes?,BOTH
+What is the fiber in pinto beans and is it good for cardiovascular disease?,BOTH
+What makes lobster suitable or unsuitable for gout based on its calcium?,BOTH
+How many vitamin A calories does onions have?,NUTRITION_LOOKUP
+What is the total saturated fat per half a cup of peanuts?,NUTRITION_LOOKUP
+Are there foods that worsen gestational diabetes?,HEALTH_ADVICE
+Is celery high in folate and beneficial for hyperthyroidism?,BOTH
+What is the vitamin B12 content of cabbage?,NUTRITION_LOOKUP
+Does celery have a lot of vitamin C?,NUTRITION_LOOKUP
+Are there foods that worsen gout attacks?,HEALTH_ADVICE
+How rich is grapes in niacin?,NUTRITION_LOOKUP
+What is the total phosphorus per one ounce of chickpeas?,NUTRITION_LOOKUP
+Is mushrooms recommended or not recommended for hyperthyroidism?,HEALTH_ADVICE
+Is plain yogurt recommended for kidney disease? What is its sugar content per serving?,BOTH
+Can people with osteoporosis eat quinoa?,HEALTH_ADVICE
+What percentage of daily saturated fat is in Greek yogurt?,NUTRITION_LOOKUP
+What is the exact omega-3 fatty acids in a handful of quinoa?,NUTRITION_LOOKUP
+How much fiber is there in one cup of oats?,NUTRITION_LOOKUP
+Is the vitamin B12 level in garlic appropriate for someone with PCOS?,BOTH
+What is the omega-3 fatty acids breakdown for kiwi?,NUTRITION_LOOKUP
+How much omega-3 fatty acids is there in 100 grams of garlic?,NUTRITION_LOOKUP
+How does diet affect GERD?,HEALTH_ADVICE
+How should someone with arthritis adjust their diet?,HEALTH_ADVICE
+Is skim milk a good source of vitamin C for people with gout?,BOTH
+Is sweet potatoes good for depression? How much protein does it contain?,BOTH
+Is a low-carb diet good for PCOS?,HEALTH_ADVICE
+What are the sugar levels in carrots?,NUTRITION_LOOKUP
+How rich is soybeans in sugar?,NUTRITION_LOOKUP
+Should someone with hypothyroidism limit dairy intake?,HEALTH_ADVICE
+Is duck a good source of vitamin A for people with iron-deficiency anemia?,BOTH
+How much phosphorus is in a small bowl of kale and is that good for celiac disease?,BOTH
+What foods should people with acid reflux avoid?,HEALTH_ADVICE
+What fruits are safe for lactose intolerance patients?,HEALTH_ADVICE
+I need the cholesterol count for kidney beans.,NUTRITION_LOOKUP
+How many selenium are in pasta and is it safe for type 1 diabetes?,BOTH
+Is cod high in vitamin B12 and beneficial for anxiety?,BOTH
+What eating habits help manage elevated LDL cholesterol?,HEALTH_ADVICE
+What is the thiamine macro for coconut oil?,NUTRITION_LOOKUP
+How many carbohydrates calories does edamame have?,NUTRITION_LOOKUP
+Should I avoid Greek yogurt if I have fatty liver disease?,HEALTH_ADVICE
+How does eating cod affect lactose intolerance given its high magnesium content?,BOTH
+How many vitamin B12 are in two tablespoons of tilapia?,NUTRITION_LOOKUP
+Does sweet potatoes have enough fiber to help with coronary artery disease?,BOTH
+"For heart disease management, how much grapes can I eat given its vitamin C content?",BOTH
+Is 100 grams of black beans too much thiamine for a insomnia patient?,BOTH
+What is the cholesterol breakdown for peanuts?,NUTRITION_LOOKUP
+Which foods are beneficial for people with lactose intolerance?,HEALTH_ADVICE
+What percentage of daily calories is in tomatoes?,NUTRITION_LOOKUP
+Best foods for managing fatty liver disease?,HEALTH_ADVICE
+How many grams of carbohydrates are in sweet potatoes?,NUTRITION_LOOKUP
+What percentage of daily vitamin C is in mango?,NUTRITION_LOOKUP
+Is shrimp good for gastritis? How much omega-6 fatty acids does it contain?,BOTH
+Should I avoid spinach if I have fatty liver disease?,HEALTH_ADVICE
+I need the vitamin D count for salmon.,NUTRITION_LOOKUP
+Give me the phosphorus value for a 3-ounce portion of tuna.,NUTRITION_LOOKUP
+What snacks are suitable for someone with gluten intolerance?,HEALTH_ADVICE
+How many cholesterol calories does zucchini have?,NUTRITION_LOOKUP
+Can people with anxiety eat white bread?,HEALTH_ADVICE
+Does lobster have enough vitamin B12 to help with gout?,BOTH
+Are there foods that worsen elevated LDL cholesterol?,HEALTH_ADVICE
+What is the omega-3 fatty acids breakdown for celery?,NUTRITION_LOOKUP
+What is the nutritional value of plain yogurt in terms of total fat?,NUTRITION_LOOKUP
+What is the exact selenium in one cup almonds?,NUTRITION_LOOKUP
+Can avocado help control gestational diabetes because of its vitamin D?,BOTH
+Is one tablespoon of peanuts too much sodium for a cardiovascular disease patient?,BOTH
+Is the riboflavin content of onions beneficial or harmful for rheumatoid arthritis?,BOTH
+I need the saturated fat count for cabbage.,NUTRITION_LOOKUP
+How many potassium calories does oats have?,NUTRITION_LOOKUP
+Should I avoid asparagus if I have depression?,HEALTH_ADVICE
+Can flaxseeds help control arthritis because of its vitamin A?,BOTH
+Can eating kiwi help with elevated LDL cholesterol?,HEALTH_ADVICE
+What foods help reduce symptoms of obesity?,HEALTH_ADVICE
+Is mushrooms recommended for osteoporosis? What is its magnesium content per serving?,BOTH
+What vegetables are recommended for hyperthyroidism?,HEALTH_ADVICE
+What is the best diet for controlling insomnia?,HEALTH_ADVICE
+Is one tablespoon of duck too much magnesium for a gastritis patient?,BOTH
+Is it safe to eat cottage cheese with high cholesterol?,HEALTH_ADVICE
+Should I avoid plain yogurt if I have PCOS?,HEALTH_ADVICE
+I need the fiber count for lobster.,NUTRITION_LOOKUP
+What vegetables are recommended for hypothyroidism?,HEALTH_ADVICE
+Can you tell me the calcium in two tablespoons of sardines?,NUTRITION_LOOKUP
+I need the folate count for turkey breast.,NUTRITION_LOOKUP
+Is a low-carb diet good for type 1 diabetes?,HEALTH_ADVICE
+Are grains good for someone with insomnia?,HEALTH_ADVICE
+Is a low-carb diet good for hypertension?,HEALTH_ADVICE
+How does diet affect hypertension?,HEALTH_ADVICE
+Does blueberries have a lot of thiamine?,NUTRITION_LOOKUP
+I need the vitamin C count for skim milk.,NUTRITION_LOOKUP
+Does cod have a lot of riboflavin?,NUTRITION_LOOKUP
+Should someone with PCOS limit dairy intake?,HEALTH_ADVICE
+How much selenium is in a small bowl of kale and is that good for cardiovascular disease?,BOTH
+Are there foods that worsen anxiety?,HEALTH_ADVICE
+"For gluten intolerance management, how much pinto beans can I eat given its protein content?",BOTH
+How much total fat does whole wheat bread contain per serving?,NUTRITION_LOOKUP
+Is one tablespoon of lentils too much riboflavin for a chronic kidney disease patient?,BOTH
+Is pumpkin seeds high in phosphorus and beneficial for hypertension?,BOTH
+Is blueberries recommended or not recommended for hypertension?,HEALTH_ADVICE
+What should I eat if I have metabolic syndrome?,HEALTH_ADVICE
+Is chicken breast high in protein and beneficial for hypothyroidism?,BOTH
+What makes kale suitable or unsuitable for anemia based on its potassium?,BOTH
+I need the vitamin A count for sweet potatoes.,NUTRITION_LOOKUP
+How much calcium does potatoes contain per serving?,NUTRITION_LOOKUP
+How much saturated fat is there in a 3-ounce portion of skim milk?,NUTRITION_LOOKUP
+What role does the vitamin C in sardines play for people with low blood pressure?,BOTH
+How much magnesium is there in 100g of eggs?,NUTRITION_LOOKUP
+Can people with low blood pressure eat duck?,HEALTH_ADVICE
+Is lentils a good source of cholesterol for people with heart disease?,BOTH
+Is kiwi good for heart disease? How much vitamin A does it contain?,BOTH
+Is strawberries high in vitamin D?,NUTRITION_LOOKUP
+Does Greek yogurt have enough riboflavin to help with celiac disease?,BOTH
+Can eating cottage cheese help with diabetes?,HEALTH_ADVICE
+What percentage of daily sugar is in tempeh?,NUTRITION_LOOKUP
+What is the nutritional value of tofu in terms of vitamin A?,NUTRITION_LOOKUP
+Can the saturated fat in tofu benefit iron-deficiency anemia patients?,BOTH
+Is whole wheat bread a good source of vitamin C for people with elevated LDL cholesterol?,BOTH
+"For metabolic syndrome management, how much peanut butter can I eat given its vitamin C content?",BOTH
+What is the calories breakdown for pork loin?,NUTRITION_LOOKUP
+What are the calcium levels in onions?,NUTRITION_LOOKUP
+What is the carbohydrates macro for green peas?,NUTRITION_LOOKUP
+How many grams of phosphorus are in mozzarella?,NUTRITION_LOOKUP
+Is lobster high in omega-6 fatty acids and beneficial for low blood pressure?,BOTH
+Is it safe to eat beef with high blood pressure?,HEALTH_ADVICE
+How does eating edamame affect cardiovascular disease given its high magnesium content?,BOTH
+Is a low-carb diet good for low blood pressure?,HEALTH_ADVICE
+Best foods for managing coronary artery disease?,HEALTH_ADVICE
+What is a healthy diet for someone with lactose intolerance?,HEALTH_ADVICE
+What are the total fat levels in mushrooms?,NUTRITION_LOOKUP
+Best foods for managing gestational diabetes?,HEALTH_ADVICE
+What eating habits help manage gluten intolerance?,HEALTH_ADVICE
+Can people with high cholesterol eat green peas?,HEALTH_ADVICE
+I need the vitamin B12 count for coconut oil.,NUTRITION_LOOKUP
+Should I avoid tofu if I have gestational diabetes?,HEALTH_ADVICE
+What proteins are best for a person with gestational diabetes?,HEALTH_ADVICE
+What is the carbohydrates macro for chicken breast?,NUTRITION_LOOKUP
+Best foods for managing obesity?,HEALTH_ADVICE
+What is the niacin in duck and is it good for obesity?,BOTH
+Best foods for managing elevated LDL cholesterol?,HEALTH_ADVICE
+"For diabetes management, how much white bread can I eat given its sugar content?",BOTH
+What role does the carbohydrates in bananas play for people with type 2 diabetes?,BOTH
+What is the total phosphorus per 100 grams of avocado?,NUTRITION_LOOKUP
+Can salmon help control celiac disease because of its phosphorus?,BOTH
+How much riboflavin is there in one serving of kiwi?,NUTRITION_LOOKUP
+Are grains good for someone with cardiovascular disease?,HEALTH_ADVICE
+Is barley high in vitamin C and beneficial for acid reflux?,BOTH
+Should someone with hyperthyroidism limit dairy intake?,HEALTH_ADVICE
+"For depression management, how much black beans can I eat given its omega-3 fatty acids content?",BOTH
+What is the thiamine macro for onions?,NUTRITION_LOOKUP
+Is mozzarella high in cholesterol?,NUTRITION_LOOKUP
+Does lobster have a lot of calories?,NUTRITION_LOOKUP
+What role does the phosphorus in mozzarella play for people with heart disease?,BOTH
+Can gestational diabetes patients eat duck? What is the carbohydrates content?,BOTH
+How many grams of protein are in Greek yogurt?,NUTRITION_LOOKUP
+What makes plain yogurt suitable or unsuitable for depression based on its thiamine?,BOTH
+What is the thiamine in bananas and is it good for anxiety?,BOTH
+Is the carbohydrates level in shrimp appropriate for someone with gluten intolerance?,BOTH
+Which foods are beneficial for people with PCOS?,HEALTH_ADVICE
+What fruits are safe for hypertension patients?,HEALTH_ADVICE
+Is turkey breast recommended or not recommended for insomnia?,HEALTH_ADVICE
+What dietary changes help with PCOS?,HEALTH_ADVICE
+How does the omega-3 fatty acids in chickpeas compare to the daily requirement?,NUTRITION_LOOKUP
+How much phosphorus is there in 200 calories worth of grapes?,NUTRITION_LOOKUP
+Should someone with hyperthyroidism eat pinto beans given its sugar content?,BOTH
+Are there foods that worsen coronary artery disease?,HEALTH_ADVICE
+What foods should people with kidney disease avoid?,HEALTH_ADVICE
+Give me the thiamine value for 100 grams of mushrooms.,NUTRITION_LOOKUP
+What vegetables are recommended for elevated LDL cholesterol?,HEALTH_ADVICE
+Is peanut butter recommended or not recommended for polycystic ovary syndrome?,HEALTH_ADVICE
+Is spinach high in carbohydrates and beneficial for arthritis?,BOTH
+Is one piece of brown rice too much magnesium for a acid reflux patient?,BOTH
+Give me the selenium value for 200 calories worth of kidney beans.,NUTRITION_LOOKUP
+What is the exact fiber in one piece kidney beans?,NUTRITION_LOOKUP
+Is one cup of garlic too much riboflavin for a metabolic syndrome patient?,BOTH
+Can the cholesterol in pumpkin seeds benefit hyperthyroidism patients?,BOTH
+How does eating Greek yogurt affect arthritis given its high niacin content?,BOTH
+Is the saturated fat level in carrots appropriate for someone with irritable bowel syndrome?,BOTH
+What fruits are safe for iron-deficiency anemia patients?,HEALTH_ADVICE
+What is a healthy diet for someone with low blood pressure?,HEALTH_ADVICE
+How does eating beef affect inflammatory bowel disease given its high vitamin C content?,BOTH
+What should I eat if I have arthritis?,HEALTH_ADVICE
+Should someone with hypothyroidism eat chickpeas given its vitamin B12 content?,BOTH
+Should someone with gestational diabetes eat sweet potatoes given its omega-3 fatty acids content?,BOTH
+How rich is cottage cheese in vitamin B12?,NUTRITION_LOOKUP
+What should I eat if I have type 2 diabetes?,HEALTH_ADVICE
+How much sodium does skim milk contain per serving?,NUTRITION_LOOKUP
+Is pineapple a good source of vitamin D for people with metabolic syndrome?,BOTH
+How many omega-6 fatty acids are in broccoli and is it safe for arthritis?,BOTH
+Is tuna high in sodium and beneficial for gout attacks?,BOTH
+What is the protein macro for tuna?,NUTRITION_LOOKUP
+How does eating peanuts affect irritable bowel syndrome given its high total fat content?,BOTH
+How rich is kidney beans in vitamin A?,NUTRITION_LOOKUP
+What proteins are best for a person with diabetes?,HEALTH_ADVICE
+How many vitamin D calories does tofu have?,NUTRITION_LOOKUP
+Is 200 calories worth of lobster too much saturated fat for a chronic kidney disease patient?,BOTH
+How much sugar is in 100 grams of dark chocolate and is that good for PCOS?,BOTH
+How many sugar are in cauliflower and is it safe for GERD?,BOTH
+How does eating cucumber affect coronary artery disease given its high omega-6 fatty acids content?,BOTH
+What eating habits help manage anemia?,HEALTH_ADVICE
+What foods should people with obesity avoid?,HEALTH_ADVICE
+Is the total fat content of tomatoes beneficial or harmful for GERD?,BOTH
+Should someone with celiac disease eat mozzarella given its vitamin B12 content?,BOTH
+Can the sodium in lobster benefit gout attacks patients?,BOTH
+What is the exact selenium in a handful of peanuts?,NUTRITION_LOOKUP
+Is black beans high in calcium?,NUTRITION_LOOKUP
+What is the best diet for controlling diabetes?,HEALTH_ADVICE
+Is 200 calories worth of tofu too much niacin for a metabolic syndrome patient?,BOTH
+What percentage of daily total fat is in peaches?,NUTRITION_LOOKUP
+How does diet affect osteoporosis?,HEALTH_ADVICE
+Is lobster recommended or not recommended for elevated LDL cholesterol?,HEALTH_ADVICE
+How should someone with hypertension adjust their diet?,HEALTH_ADVICE
+Is it safe to eat walnuts with osteoporosis?,HEALTH_ADVICE
+What is the fiber macro for tofu?,NUTRITION_LOOKUP
+How rich is butter in vitamin A?,NUTRITION_LOOKUP
+What is the total potassium per 200 calories worth of black beans?,NUTRITION_LOOKUP
+What makes mozzarella suitable or unsuitable for heart disease based on its vitamin A?,BOTH
+What is the riboflavin in duck and is it good for rheumatoid arthritis?,BOTH
+Does lobster have a lot of vitamin D?,NUTRITION_LOOKUP
+Can you tell me the fiber in 100 grams of onions?,NUTRITION_LOOKUP
+What is the vitamin D macro for whole milk?,NUTRITION_LOOKUP
+How does diet affect irritable bowel syndrome?,HEALTH_ADVICE
+Can eating kidney beans help with hypothyroidism?,HEALTH_ADVICE
+Is a low-carb diet good for obesity?,HEALTH_ADVICE
+Which foods are beneficial for people with anxiety?,HEALTH_ADVICE
+How rich is mozzarella in folate?,NUTRITION_LOOKUP
+"For gout management, how much onions can I eat given its sodium content?",BOTH
+What is the iron content of mushrooms?,NUTRITION_LOOKUP
+How much iron is there in a medium portion of potatoes?,NUTRITION_LOOKUP
+What is the total vitamin A per 100 grams of sunflower seeds?,NUTRITION_LOOKUP
+What is the best diet for controlling high cholesterol?,HEALTH_ADVICE
+Best foods for managing iron-deficiency anemia?,HEALTH_ADVICE
+What is the magnesium breakdown for shrimp?,NUTRITION_LOOKUP
+Can the calcium in cod benefit low blood pressure patients?,BOTH
+Does peaches have enough thiamine to help with chronic kidney disease?,BOTH
+What foods should people with high cholesterol avoid?,HEALTH_ADVICE
+What vegetables are recommended for high cholesterol?,HEALTH_ADVICE
+What is the sugar macro for sunflower seeds?,NUTRITION_LOOKUP
+Is one piece of sunflower seeds too much sodium for a gastritis patient?,BOTH
+Is pumpkin seeds high in phosphorus and beneficial for kidney disease?,BOTH
+Can people with GERD eat tuna?,HEALTH_ADVICE
+How does sardines's folate level relate to chronic kidney disease?,BOTH
+What role does the zinc in brown rice play for people with lactose intolerance?,BOTH
+What should I eat if I have gestational diabetes?,HEALTH_ADVICE
+How does eating avocado affect anxiety given its high calcium content?,BOTH
+Are grains good for someone with gout attacks?,HEALTH_ADVICE
+What percentage of daily omega-6 fatty acids is in turkey breast?,NUTRITION_LOOKUP
+What is the total total fat per 200 calories worth of cabbage?,NUTRITION_LOOKUP
+What are the calcium levels in peaches?,NUTRITION_LOOKUP
+Does tuna have enough phosphorus to help with diabetes?,BOTH
+Are there foods that worsen hyperthyroidism?,HEALTH_ADVICE
+What is the nutritional value of brown rice in terms of thiamine?,NUTRITION_LOOKUP
+How does eating cauliflower affect celiac disease given its high potassium content?,BOTH
+What vegetables are recommended for iron-deficiency anemia?,HEALTH_ADVICE
+Is quinoa high in phosphorus?,NUTRITION_LOOKUP
+Is pumpkin seeds a good source of vitamin D for people with fatty liver disease?,BOTH
+Can eating cheddar cheese help with kidney disease?,HEALTH_ADVICE
+Give me the protein value for one ounce of beef.,NUTRITION_LOOKUP
+Give me the folate value for one tablespoon of tofu.,NUTRITION_LOOKUP
+Can people with high blood pressure eat kiwi?,HEALTH_ADVICE
+Is whole wheat bread good for kidney disease? How much sugar does it contain?,BOTH
+Should I avoid white bread if I have celiac disease?,HEALTH_ADVICE
+What makes grapes suitable or unsuitable for gluten intolerance based on its omega-3 fatty acids?,BOTH
+Does kidney beans have a lot of magnesium?,NUTRITION_LOOKUP
+Does pork loin have enough omega-3 fatty acids to help with gluten intolerance?,BOTH
+Can people with insomnia eat blueberries?,HEALTH_ADVICE
+What is the nutritional value of soybeans in terms of saturated fat?,NUTRITION_LOOKUP
+How rich is beef in iron?,NUTRITION_LOOKUP
+Can the riboflavin in celery benefit gout attacks patients?,BOTH
+How does the protein in almonds compare to the daily requirement?,NUTRITION_LOOKUP
+Are grains good for someone with gout?,HEALTH_ADVICE
+How does white bread's sugar level relate to arthritis?,BOTH
+Should I avoid peanuts if I have arthritis?,HEALTH_ADVICE
+What is the exact sugar in half a cup cucumber?,NUTRITION_LOOKUP
+Can eating tomatoes help with metabolic syndrome?,HEALTH_ADVICE
+Can barley help control metabolic syndrome because of its zinc?,BOTH
+Does sunflower seeds have enough omega-3 fatty acids to help with iron-deficiency anemia?,BOTH
+Best foods for managing gout attacks?,HEALTH_ADVICE
+What eating habits help manage gout?,HEALTH_ADVICE
+How does the carbohydrates in carrots compare to the daily requirement?,NUTRITION_LOOKUP
+What proteins are best for a person with irritable bowel syndrome?,HEALTH_ADVICE
+How many grams of protein are in carrots?,NUTRITION_LOOKUP
+What should I eat if I have osteoporosis?,HEALTH_ADVICE
+What should I eat if I have low blood pressure?,HEALTH_ADVICE
+Is olive oil recommended or not recommended for gestational diabetes?,HEALTH_ADVICE
+How many folate are in one tablespoon of dark chocolate?,NUTRITION_LOOKUP
+How much sodium is there in one tablespoon of tofu?,NUTRITION_LOOKUP
+Is one cup of turkey breast too much folate for a obesity patient?,BOTH
+How does strawberries's iron level relate to celiac disease?,BOTH
+Best foods for managing high cholesterol?,HEALTH_ADVICE
+How many iron are in shrimp and is it safe for anemia?,BOTH
+What fruits are safe for elevated LDL cholesterol patients?,HEALTH_ADVICE
+What is the sugar content of edamame?,NUTRITION_LOOKUP
+Are grains good for someone with lactose intolerance?,HEALTH_ADVICE
+Can the vitamin A in carrots benefit rheumatoid arthritis patients?,BOTH
+How should someone with low blood pressure adjust their diet?,HEALTH_ADVICE
+I need the niacin count for onions.,NUTRITION_LOOKUP
+How much niacin does kidney beans contain per serving?,NUTRITION_LOOKUP
+What is the best diet for controlling celiac disease?,HEALTH_ADVICE
+Is quinoa recommended or not recommended for high blood pressure?,HEALTH_ADVICE
+How much protein does edamame contain per serving?,NUTRITION_LOOKUP
+What makes coconut oil suitable or unsuitable for celiac disease based on its selenium?,BOTH
+What is the vitamin D breakdown for white rice?,NUTRITION_LOOKUP
+What is the vitamin D in shrimp and is it good for high blood pressure?,BOTH
+Are there foods that worsen osteoporosis?,HEALTH_ADVICE
+What proteins are best for a person with arthritis?,HEALTH_ADVICE
+Can black beans help control polycystic ovary syndrome because of its saturated fat?,BOTH
+Which foods are beneficial for people with high cholesterol?,HEALTH_ADVICE
+How much fiber is in half a cup of garlic and is that good for PCOS?,BOTH
+Can skim milk help control gluten intolerance because of its calories?,BOTH
+Are grains good for someone with anemia?,HEALTH_ADVICE
+How many phosphorus are in cucumber and is it safe for kidney disease?,BOTH
+How much folate is in one ounce of mozzarella and is that good for hypothyroidism?,BOTH
+Can you tell me the vitamin A in half a cup of grapes?,NUTRITION_LOOKUP
+What foods should people with iron-deficiency anemia avoid?,HEALTH_ADVICE
+Are grains good for someone with acid reflux?,HEALTH_ADVICE
+What is the nutritional value of duck in terms of vitamin D?,NUTRITION_LOOKUP
+Does kiwi have enough magnesium to help with fatty liver disease?,BOTH
+What is a healthy diet for someone with high cholesterol?,HEALTH_ADVICE
+What is the omega-6 fatty acids in potatoes and is it good for gluten intolerance?,BOTH
+What makes blueberries suitable or unsuitable for type 1 diabetes based on its fiber?,BOTH
+Should someone with type 1 diabetes limit dairy intake?,HEALTH_ADVICE
+What is the potassium macro for cod?,NUTRITION_LOOKUP
+What is the zinc content of mango?,NUTRITION_LOOKUP
+What is the nutritional value of celery in terms of vitamin A?,NUTRITION_LOOKUP
+How many grams of sugar are in black beans?,NUTRITION_LOOKUP
+What role does the vitamin A in blueberries play for people with high cholesterol?,BOTH
+Is barley high in vitamin D?,NUTRITION_LOOKUP
+What is a healthy diet for someone with diabetes?,HEALTH_ADVICE
+What is the zinc breakdown for flaxseeds?,NUTRITION_LOOKUP
+I need the calcium count for barley.,NUTRITION_LOOKUP
+Is it safe to eat kiwi with coronary artery disease?,HEALTH_ADVICE
+Is spinach high in potassium?,NUTRITION_LOOKUP
+What is the phosphorus breakdown for white rice?,NUTRITION_LOOKUP
+What is the total folate per a medium portion of oats?,NUTRITION_LOOKUP
+How many grams of selenium are in sunflower seeds?,NUTRITION_LOOKUP
+Is the iron content of flaxseeds beneficial or harmful for anxiety?,BOTH
+Is mozzarella recommended or not recommended for celiac disease?,HEALTH_ADVICE
+What foods help reduce symptoms of inflammatory bowel disease?,HEALTH_ADVICE
+Are grains good for someone with osteoporosis?,HEALTH_ADVICE
+What is the total carbohydrates per 200 calories worth of potatoes?,NUTRITION_LOOKUP
+What is the sugar in chickpeas and is it good for PCOS?,BOTH
+Can the vitamin B12 in grapes benefit low blood pressure patients?,BOTH
+Which foods are beneficial for people with diabetes?,HEALTH_ADVICE
+Can celiac disease patients eat peanut butter? What is the cholesterol content?,BOTH
+Is cucumber good for PCOS? How much vitamin C does it contain?,BOTH
+Give me the sugar value for two tablespoons of kale.,NUTRITION_LOOKUP
+Best foods for managing arthritis?,HEALTH_ADVICE
+I need the thiamine count for spinach.,NUTRITION_LOOKUP
+What is a healthy diet for someone with coronary artery disease?,HEALTH_ADVICE
+Is beets recommended for diabetes? What is its calories content per serving?,BOTH
+How does almond butter's cholesterol level relate to elevated LDL cholesterol?,BOTH
+What is the nutritional value of chicken breast in terms of fiber?,NUTRITION_LOOKUP
+Can the protein in coconut oil benefit kidney disease patients?,BOTH
+What is the total cholesterol per a handful of of beef?,NUTRITION_LOOKUP
+Is white bread high in phosphorus and beneficial for polycystic ovary syndrome?,BOTH
+What foods should people with PCOS avoid?,HEALTH_ADVICE
+How does eating tilapia affect lactose intolerance given its high carbohydrates content?,BOTH
+How many grams of iron are in brown rice?,NUTRITION_LOOKUP
+How many selenium are in quinoa and is it safe for hyperthyroidism?,BOTH
+Is white rice recommended for type 2 diabetes? What is its omega-6 fatty acids content per serving?,BOTH
+Can you tell me the riboflavin in a handful of of Greek yogurt?,NUTRITION_LOOKUP
+What is the vitamin A breakdown for apples?,NUTRITION_LOOKUP
+How does eating oats affect GERD given its high selenium content?,BOTH
+I need the riboflavin count for peaches.,NUTRITION_LOOKUP
+What are the omega-6 fatty acids levels in salmon?,NUTRITION_LOOKUP
+How rich is eggs in calories?,NUTRITION_LOOKUP
+What is the saturated fat macro for whole wheat bread?,NUTRITION_LOOKUP
+Is lamb high in phosphorus and beneficial for metabolic syndrome?,BOTH
+What is a healthy diet for someone with irritable bowel syndrome?,HEALTH_ADVICE
+What should I eat if I have anemia?,HEALTH_ADVICE
+What vegetables are recommended for high blood pressure?,HEALTH_ADVICE
+Should someone with insomnia eat brown rice given its omega-6 fatty acids content?,BOTH
+Diet recommendations for polycystic ovary syndrome patients?,HEALTH_ADVICE
+Can lobster help control hypothyroidism because of its calories?,BOTH
+How does bell peppers's folate level relate to hyperthyroidism?,BOTH
+Is salmon recommended for gout attacks? What is its selenium content per serving?,BOTH
+What is the nutritional value of eggs in terms of iron?,NUTRITION_LOOKUP
+How many grams of fiber are in soybeans?,NUTRITION_LOOKUP
+Should someone with gestational diabetes limit dairy intake?,HEALTH_ADVICE
+Is it safe to eat pineapple with fatty liver disease?,HEALTH_ADVICE
+What is the total cholesterol per one piece of lentils?,NUTRITION_LOOKUP
+Are there foods that worsen rheumatoid arthritis?,HEALTH_ADVICE
+What are the total fat levels in watermelon?,NUTRITION_LOOKUP
+How does walnuts's cholesterol level relate to obesity?,BOTH
+Is quinoa a good source of vitamin B12 for people with polycystic ovary syndrome?,BOTH
+Give me the carbohydrates value for a small bowl of green peas.,NUTRITION_LOOKUP
+Is lentils recommended for low blood pressure? What is its zinc content per serving?,BOTH
+Can strawberries help control type 1 diabetes because of its sodium?,BOTH
+Is eggs recommended or not recommended for inflammatory bowel disease?,HEALTH_ADVICE
+How does eating watermelon affect obesity given its high potassium content?,BOTH
+What makes lobster suitable or unsuitable for high cholesterol based on its folate?,BOTH
+Which foods are beneficial for people with hyperthyroidism?,HEALTH_ADVICE
+What is the saturated fat content of sweet potatoes?,NUTRITION_LOOKUP
+What is the total omega-6 fatty acids per one piece of black beans?,NUTRITION_LOOKUP
+What role does the fiber in chia seeds play for people with high cholesterol?,BOTH
+How does diet affect anemia?,HEALTH_ADVICE
+What foods should people with type 1 diabetes avoid?,HEALTH_ADVICE
+Is mushrooms good for heart disease? How much carbohydrates does it contain?,BOTH
+How does eating dark chocolate affect GERD given its high total fat content?,BOTH
+Is duck high in phosphorus?,NUTRITION_LOOKUP
+How rich is whole milk in cholesterol?,NUTRITION_LOOKUP
+Is a low-carb diet good for elevated LDL cholesterol?,HEALTH_ADVICE
+Which foods are beneficial for people with irritable bowel syndrome?,HEALTH_ADVICE
+Best foods for managing GERD?,HEALTH_ADVICE
+Can the vitamin D in sunflower seeds benefit anxiety patients?,BOTH
+Should someone with cardiovascular disease limit dairy intake?,HEALTH_ADVICE
+Which foods are beneficial for people with acid reflux?,HEALTH_ADVICE
+What are the protein levels in cottage cheese?,NUTRITION_LOOKUP
+What should I eat if I have iron-deficiency anemia?,HEALTH_ADVICE
+Is the calories content of turkey breast beneficial or harmful for kidney disease?,BOTH
+Is a low-carb diet good for anemia?,HEALTH_ADVICE
+What is the zinc macro for mango?,NUTRITION_LOOKUP
+What makes kidney beans suitable or unsuitable for high cholesterol based on its vitamin C?,BOTH
+How much cholesterol is in one cup of tilapia and is that good for gout attacks?,BOTH
+How much omega-6 fatty acids is in one serving of mozzarella and is that good for insomnia?,BOTH
+Is pork loin good for gout? How much omega-3 fatty acids does it contain?,BOTH
+Can eating cabbage help with gout attacks?,HEALTH_ADVICE
+What eating habits help manage hypothyroidism?,HEALTH_ADVICE
+What is the vitamin A macro for turkey breast?,NUTRITION_LOOKUP
+How rich is dark chocolate in phosphorus?,NUTRITION_LOOKUP
+Is one serving of brown rice too much zinc for a gluten intolerance patient?,BOTH
+How does eating cottage cheese affect arthritis given its high calcium content?,BOTH
+What should I eat if I have high cholesterol?,HEALTH_ADVICE
+How many potassium are in a small bowl of duck?,NUTRITION_LOOKUP
+What is the total omega-6 fatty acids per a medium portion of tilapia?,NUTRITION_LOOKUP
+What is the vitamin B12 content of tempeh?,NUTRITION_LOOKUP
+How does diet affect low blood pressure?,HEALTH_ADVICE
+What is the total saturated fat per a small bowl of kale?,NUTRITION_LOOKUP
+What eating habits help manage kidney disease?,HEALTH_ADVICE
+What is the folate macro for olive oil?,NUTRITION_LOOKUP
+Should someone with insomnia eat crab given its vitamin B12 content?,BOTH
+What is the protein breakdown for grapes?,NUTRITION_LOOKUP
+What is the nutritional value of beets in terms of vitamin A?,NUTRITION_LOOKUP
+What vegetables are recommended for inflammatory bowel disease?,HEALTH_ADVICE
+How much saturated fat does sardines contain per serving?,NUTRITION_LOOKUP
+Diet recommendations for hypertension patients?,HEALTH_ADVICE
+How does eating whole wheat bread affect depression given its high zinc content?,BOTH
+What vegetables are recommended for osteoporosis?,HEALTH_ADVICE
+How should someone with depression adjust their diet?,HEALTH_ADVICE
+How much niacin is in 100g of edamame and is that good for hypothyroidism?,BOTH
+What proteins are best for a person with PCOS?,HEALTH_ADVICE
+Is peanut butter recommended for iron-deficiency anemia? What is its phosphorus content per serving?,BOTH
+How many protein calories does plain yogurt have?,NUTRITION_LOOKUP
+What is the best diet for controlling hyperthyroidism?,HEALTH_ADVICE
+Best foods for managing diabetes?,HEALTH_ADVICE
+What proteins are best for a person with fatty liver disease?,HEALTH_ADVICE
+How does eating mushrooms affect gluten intolerance given its high carbohydrates content?,BOTH
+Is it safe to eat bell peppers with fatty liver disease?,HEALTH_ADVICE
+What is the exact vitamin D in one tablespoon cabbage?,NUTRITION_LOOKUP
+What is the exact vitamin C in one piece tilapia?,NUTRITION_LOOKUP
+What role does the vitamin C in spinach play for people with celiac disease?,BOTH
+Is one piece of pumpkin seeds too much zinc for a low blood pressure patient?,BOTH
+Diet recommendations for high cholesterol patients?,HEALTH_ADVICE
+What fruits are safe for gluten intolerance patients?,HEALTH_ADVICE
+What vegetables are recommended for GERD?,HEALTH_ADVICE
+What is the total cholesterol per half a cup of watermelon?,NUTRITION_LOOKUP
+How many zinc calories does cottage cheese have?,NUTRITION_LOOKUP
+What is the omega-6 fatty acids breakdown for dark chocolate?,NUTRITION_LOOKUP
+Is a low-carb diet good for depression?,HEALTH_ADVICE
+Is tomatoes recommended for celiac disease? What is its carbohydrates content per serving?,BOTH
+What is the best diet for controlling osteoporosis?,HEALTH_ADVICE
+What foods help reduce symptoms of GERD?,HEALTH_ADVICE
+What percentage of daily vitamin C is in black beans?,NUTRITION_LOOKUP
+Can cheddar cheese help control acid reflux because of its sodium?,BOTH
+What is the best diet for controlling hypertension?,HEALTH_ADVICE
+What proteins are best for a person with chronic kidney disease?,HEALTH_ADVICE
+What are the fiber levels in beef?,NUTRITION_LOOKUP
+Can eating tilapia help with elevated LDL cholesterol?,HEALTH_ADVICE
+Is peaches good for iron-deficiency anemia? How much niacin does it contain?,BOTH
+How rich is black beans in fiber?,NUTRITION_LOOKUP
+How many grams of vitamin B12 are in flaxseeds?,NUTRITION_LOOKUP
+What is the carbohydrates breakdown for apples?,NUTRITION_LOOKUP
+Is a medium portion of white bread too much sodium for a arthritis patient?,BOTH
+"For diabetes management, how much olive oil can I eat given its niacin content?",BOTH
+How much sugar is in one tablespoon of cheddar cheese and is that good for polycystic ovary syndrome?,BOTH
+What is the protein in spinach and is it good for diabetes?,BOTH
+Is apples a good source of cholesterol for people with iron-deficiency anemia?,BOTH
+Is skim milk recommended or not recommended for obesity?,HEALTH_ADVICE
+What is the sodium content of white rice?,NUTRITION_LOOKUP
+Give me the cholesterol value for a handful of of dark chocolate.,NUTRITION_LOOKUP
+Is the zinc level in sardines appropriate for someone with gout?,BOTH
+What eating habits help manage type 1 diabetes?,HEALTH_ADVICE
+How many phosphorus calories does kale have?,NUTRITION_LOOKUP
+Does zucchini have a lot of potassium?,NUTRITION_LOOKUP
+Is carrots recommended for inflammatory bowel disease? What is its fiber content per serving?,BOTH
+How many magnesium are in quinoa and is it safe for cardiovascular disease?,BOTH
+Give me the total fat value for 100 grams of sunflower seeds.,NUTRITION_LOOKUP
+How does the potassium in quinoa compare to the daily requirement?,NUTRITION_LOOKUP
+I need the phosphorus count for cucumber.,NUTRITION_LOOKUP
+How much vitamin C is there in half a cup of cottage cheese?,NUTRITION_LOOKUP
+What is the nutritional value of chia seeds in terms of carbohydrates?,NUTRITION_LOOKUP
+How much vitamin D is there in 200 calories worth of onions?,NUTRITION_LOOKUP
+Is a low-carb diet good for osteoporosis?,HEALTH_ADVICE
+Can the phosphorus in avocado benefit low blood pressure patients?,BOTH
+Can eating pineapple help with lactose intolerance?,HEALTH_ADVICE
+Are grains good for someone with arthritis?,HEALTH_ADVICE
+How rich is chickpeas in omega-6 fatty acids?,NUTRITION_LOOKUP
+Can avocado help control anxiety because of its fiber?,BOTH
+"For PCOS management, how much lobster can I eat given its vitamin D content?",BOTH
+What makes broccoli suitable or unsuitable for type 1 diabetes based on its total fat?,BOTH
+What is the omega-6 fatty acids breakdown for mango?,NUTRITION_LOOKUP
+Is tofu a good source of selenium for people with fatty liver disease?,BOTH
+"For obesity management, how much tofu can I eat given its carbohydrates content?",BOTH
+Which foods are beneficial for people with chronic kidney disease?,HEALTH_ADVICE
+Which foods are beneficial for people with kidney disease?,HEALTH_ADVICE
+What is the total vitamin A per a handful of of shrimp?,NUTRITION_LOOKUP
+What is the niacin in pasta and is it good for depression?,BOTH
+Can eating peanut butter help with gout?,HEALTH_ADVICE
+Is peanuts recommended or not recommended for osteoporosis?,HEALTH_ADVICE
+What are the selenium levels in pork loin?,NUTRITION_LOOKUP
+How many calories are in one ounce of kale?,NUTRITION_LOOKUP
+What dietary changes help with GERD?,HEALTH_ADVICE
+Should someone with anemia eat apples given its omega-3 fatty acids content?,BOTH
+What is the total omega-6 fatty acids per half a cup of cucumber?,NUTRITION_LOOKUP
+What foods help reduce symptoms of cardiovascular disease?,HEALTH_ADVICE
+What is the exact riboflavin in one cup skim milk?,NUTRITION_LOOKUP
+What foods help reduce symptoms of low blood pressure?,HEALTH_ADVICE
+Diet recommendations for hypothyroidism patients?,HEALTH_ADVICE
+How does onions's thiamine level relate to obesity?,BOTH
+What is the exact sodium in 200 calories worth mozzarella?,NUTRITION_LOOKUP
+Is the calcium level in blueberries appropriate for someone with acid reflux?,BOTH
+How does diet affect chronic kidney disease?,HEALTH_ADVICE
+What is the total phosphorus per one ounce of asparagus?,NUTRITION_LOOKUP
+How many sodium are in two tablespoons of apples?,NUTRITION_LOOKUP
+How much fiber does tilapia contain per serving?,NUTRITION_LOOKUP
+Can osteoporosis patients eat bell peppers? What is the cholesterol content?,BOTH
+How many grams of omega-3 fatty acids are in whole wheat bread?,NUTRITION_LOOKUP
+What is the total fat macro for mozzarella?,NUTRITION_LOOKUP
+Is whole wheat bread recommended for high cholesterol? What is its niacin content per serving?,BOTH
+How does eating mushrooms affect anemia given its high carbohydrates content?,BOTH
+What is the carbohydrates macro for kiwi?,NUTRITION_LOOKUP
+Can irritable bowel syndrome patients eat whole wheat bread? What is the vitamin C content?,BOTH
+Does pineapple have enough vitamin B12 to help with GERD?,BOTH
+Is sunflower seeds good for obesity? How much sodium does it contain?,BOTH
+Is sweet potatoes recommended or not recommended for polycystic ovary syndrome?,HEALTH_ADVICE
+Is the phosphorus content of sardines beneficial or harmful for low blood pressure?,BOTH
+How much vitamin A does tofu contain per serving?,NUTRITION_LOOKUP
+How many thiamine are in a medium portion of duck?,NUTRITION_LOOKUP
+What is the vitamin C content of onions?,NUTRITION_LOOKUP
+What is the best diet for controlling GERD?,HEALTH_ADVICE
+How much niacin is there in a 150g portion of bananas?,NUTRITION_LOOKUP
+Is the calcium level in salmon appropriate for someone with kidney disease?,BOTH
+What is a healthy diet for someone with insomnia?,HEALTH_ADVICE
+What is the folate in broccoli and is it good for fatty liver disease?,BOTH
+Is a low-carb diet good for insomnia?,HEALTH_ADVICE
+What is the total vitamin C per 200 calories worth of Greek yogurt?,NUTRITION_LOOKUP
+Is one cup of pumpkin seeds too much total fat for a gastritis patient?,BOTH
+Can oats help control gastritis because of its vitamin C?,BOTH
+How many folate are in a 150g portion of bananas?,NUTRITION_LOOKUP
+Should someone with type 2 diabetes eat tofu given its total fat content?,BOTH
+What role does the saturated fat in lobster play for people with low blood pressure?,BOTH
+Should I avoid cauliflower if I have anxiety?,HEALTH_ADVICE
+What dietary changes help with fatty liver disease?,HEALTH_ADVICE
+What is the exact sugar in 100g dark chocolate?,NUTRITION_LOOKUP
+What vegetables are recommended for insomnia?,HEALTH_ADVICE
+Which foods are beneficial for people with elevated LDL cholesterol?,HEALTH_ADVICE
+What vegetables are recommended for gout attacks?,HEALTH_ADVICE
+Is oranges recommended or not recommended for obesity?,HEALTH_ADVICE
+How does eating sardines affect PCOS given its high sugar content?,BOTH
+What is the exact iron in 100 grams potatoes?,NUTRITION_LOOKUP
+How many riboflavin are in a 3-ounce portion of lobster?,NUTRITION_LOOKUP
+Diet recommendations for lactose intolerance patients?,HEALTH_ADVICE
+How does skim milk's cholesterol level relate to gestational diabetes?,BOTH
+How much thiamine is in a handful of of cheddar cheese and is that good for irritable bowel syndrome?,BOTH
+Are there foods that worsen hypertension?,HEALTH_ADVICE
+Is cashews high in phosphorus and beneficial for gastritis?,BOTH
+How much phosphorus does butter contain per serving?,NUTRITION_LOOKUP
+How much calories is there in a small bowl of asparagus?,NUTRITION_LOOKUP
+Does soybeans have a lot of fiber?,NUTRITION_LOOKUP
+What is the selenium macro for green peas?,NUTRITION_LOOKUP
+Does broccoli have enough potassium to help with inflammatory bowel disease?,BOTH
+"For rheumatoid arthritis management, how much pumpkin seeds can I eat given its carbohydrates content?",BOTH
+Can PCOS patients eat tuna? What is the saturated fat content?,BOTH
+What proteins are best for a person with hypothyroidism?,HEALTH_ADVICE
+What is the nutritional value of duck in terms of niacin?,NUTRITION_LOOKUP
+What role does the selenium in apples play for people with GERD?,BOTH
+Can quinoa help control rheumatoid arthritis because of its protein?,BOTH
+Can people with lactose intolerance eat skim milk?,HEALTH_ADVICE
+What role does the folate in soybeans play for people with depression?,BOTH
+What is the nutritional value of lobster in terms of phosphorus?,NUTRITION_LOOKUP
+Should someone with coronary artery disease limit dairy intake?,HEALTH_ADVICE
+What dietary changes help with hyperthyroidism?,HEALTH_ADVICE
+Is the calories level in zucchini appropriate for someone with hypothyroidism?,BOTH
+How does carrots's omega-3 fatty acids level relate to gout?,BOTH
+What is the total sodium per half a cup of bell peppers?,NUTRITION_LOOKUP
+Is the selenium level in pineapple appropriate for someone with diabetes?,BOTH
+How does eating cashews affect diabetes given its high cholesterol content?,BOTH
+Is flaxseeds recommended for GERD? What is its vitamin B12 content per serving?,BOTH
+Is a low-carb diet good for polycystic ovary syndrome?,HEALTH_ADVICE
+Which foods are beneficial for people with obesity?,HEALTH_ADVICE
+How much folate does strawberries contain per serving?,NUTRITION_LOOKUP
+How does the fiber in peanut butter compare to the daily requirement?,NUTRITION_LOOKUP
+Is it safe to eat carrots with diabetes?,HEALTH_ADVICE
+What is the best diet for controlling kidney disease?,HEALTH_ADVICE
+Can you tell me the cholesterol in 100 grams of cod?,NUTRITION_LOOKUP
+"For hypertension management, how much apples can I eat given its omega-3 fatty acids content?",BOTH
+Does apples have enough vitamin C to help with diabetes?,BOTH
+What should I eat if I have diabetes?,HEALTH_ADVICE
+Give me the sodium value for a 3-ounce portion of strawberries.,NUTRITION_LOOKUP
+What eating habits help manage irritable bowel syndrome?,HEALTH_ADVICE
+Give me the sodium value for one cup of crab.,NUTRITION_LOOKUP
+Give me the thiamine value for two tablespoons of olive oil.,NUTRITION_LOOKUP
+Is a low-carb diet good for gluten intolerance?,HEALTH_ADVICE
+Is the calories content of Greek yogurt beneficial or harmful for inflammatory bowel disease?,BOTH
+What is the exact potassium in a 3-ounce portion sardines?,NUTRITION_LOOKUP
+Is whole wheat bread recommended or not recommended for hypothyroidism?,HEALTH_ADVICE
+Is the riboflavin content of peaches beneficial or harmful for gestational diabetes?,BOTH
+How much niacin is there in one piece of garlic?,NUTRITION_LOOKUP
+Should I avoid pasta if I have fatty liver disease?,HEALTH_ADVICE
+What foods help reduce symptoms of fatty liver disease?,HEALTH_ADVICE
+What makes spinach suitable or unsuitable for metabolic syndrome based on its omega-3 fatty acids?,BOTH
+Is half a cup of lamb too much iron for a metabolic syndrome patient?,BOTH
+What eating habits help manage osteoporosis?,HEALTH_ADVICE
+Is it safe to eat cottage cheese with depression?,HEALTH_ADVICE
+Can spinach help control type 1 diabetes because of its vitamin C?,BOTH
+What is the sodium in carrots and is it good for obesity?,BOTH
+What is the cholesterol macro for shrimp?,NUTRITION_LOOKUP
+Can you tell me the folate in a small bowl of walnuts?,NUTRITION_LOOKUP
+What is the exact sugar in a small bowl broccoli?,NUTRITION_LOOKUP
+What makes edamame suitable or unsuitable for coronary artery disease based on its niacin?,BOTH
+Diet recommendations for iron-deficiency anemia patients?,HEALTH_ADVICE
+Is it safe to eat bananas with gluten intolerance?,HEALTH_ADVICE
+How many folate calories does oranges have?,NUTRITION_LOOKUP
+Can people with polycystic ovary syndrome eat pumpkin seeds?,HEALTH_ADVICE
+Is it safe to eat beets with kidney disease?,HEALTH_ADVICE
+What snacks are suitable for someone with GERD?,HEALTH_ADVICE
+Is carrots high in vitamin D?,NUTRITION_LOOKUP
+Can people with hypertension eat grapes?,HEALTH_ADVICE
+What fruits are safe for rheumatoid arthritis patients?,HEALTH_ADVICE
+How much vitamin A does salmon contain per serving?,NUTRITION_LOOKUP
+Diet recommendations for celiac disease patients?,HEALTH_ADVICE
+Is chickpeas good for anemia? How much carbohydrates does it contain?,BOTH
+What makes tuna suitable or unsuitable for type 1 diabetes based on its potassium?,BOTH
+Should someone with gluten intolerance eat walnuts given its vitamin B12 content?,BOTH
+Can you tell me the zinc in half a cup of quinoa?,NUTRITION_LOOKUP
+Is shrimp high in vitamin A and beneficial for gestational diabetes?,BOTH
+"For rheumatoid arthritis management, how much cod can I eat given its iron content?",BOTH
+What role does the selenium in shrimp play for people with hypertension?,BOTH
+What is the iron breakdown for sardines?,NUTRITION_LOOKUP
+Is the protein level in shrimp appropriate for someone with osteoporosis?,BOTH
+How rich is oranges in magnesium?,NUTRITION_LOOKUP
+How does diet affect iron-deficiency anemia?,HEALTH_ADVICE
+Diet recommendations for chronic kidney disease patients?,HEALTH_ADVICE
+Can hyperthyroidism patients eat chia seeds? What is the zinc content?,BOTH
+What snacks are suitable for someone with polycystic ovary syndrome?,HEALTH_ADVICE
+Is plain yogurt recommended or not recommended for elevated LDL cholesterol?,HEALTH_ADVICE
+Is pumpkin seeds high in sugar and beneficial for lactose intolerance?,BOTH
+What is the nutritional value of cod in terms of potassium?,NUTRITION_LOOKUP
+Is the sugar content of mozzarella beneficial or harmful for type 2 diabetes?,BOTH
+What percentage of daily vitamin D is in oats?,NUTRITION_LOOKUP
+How should someone with coronary artery disease adjust their diet?,HEALTH_ADVICE
+Can onions help control type 1 diabetes because of its calories?,BOTH
+What role does the vitamin B12 in beef play for people with high cholesterol?,BOTH
+Does zucchini have enough iron to help with GERD?,BOTH
+How much niacin is there in a 3-ounce portion of walnuts?,NUTRITION_LOOKUP
+Is the iron content of oranges beneficial or harmful for depression?,BOTH
+Is the magnesium content of bananas beneficial or harmful for hypertension?,BOTH
+Does pinto beans have enough iron to help with acid reflux?,BOTH
+How much vitamin A is there in 100 grams of grapes?,NUTRITION_LOOKUP
+"For celiac disease management, how much plain yogurt can I eat given its calcium content?",BOTH
+Can eating spinach help with type 2 diabetes?,HEALTH_ADVICE
+Can pumpkin seeds help control low blood pressure because of its selenium?,BOTH
+Can the zinc in cauliflower benefit gestational diabetes patients?,BOTH
+Can hypertension patients eat turkey breast? What is the iron content?,BOTH
+What is a healthy diet for someone with hypertension?,HEALTH_ADVICE
+What is the exact vitamin A in 100g whole milk?,NUTRITION_LOOKUP
+What eating habits help manage metabolic syndrome?,HEALTH_ADVICE
+What role does the cholesterol in oats play for people with lactose intolerance?,BOTH
+Is onions high in niacin and beneficial for cardiovascular disease?,BOTH
+What role does the phosphorus in cottage cheese play for people with irritable bowel syndrome?,BOTH
+What is the calories content of soybeans?,NUTRITION_LOOKUP
+Can iron-deficiency anemia patients eat dark chocolate? What is the cholesterol content?,BOTH
+Is turkey breast high in carbohydrates?,NUTRITION_LOOKUP
+Should I avoid lamb if I have iron-deficiency anemia?,HEALTH_ADVICE
+Are grains good for someone with coronary artery disease?,HEALTH_ADVICE
+Is cabbage high in vitamin C and beneficial for GERD?,BOTH
+How does the cholesterol in cheddar cheese compare to the daily requirement?,NUTRITION_LOOKUP
+Can heart disease patients eat white rice? What is the sugar content?,BOTH
+How does eating pineapple affect kidney disease given its high zinc content?,BOTH
+Give me the vitamin A value for 100g of almonds.,NUTRITION_LOOKUP
+How many saturated fat calories does cod have?,NUTRITION_LOOKUP
+What is the exact folate in half a cup whole milk?,NUTRITION_LOOKUP
+What is a healthy diet for someone with osteoporosis?,HEALTH_ADVICE
+What is the best diet for controlling gestational diabetes?,HEALTH_ADVICE
+What is the exact phosphorus in a 3-ounce portion cheddar cheese?,NUTRITION_LOOKUP
+How rich is avocado in carbohydrates?,NUTRITION_LOOKUP
+I need the selenium count for lentils.,NUTRITION_LOOKUP
+Can eating brown rice help with hyperthyroidism?,HEALTH_ADVICE
+Can eating tomatoes help with type 2 diabetes?,HEALTH_ADVICE
+What percentage of daily total fat is in crab?,NUTRITION_LOOKUP
+How much calcium is there in a 150g portion of tofu?,NUTRITION_LOOKUP
+Does duck have a lot of vitamin B12?,NUTRITION_LOOKUP
+What is a healthy diet for someone with high blood pressure?,HEALTH_ADVICE
+What fruits are safe for inflammatory bowel disease patients?,HEALTH_ADVICE
+Is it safe to eat chickpeas with elevated LDL cholesterol?,HEALTH_ADVICE
+What foods help reduce symptoms of type 1 diabetes?,HEALTH_ADVICE
+Is a low-carb diet good for iron-deficiency anemia?,HEALTH_ADVICE
+What is the riboflavin macro for strawberries?,NUTRITION_LOOKUP
+Is oranges high in niacin and beneficial for celiac disease?,BOTH
+How does eating cauliflower affect gout given its high cholesterol content?,BOTH
+What is the phosphorus in cottage cheese and is it good for chronic kidney disease?,BOTH
+"For hypothyroidism management, how much whole wheat bread can I eat given its sugar content?",BOTH
+Is whole milk high in calcium?,NUTRITION_LOOKUP
+What fruits are safe for GERD patients?,HEALTH_ADVICE
+How does eating white bread affect iron-deficiency anemia given its high phosphorus content?,BOTH
+What is the exact folate in half a cup pinto beans?,NUTRITION_LOOKUP
+How much magnesium is there in two tablespoons of lentils?,NUTRITION_LOOKUP
+Are grains good for someone with obesity?,HEALTH_ADVICE
+What is the nutritional value of brown rice in terms of cholesterol?,NUTRITION_LOOKUP
+How does diet affect gastritis?,HEALTH_ADVICE
+How rich is strawberries in vitamin B12?,NUTRITION_LOOKUP
+Is cucumber recommended or not recommended for gout attacks?,HEALTH_ADVICE
+Does pasta have a lot of sugar?,NUTRITION_LOOKUP
+How does spinach's carbohydrates level relate to coronary artery disease?,BOTH
+How many zinc calories does lamb have?,NUTRITION_LOOKUP
+How much protein does dark chocolate contain per serving?,NUTRITION_LOOKUP
+Can the riboflavin in cucumber benefit depression patients?,BOTH
+What is the exact thiamine in one cup beef?,NUTRITION_LOOKUP
+What should I eat if I have gout attacks?,HEALTH_ADVICE
+What foods help reduce symptoms of depression?,HEALTH_ADVICE
+What should I eat if I have lactose intolerance?,HEALTH_ADVICE
+What dietary changes help with coronary artery disease?,HEALTH_ADVICE
+What is the sugar macro for watermelon?,NUTRITION_LOOKUP
+Is green peas good for obesity? How much selenium does it contain?,BOTH
+Is one ounce of barley too much folate for a coronary artery disease patient?,BOTH
+Can duck help control fatty liver disease because of its vitamin C?,BOTH
+Should someone with iron-deficiency anemia limit dairy intake?,HEALTH_ADVICE
+What is the nutritional value of flaxseeds in terms of omega-6 fatty acids?,NUTRITION_LOOKUP
+Best foods for managing high blood pressure?,HEALTH_ADVICE
+What is a healthy diet for someone with anxiety?,HEALTH_ADVICE
+What is the calories macro for tilapia?,NUTRITION_LOOKUP
+How does bell peppers's calories level relate to osteoporosis?,BOTH
+Diet recommendations for gout attacks patients?,HEALTH_ADVICE
+Can the saturated fat in apples benefit gestational diabetes patients?,BOTH
+"For gluten intolerance management, how much tilapia can I eat given its sodium content?",BOTH
+Are grains good for someone with gestational diabetes?,HEALTH_ADVICE
+Is cucumber good for anemia? How much fiber does it contain?,BOTH
+Is a small bowl of Greek yogurt too much vitamin B12 for a heart disease patient?,BOTH
+How should someone with osteoporosis adjust their diet?,HEALTH_ADVICE
+Are there foods that worsen heart disease?,HEALTH_ADVICE
+Is potatoes a good source of selenium for people with hypothyroidism?,BOTH
+What vegetables are recommended for lactose intolerance?,HEALTH_ADVICE
+Is a low-carb diet good for acid reflux?,HEALTH_ADVICE
+Should someone with inflammatory bowel disease limit dairy intake?,HEALTH_ADVICE

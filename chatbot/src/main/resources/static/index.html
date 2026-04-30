@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriCare AI — Tư vấn Dinh dưỡng &amp; Sức khỏe</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="icon-btn menu-btn" id="menu-toggle" title="Đóng/Mở menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <button class="icon-btn search-btn" id="search-history-btn" title="Tìm kiếm đoạn chat">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </div>
+
+        <button class="nav-item new-chat-btn" id="new-chat-btn">
+            <span class="material-symbols-outlined">add</span>
+            <span class="nav-text">Cuộc trò chuyện mới</span>
+        </button>
+        <button class="nav-item" id="dashboard-toggle-btn">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="nav-text">Dashboard của tôi</span>
+        </button>
+
+        <div class="recent-section" id="recent-section">
+            <div class="recent-title">Gần đây</div>
+            <div id="chat-history-list"></div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="app-name">NutriCare AI</div>
+            <div class="avatar" id="avatar-btn" title="Tài khoản">
+                <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Avatar">
+            </div>
+        </header>
+
+        <div class="profile-popup" id="profile-popup">
+            <div class="profile-header">
+                <img id="popup-avatar" src="" alt="Avatar">
+                <div class="profile-name" id="popup-fullname">Chào bạn,</div>
+                <button class="manage-acc-btn">Quản lý Tài khoản của bạn</button>
+            </div>
+
+            <div class="account-list-container">
+                <div class="account-list-title">Các tài khoản đã lưu</div>
+                <div class="account-list" id="account-list"></div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="action-btn" id="add-account-btn">
+                    <span class="material-symbols-outlined">add</span> Thêm tài khoản khác
+                </button>
+                <button class="action-btn" id="logout-btn">
+                    <span class="material-symbols-outlined">logout</span> Đăng xuất khỏi tất cả các tài khoản
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chat-container">
+            <div class="welcome-area" id="welcome-area">
+                <div class="welcome-icon">
+                    <span class="material-symbols-outlined">nutrition</span>
+                </div>
+                <div class="greeting">
+                    <h1 id="greeting-headline">Xin chào!</h1>
+                    <h2>Bạn cần tư vấn gì?</h2>
+                </div>
+            </div>
+            <div class="messages-wrapper" id="messages-wrapper"></div>
+        </div>
+
+        <div class="bottom-area">
+            <div class="input-wrapper">
+                <textarea id="chat-input" placeholder="Hỏi tôi bất cứ điều gì về dinh dưỡng..." rows="1"></textarea>
+                <button class="icon-btn send-btn" id="send-btn">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Dashboard side panel -->
+    <div id="dashboard-panel" class="dashboard-panel hidden">
+        <div class="dash-header">
+            <span class="material-symbols-outlined" style="color: var(--color-accent);">dashboard</span>
+            <h3>Nhật ký Dinh Dưỡng</h3>
+            <button id="close-dashboard" class="icon-btn">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="dashboard-list" class="dash-list"></div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal"><span class="material-symbols-outlined">close</span></button>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-login">Đăng nhập</button>
+                <button class="auth-tab" id="tab-register">Đăng ký</button>
+            </div>
+
+            <form id="login-form" class="auth-form active">
+                <input type="text" id="login-username" placeholder="Tên đăng nhập" required>
+                <input type="password" id="login-password" placeholder="Mật khẩu" required>
+                <button type="submit" class="submit-btn">Đăng nhập</button>
+                <p class="auth-msg" id="login-msg"></p>
+            </form>
+
+            <form id="register-form" class="auth-form">
+                <input type="text" id="reg-fullname" placeholder="Họ và tên" required>
+                <input type="text" id="reg-username" placeholder="Tên đăng nhập" required>
+                <input type="password" id="reg-password" placeholder="Mật khẩu" required>
+                <button type="submit" class="submit-btn">Đăng ký</button>
+                <p class="auth-msg" id="reg-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/marked.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

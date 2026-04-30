@@ -1,0 +1,30 @@
+# Core
+pyyaml
+requests
+fastapi
+uvicorn
+
+# NLP
+spacy
+nltk
+# after: python -m spacy download en_core_web_sm
+
+# Vector search & retrieval
+chromadb
+sentence-transformers
+rank-bm25
+scikit-learn
+
+# Data loading
+datasets
+pandas
+tabulate
+
+# Training (TV1 Training 1, TV2 Training 2, TV3 Training 3)
+transformers
+torch
+seqeval
+accelerate
+
+# Data quality evaluation
+datasketch

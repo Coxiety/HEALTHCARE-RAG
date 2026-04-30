@@ -1,0 +1,24 @@
+# =====================================================
+# CONFIG — Full English RAG Nutrition & Health Q&A
+# =====================================================
+
+# --- Paths ---
+sqlite_path: "data/usda_food.db"
+
+chroma_persist_dir: "data/chroma_db"
+chroma_collection: "nfcorpus"
+
+# --- Models (EN pipeline — to be updated after training) ---
+embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+llm_model: "llama3.1:8b"
+llm_backend: "ollama"
+ner_model_path: "models/ner_bert/"
+classifier_model_path: "models/classifier_bert/"
+
+# --- Retrieval ---
+top_k: 5
+similarity_threshold: 0.5
+
+# --- Chunking ---
+chunk_size: 500
+chunk_overlap: 100
