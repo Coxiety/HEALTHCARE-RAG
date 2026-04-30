@@ -34,7 +34,11 @@ src/data/
 # Large generated data — rebuild via scripts
 data/en/triplets.jsonl
 data/en/triplets.zip
+data/en/bc5cdr_bio.jsonl
 data/nfcorpus/
+
+# Misc files
+*.pdf
 
 # Notebook local data dirs
 notebooks/en/data/
