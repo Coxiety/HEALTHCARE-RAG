@@ -122,6 +122,21 @@ models/
 
 ---
 
+## Downloads
+
+Pre-trained models and USDA database (required to run):
+
+**[Google Drive](https://drive.google.com/drive/folders/1N42YIeaPXBH9S9hyRiGw42SHcyzTvn8L?usp=sharing)**
+
+| File | Extract to |
+|---|---|
+| `ner_bert.zip` | `models/ner_bert/` |
+| `classifier_bert.zip` | `models/classifier_bert/` |
+| `embedding_domain.zip` | `models/embedding_domain/` |
+| `usda_food.db` | `data/usda_food.db` |
+
+---
+
 ## Setup
 
 **Requirements:** Python 3.10+, JDK 21+, Maven, [Ollama](https://ollama.com)
