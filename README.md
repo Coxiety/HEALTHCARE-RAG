@@ -175,13 +175,3 @@ python main/rag_server.py        # FastAPI at http://localhost:8000
 # Terminal 3
 cd chatbot && mvn spring-boot:run # UI at http://localhost:8081
 ```
-
----
-
-## Team
-
-| Member | Responsibility |
-|---|---|
-| TV1 | EN pipeline · retrieval baselines · NER training · eval |
-| TV2 | Triplet mining · embedding fine-tune |
-| TV3 | Classifier fine-tune · Spring Boot UI · report |
