@@ -69,7 +69,7 @@ with open(OUT_PATH, "w", encoding="utf-8") as f:
     for rec in sampled:
         f.write(json.dumps(rec) + "\n")
 
-print(f"Wrote {len(sampled)} eval pairs → {OUT_PATH}")
+print(f"Wrote {len(sampled)} eval pairs -> {OUT_PATH}")
 
 # Quick stats
 avg_rel = sum(len(r["relevant_docs"]) for r in sampled) / len(sampled)

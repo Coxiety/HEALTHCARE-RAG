@@ -191,10 +191,12 @@ def main() -> None:
     print(df_raw["intent_label"].value_counts().to_string())
 
     # Training-ready version: 500/class, rename columns for training notebook
+    sampled_dfs = []
+    for label, group in df_raw.groupby("intent_label"):
+        sampled_dfs.append(group.sample(500, random_state=42))
+    df_train = pd.concat(sampled_dfs).reset_index(drop=True)
     df_train = (
-        df_raw.groupby("intent_label", group_keys=False)
-        .apply(lambda g: g.sample(500, random_state=42))
-        .reset_index(drop=True)
+        df_train
         .rename(columns={"question": "text", "intent_label": "label"})
         [["text", "label"]]
     )

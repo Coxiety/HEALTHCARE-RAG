@@ -52,6 +52,23 @@ public class ChatController {
         String userMessage = payload.get("message");
         String sessionId   = payload.get("sessionId");
 
+        List<Map<String, String>> historyList = new ArrayList<>();
+        if (sessionId != null && !sessionId.trim().isEmpty()) {
+            List<ChatMessage> dbHistory = chatMessageRepository.findBySessionIdOrderByCreatedAtAsc(sessionId);
+            for (ChatMessage msg : dbHistory) {
+                String role = msg.getRole();
+                if ("ai".equals(role)) {
+                    role = "assistant";
+                }
+                if (msg.getContent() != null && !msg.getContent().trim().isEmpty()) {
+                    historyList.add(Map.of(
+                        "role", role,
+                        "content", msg.getContent()
+                    ));
+                }
+            }
+        }
+
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             ChatMessage userMsg = new ChatMessage();
@@ -71,7 +88,7 @@ public class ChatController {
         String savedCalories = null;
 
         try {
-            Map<String, Object> ragResult = callRagModel(userMessage);
+            Map<String, Object> ragResult = callRagModel(userMessage, historyList);
 
             aiResponse = (String) ragResult.getOrDefault("answer", null);
             intent = (String) ragResult.getOrDefault("intent", null);
@@ -186,7 +203,7 @@ public class ChatController {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Object> callRagModel(String userMessage) {
+    private Map<String, Object> callRagModel(String userMessage, List<Map<String, String>> history) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setConnectTimeout(10_000);
         factory.setReadTimeout(ragTimeoutMs);
@@ -194,7 +211,10 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate(factory);
         ResponseEntity<Map> response = restTemplate.postForEntity(
                 ragApiUrl + "/ask",
-                Map.of("message", userMessage),
+                Map.of(
+                    "message", userMessage,
+                    "history", history
+                ),
                 Map.class
         );
 

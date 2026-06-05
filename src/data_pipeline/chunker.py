@@ -26,7 +26,7 @@ class Chunker:
         while i < len(text):
             chunk = text[i : i + self.chunk_size].strip()
             if chunk:
-                chunks.append({"id": str(uuid.uuid4()), "text": chunk, "source": source})
+                chunks.append({"id": str(uuid.uuid5(uuid.NAMESPACE_DNS, chunk)), "text": chunk, "source": source})
             i += step
 
         return chunks

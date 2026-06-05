@@ -35,7 +35,7 @@ class Embedder:
                 source = obj.get("source", filepath)
                 if text:
                     chunks.append({
-                        "id":     str(uuid.uuid4()),
+                        "id":     str(uuid.uuid5(uuid.NAMESPACE_DNS, text)),
                         "text":   text,
                         "source": source,
                     })

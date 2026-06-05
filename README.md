@@ -43,6 +43,22 @@ English-language Retrieval-Augmented Generation system for nutrition and health 
 | Hybrid RRF | 0.50 |
 | Hybrid + Reranker | **0.55** |
 
+## Automatic RAG Evaluation
+
+Run batch evaluation on a QA dataset with ground truth:
+
+```powershell
+python main/evaluate_rag.py --input data/en/eval_200.jsonl --output-dir reports/en/rag_eval
+```
+
+Supported fields in the input file:
+- `question` required
+- `answer` or `reference_answer` for answer scoring
+- `relevant_docs` for retrieval scoring
+- `expected_intent`, `expected_answer_keywords`, `expected_source_keywords` for routing and keyword checks
+
+The evaluator writes `summary.json` and `cases.csv` to the output directory. In `full` mode it measures intent accuracy, retrieval metrics, answer exact match, token F1, keyword/source hits, and latency. In `retrieval` mode it skips generation and only scores retrieval.
+
 ---
 
 ## Models
@@ -77,9 +93,18 @@ All notebooks run on **Google Colab GPU**. Workflow: upload data to Drive → op
 | `notebooks/en/training_ner.ipynb` | `data/en/bc5cdr_bio.jsonl` | `models/ner_bert/` |
 | `notebooks/en/training_embedding.ipynb` | `data/en/triplets.jsonl` | `models/embedding_domain/` |
 | `notebooks/en/training_classifier.ipynb` | `data/en/intent_data.csv` | `models/classifier_bert/` |
+| `notebooks/en/training_reranker.ipynb` | repo mounted/copied on Colab/Kaggle | `models/reranker_domain/final/` |
 
 > **Note:** `bc5cdr_bio.jsonl` and `triplets.jsonl` are not tracked by git (too large).
 > `intent_data.csv` is tracked — `git pull` is enough for the classifier notebook.
+
+### Training Script
+
+| Script | Input | Output |
+|---|---|---|
+| `main/train_reranker.py` | `data/en/corpus.jsonl`, `data/nfcorpus/queries.jsonl`, `data/nfcorpus/qrels/train.tsv`, `data/nfcorpus/qrels/dev.tsv` | `models/reranker_domain/final/` |
+
+After training the reranker, set `reranker_model` in `configs/config.yaml` to the saved folder if you want the pipeline to load it by default.
 
 After downloading, extract to the corresponding `models/` subfolder:
 
@@ -141,13 +166,32 @@ Pre-trained models and USDA database (required to run):
 
 **Requirements:** Python 3.10+, JDK 21+, Maven, [Ollama](https://ollama.com)
 
+Backend accounts are stored in a file-based H2 database that is now resolved by the server itself, so login data survives restarts even if you launch the app from a different working directory.
+
+One-command setup from the repo root:
+
+```powershell
+.\setup_project.ps1 -DownloadSpaCyModel -UpgradePip
+```
+
+If you have multiple Python versions installed, pass `-PythonExecutable` with the exact `python.exe` you want the script to use.
+
+What it does:
+- creates `.venv` if it does not exist
+- installs packages from `requirementLib.txt`
+- downloads `en_core_web_sm` for spaCy
+
+Manual setup if you want to do it step by step:
+
 ```bash
 conda create -n nutrition-rag python=3.10
 conda activate nutrition-rag
-pip install -r requirements.txt
+pip install -r requirementLib.txt
 python -m spacy download en_core_web_sm
 ollama pull llama3.1:8b
 ```
+
+To reuse the same pattern in another project, copy `setup_project.ps1` and your requirements file into that project, then run the script from that project's root.
 
 Build USDA database (requires raw CSV in `FoodData_Central_csv_*/`):
 

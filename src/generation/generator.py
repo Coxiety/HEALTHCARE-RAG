@@ -14,17 +14,30 @@ class Generator:
     # Prompt builder
     # ------------------------------------------------------------------
 
+    def _format_single_nutrition_data(self, data: dict) -> str:
+        food_desc = data.get("food_description", "Unknown")
+        fdc_id    = data.get("fdc_id", "")
+        text = f"Food: {food_desc}\n"
+        nutrients = data.get("nutrients_per_100g")
+        if nutrients:
+            for name, v in nutrients.items():
+                text += f"  {name}: {v['amount']} {v['unit']} / 100g\n"
+        elif data.get("nutrient_name"):
+            text += f"  {data['nutrient_name']}: {data['amount_per_100g']} {data['unit']} / 100g\n"
+        text += f"Source: USDA FoodData Central (fdc_id={fdc_id})"
+        return text
+
     def build_prompt(
         self,
         query: str,
-        nutrition_data: dict | None,
+        nutrition_data: dict | list[dict] | None,
         health_chunks: list,
         query_type: str | None = None,
     ) -> str:
         """
         Ghép prompt từ kết quả retrieval.
 
-        nutrition_data: dict từ SqliteManager.lookup() hoặc None
+        nutrition_data: dict, list[dict] từ SqliteManager hoặc None
         health_chunks : list of RetrievedChunk (có .text và .source)
         query_type    : "NUTRITION_LOOKUP" | "HEALTH_ADVICE" | "BOTH" | None
         """
@@ -33,20 +46,27 @@ class Generator:
         need_nutrition = query_type in (None, "NUTRITION_LOOKUP", "BOTH")
         need_health    = query_type in (None, "HEALTH_ADVICE",    "BOTH")
 
+        comparison_instruction = ""
         if need_nutrition and nutrition_data:
-            food_desc = nutrition_data.get("food_description", "Unknown")
-            fdc_id    = nutrition_data.get("fdc_id", "")
-            nutrition_text = f"Food: {food_desc}\n"
-            nutrients = nutrition_data.get("nutrients_per_100g")
-            if nutrients:
-                for name, v in nutrients.items():
-                    nutrition_text += f"  {name}: {v['amount']} {v['unit']} / 100g\n"
-            elif nutrition_data.get("nutrient_name"):
-                nutrition_text += f"  {nutrition_data['nutrient_name']}: {nutrition_data['amount_per_100g']} {nutrition_data['unit']} / 100g\n"
-            nutrition_text += f"Source: USDA FoodData Central (fdc_id={fdc_id})"
+            if isinstance(nutrition_data, list):
+                nutrition_texts = []
+                for item in nutrition_data:
+                    nutrition_texts.append(self._format_single_nutrition_data(item))
+                nutrition_text = "\n\n".join(nutrition_texts)
+                if len(nutrition_data) > 1:
+                    comparison_instruction = (
+                        "IMPORTANT FOR COMPARISONS: Since you are comparing multiple foods, you MUST present a side-by-side nutrition comparison using a Markdown table.\n"
+                        "The table should contain columns: Nutrient, [Food 1 short name], [Food 2 short name], etc., and list values per 100g (or scaled if a specific amount was requested).\n"
+                        "Make sure to list ALL available key nutrients (Protein, Energy, Total lipid (fat), Carbohydrate, etc.) in the table columns/rows for ALL foods. Do not omit any foods from the table.\n"
+                        "Follow the table with a concise explanation and practical suggestions.\n\n"
+                    )
+            else:
+                nutrition_text = self._format_single_nutrition_data(nutrition_data)
+
             sections.append(
                 f"[Nutrition Data — USDA FoodData Central]\n"
                 f"IMPORTANT: Use ONLY these exact values in your answer. Do NOT use any other numbers.\n"
+                f"Note: All database nutrient amounts are given per 100g. If the user asks for a comparison or a different serving size (e.g. 3 ounces or 100g), calculate and scale these values accordingly.\n\n"
                 f"{nutrition_text}"
             )
 
@@ -62,6 +82,7 @@ class Generator:
             "You are a professional nutrition and health assistant. Answer DIRECTLY in English, concisely and accurately.\n"
             "Structure: (1) direct answer, (2) explanation or mechanism, (3) practical food suggestions if relevant.\n"
             "CRITICAL: Use ONLY the exact numbers from the provided data. Never invent or estimate nutritional values.\n\n"
+            f"{comparison_instruction}"
             f"{body}\n\n"
             f"Question: {query}\n\n"
             "Answer (cite sources at the end):"
@@ -84,9 +105,10 @@ class Generator:
     def generate(
         self,
         query: str,
-        nutrition_data: dict | None,
+        nutrition_data: dict | list[dict] | None,
         health_chunks: list,
         query_type: str | None = None,
+        history: list[dict] = None,
     ) -> dict:
         """
         Gọi Ollama và trả về kết quả.
@@ -98,18 +120,22 @@ class Generator:
                 "used_llm": True/False
             }
         """
-        # NUTRITION_LOOKUP với data USDA: trả thẳng, không qua LLM
-        if query_type == "NUTRITION_LOOKUP" and nutrition_data and nutrition_data.get("nutrients_per_100g"):
+        # NUTRITION_LOOKUP với data USDA: trả thẳng, không qua LLM (chỉ áp dụng khi có đúng 1 thực phẩm đầy đủ thông tin)
+        if query_type == "NUTRITION_LOOKUP" and nutrition_data and isinstance(nutrition_data, dict) and nutrition_data.get("nutrients_per_100g"):
             answer = self._format_nutrition_answer(nutrition_data)
             sources = [f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})"]
             return {"answer": answer, "sources": sources, "used_llm": False}
 
         prompt = self.build_prompt(query, nutrition_data, health_chunks, query_type)
-        answer = self._call_ollama(prompt)
+        answer = self._call_ollama(prompt, history)
 
         sources = [c.source for c in health_chunks]
         if nutrition_data:
-            sources.append(f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})")
+            if isinstance(nutrition_data, list):
+                for item in nutrition_data:
+                    sources.append(f"USDA FoodData Central (fdc_id={item['fdc_id']})")
+            else:
+                sources.append(f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})")
 
         if answer is None:
             answer = self._fallback_answer(query, nutrition_data, health_chunks, query_type)
@@ -123,24 +149,31 @@ class Generator:
             "used_llm": used_llm,
         }
 
-    def _call_ollama(self, prompt: str) -> str | None:
+    def _call_ollama(self, prompt: str, history: list[dict] = None) -> str | None:
+        history = history or []
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are a professional nutrition and health advisor. "
+                    "Answer questions based on the provided scientific documents. "
+                    "Always respond in English, directly and thoroughly. "
+                    "Never refuse to answer — always use the provided context to give helpful information."
+                ),
+            }
+        ]
+
+        for msg in history:
+            messages.append({"role": msg["role"], "content": msg["content"]})
+
+        messages.append({"role": "user", "content": prompt})
+
         try:
             resp = requests.post(
                 f"{self.host}/api/chat",
                 json={
                     "model":   self.model,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": (
-                                "You are a professional nutrition and health advisor. "
-                                "Answer questions based on the provided scientific documents. "
-                                "Always respond in English, directly and thoroughly. "
-                                "Never refuse to answer — always use the provided context to give helpful information."
-                            ),
-                        },
-                        {"role": "user", "content": prompt},
-                    ],
+                    "messages": messages,
                     "stream":  False,
                     "options": {
                         "num_ctx":     4096,
@@ -194,7 +227,7 @@ class Generator:
     @staticmethod
     def _fallback_answer(
         query: str,
-        nutrition_data: dict | None,
+        nutrition_data: dict | list[dict] | None,
         health_chunks: list,
         query_type: str | None = None,
     ) -> str:
@@ -205,11 +238,23 @@ class Generator:
 
         if need_nutrition:
             if nutrition_data:
-                parts.append(
-                    f"USDA data: {nutrition_data.get('nutrient_name', '')} of "
-                    f"'{nutrition_data.get('food_description', '')}' is "
-                    f"{nutrition_data.get('amount_per_100g', '')} {nutrition_data.get('unit', '')} / 100g."
-                )
+                if isinstance(nutrition_data, list):
+                    for item in nutrition_data:
+                        parts.append(f"USDA data for '{item.get('food_description', '')}' (fdc_id={item.get('fdc_id', '')}):")
+                        nutrients = item.get("nutrients_per_100g")
+                        if nutrients:
+                            for name, v in nutrients.items():
+                                parts.append(f"  - {name}: {v['amount']} {v['unit']} / 100g")
+                        elif item.get("nutrient_name"):
+                            parts.append(f"  - {item.get('nutrient_name')}: {item.get('amount_per_100g')} {item.get('unit')} / 100g")
+                else:
+                    parts.append(f"USDA data for '{nutrition_data.get('food_description', '')}' (fdc_id={nutrition_data.get('fdc_id', '')}):")
+                    nutrients = nutrition_data.get("nutrients_per_100g")
+                    if nutrients:
+                        for name, v in nutrients.items():
+                            parts.append(f"  - {name}: {v['amount']} {v['unit']} / 100g")
+                    elif nutrition_data.get("nutrient_name"):
+                        parts.append(f"  - {nutrition_data.get('nutrient_name')}: {nutrition_data.get('amount_per_100g')} {nutrition_data.get('unit')} / 100g")
             else:
                 parts.append("No USDA nutrition data found.")
 

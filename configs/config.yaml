@@ -10,6 +10,7 @@ chroma_collection: "nfcorpus"
 
 # --- Models (EN pipeline — to be updated after training) ---
 embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+reranker_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
 llm_model: "llama3.1:8b"
 llm_backend: "ollama"
 ner_model_path: "models/ner_bert/"

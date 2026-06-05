@@ -106,7 +106,26 @@ class NutritionPipeline:
                 return usda_name
         return None
 
-    def _lookup_nutrition_ner(self, entities: dict) -> dict | None:
+    def _lookup_vi_all_nutrients(self, vi_name: str) -> dict | None:
+        food = self.sqlite.find_food(vi_name)
+        if not food:
+            return None
+        result = {
+            "fdc_id": food["fdc_id"],
+            "food_description": food["description"],
+            "data_type": food["data_type"],
+        }
+        key_nutrients = ["Protein", "Energy", "Total lipid (fat)", "Carbohydrate, by difference", "Fiber, total dietary"]
+        nutrients = {}
+        for name in key_nutrients:
+            row = self.sqlite.get_nutrient(food["fdc_id"], name)
+            if row:
+                nutrients[name] = {"amount": row["amount_per_100g"], "unit": row["unit"]}
+        if nutrients:
+            result["nutrients_per_100g"] = nutrients
+        return result
+
+    def _lookup_nutrition_ner(self, entities: dict) -> dict | list[dict] | None:
         # Chuẩn hóa: "ức_gà" → "ức gà"
         food_tokens = [f.replace("_", " ") for f in entities.get("FOOD", [])]
 
@@ -116,19 +135,34 @@ class NutritionPipeline:
         if len(food_tokens) > 1:
             food_candidates.append(" ".join(food_tokens))
 
-        for food in food_candidates:
-            for nutrient_token in entities.get("NUTRIENT", []):
-                normalized = nutrient_token.replace("_", " ").replace("-", " ").lower()
-                usda_name = NUTRIENT_MAP.get(normalized)
-                if usda_name is None:
-                    for kw, name in NUTRIENT_MAP.items():
-                        if kw in normalized or normalized in kw:
-                            usda_name = name
-                            break
-                if usda_name:
-                    data = self.sqlite.lookup(food, usda_name)
-                    if data:
-                        return data
+        nutrients = entities.get("NUTRIENT", [])
+
+        # 1. Nếu có cả FOOD và NUTRIENT, tìm kiếm theo cặp
+        if food_candidates and nutrients:
+            for food in food_candidates:
+                for nutrient_token in nutrients:
+                    normalized = nutrient_token.replace("_", " ").replace("-", " ").lower()
+                    usda_name = NUTRIENT_MAP.get(normalized)
+                    if usda_name is None:
+                        for kw, name in NUTRIENT_MAP.items():
+                            if kw in normalized or normalized in kw:
+                                usda_name = name
+                                break
+                    if usda_name:
+                        data = self.sqlite.lookup(food, usda_name)
+                        if data:
+                            return data
+
+        # 2. Nếu chỉ có FOOD (hoặc có NUTRIENT nhưng không tìm thấy cụ thể), tìm tất cả chất dinh dưỡng chính của từng FOOD
+        if food_candidates:
+            results = []
+            for food in food_candidates[:3]:
+                data = self._lookup_vi_all_nutrients(food)
+                if data:
+                    results.append(data)
+            if results:
+                return results[0] if len(results) == 1 else results
+
         return None
 
     _GREETING_PATTERNS = [
@@ -146,7 +180,27 @@ class NutritionPipeline:
         q = query.strip().lower()
         return any(q == p or q.startswith(p + " ") or q.startswith(p + "!") for p in self._GREETING_PATTERNS)
 
-    def answer(self, query: str) -> dict:
+    def _condense_query(self, query: str, history: list[dict]) -> str:
+        """Sử dụng LLM để viết lại câu hỏi dựa trên lịch sử hội thoại."""
+        if not history:
+            return query
+
+        history_text = ""
+        for msg in history[-5:]:  # lấy tối đa 5 tin nhắn gần nhất
+            history_text += f"{msg['role'].capitalize()}: {msg['content']}\n"
+
+        prompt = (
+            "Given the following conversation history and a follow-up question, "
+            "rephrase the follow-up question to be a standalone question (in Vietnamese) "
+            "that captures all necessary context. Do NOT answer the question, just output the rephrased question.\n\n"
+            f"Chat History:\n{history_text}"
+            f"Follow-up Question: {query}\n\n"
+            "Standalone Question:"
+        )
+        condensed = self.generator._call_ollama_generate(prompt)
+        return condensed.strip() if condensed else query
+
+    def answer(self, query: str, history: list[dict] = None) -> dict:
         if self._is_greeting(query):
             return {
                 "answer":         self._GREETING_REPLY,
@@ -157,7 +211,10 @@ class NutritionPipeline:
                 "nutrition_data": None,
             }
 
-        processed  = self.preprocessor.preprocess(query)
+        history = history or []
+        search_query = self._condense_query(query, history)
+
+        processed  = self.preprocessor.preprocess(search_query)
         clf_result = self.classifier.classify(processed)
         query_type = clf_result.query_type
 
@@ -174,13 +231,16 @@ class NutritionPipeline:
                 # Fallback keyword
                 food_name     = self._extract_food(processed)
                 nutrient_name = self._extract_nutrient(processed)
-                if food_name and nutrient_name:
-                    nutrition_data = self.sqlite.lookup(food_name, nutrient_name)
+                if food_name:
+                    if nutrient_name:
+                        nutrition_data = self.sqlite.lookup(food_name, nutrient_name)
+                    else:
+                        nutrition_data = self._lookup_vi_all_nutrients(food_name)
 
         if query_type in (QueryType.HEALTH_ADVICE, QueryType.BOTH):
-            health_chunks = self.retriever.retrieve(query)  # dùng query gốc — sạch hơn cho semantic search
+            health_chunks = self.retriever.retrieve(search_query)  # dùng query đã làm sạch
 
-        result = self.generator.generate(query, nutrition_data, health_chunks, query_type=query_type.value)
+        result = self.generator.generate(query, nutrition_data, health_chunks, query_type=query_type.value, history=history)
         result["query_type"]     = query_type.value
         result["entities"]       = entities
         result["nutrition_data"] = nutrition_data

@@ -35,15 +35,22 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="HealthCare RAG", lifespan=lifespan)
 
 
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
 class AskRequest(BaseModel):
     message: str
+    history: list[ChatMessage] = []
 
 
 @app.post("/ask")
 async def ask(req: AskRequest):
     if _en_pipeline is None:
         raise HTTPException(status_code=503, detail="Pipeline not ready.")
-    result = await run_in_threadpool(_en_pipeline.answer, req.message)
+    history_dicts = [h.model_dump() for h in req.history]
+    result = await run_in_threadpool(_en_pipeline.answer, req.message, history_dicts)
     ner_entities = result.get("entities", {})
     return {
         "answer":   result.get("answer", ""),

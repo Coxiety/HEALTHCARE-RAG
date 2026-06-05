@@ -5,7 +5,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from pipeline import SQLITE_PATH, USDA_CSV_DIR
+
+ROOT = Path(__file__).resolve().parents[1]
+SQLITE_PATH = ROOT / "data" / "usda_food.db"
 
 
 TARGET_NUTRIENTS = [
@@ -21,6 +23,21 @@ TARGET_NUTRIENTS = [
 TARGET_DATA_TYPES = {"foundation_food", "sr_legacy_food", "survey_fndds_food"}
 
 
+def resolve_usda_csv_dir() -> Path:
+    candidates = [
+        *ROOT.glob("FoodData_Central_csv_*"),
+        *ROOT.glob("FoodData_Central_foundation_food_csv_*"),
+        *(ROOT / "data").glob("FoodData_Central_csv_*"),
+        *(ROOT / "data").glob("FoodData_Central_foundation_food_csv_*"),
+    ]
+    for candidate in candidates:
+        if candidate.is_dir():
+            return candidate
+    raise FileNotFoundError(
+        "Could not find USDA raw CSV folder. Expected a directory named 'FoodData_Central_csv_*' in the repo root or data/."
+    )
+
+
 def assert_required_files(data_dir: Path) -> None:
     required = ["food.csv", "nutrient.csv", "food_nutrient.csv"]
     missing = [name for name in required if not (data_dir / name).exists()]
@@ -29,7 +46,7 @@ def assert_required_files(data_dir: Path) -> None:
 
 
 def build_database() -> None:
-    data_dir = USDA_CSV_DIR
+    data_dir = resolve_usda_csv_dir()
     assert_required_files(data_dir)
 
     if SQLITE_PATH.exists():

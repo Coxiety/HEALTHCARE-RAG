@@ -59,7 +59,17 @@ class NERModel:
     def predict(self, text: str) -> dict[str, list[str]]:
         if self._fallback is not None:
             return self._fallback.predict(text)
-        return _run_bert(self._pipe, text)
+        
+        # Truncate text to a safe length (e.g. 150 words) to avoid exceeding BERT's 512 token limit
+        words = text.split()
+        if len(words) > 150:
+            text = " ".join(words[:150])
+            
+        try:
+            return _run_bert(self._pipe, text)
+        except Exception:
+            # Graceful fallback to spaCy keyword matcher if BERT model fails
+            return _SpacyFallback().predict(text)
 
 
 def _run_bert(pipe, text: str) -> dict[str, list[str]]:

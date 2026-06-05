@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dashboardToggle   = document.getElementById('dashboard-toggle-btn');
     const closeDashboard    = document.getElementById('close-dashboard');
     const newChatBtn        = document.getElementById('new-chat-btn');
+    const themeToggle       = document.getElementById('theme-toggle');
 
     // Cấu hình marked.js
     if (typeof marked !== 'undefined') {
@@ -52,6 +53,31 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSessions();
     });
 
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        updateThemeIcon();
+        updateAvatarUI(); // Update avatar colors for theme
+    });
+
+    // Load theme on startup
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light');
+    }
+    updateThemeIcon();
+    updateAvatarUI();
+
+    function updateThemeIcon() {
+        const icon = themeToggle.querySelector('.material-symbols-outlined');
+        if (document.body.classList.contains('light')) {
+            icon.textContent = 'light_mode';
+        } else {
+            icon.textContent = 'dark_mode';
+        }
+    }
+
     // Tự động thay đổi chiều cao Textarea
     chatInput.addEventListener('input', function () {
         this.style.height = 'auto';
@@ -65,9 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateAvatarUI() {
         const username = localStorage.getItem('username');
+        const isLight = document.body.classList.contains('light');
+        const bgColor = isLight ? '1a73e8' : 'a8c7fa';
+        const textColor = isLight ? 'ffffff' : '131314';
         const src = username
-            ? `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=a8c7fa&color=131314`
-            : `https://ui-avatars.com/api/?name=User&background=random`;
+            ? `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=${bgColor}&color=${textColor}`
+            : `https://ui-avatars.com/api/?name=User&background=${bgColor}&color=${textColor}`;
         avatarBtn.innerHTML = `<img src="${src}" alt="Avatar">`;
     }
 
@@ -102,8 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderProfilePopup() {
         const currentUsername = localStorage.getItem('username');
         const currentFullName = localStorage.getItem('fullName') || currentUsername;
+        const isLight = document.body.classList.contains('light');
+        const bgColor = isLight ? '1a73e8' : 'a8c7fa';
+        const textColor = isLight ? 'ffffff' : '131314';
         document.getElementById('popup-avatar').src =
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername)}&background=a8c7fa&color=131314`;
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername)}&background=${bgColor}&color=${textColor}`;
         document.getElementById('popup-fullname').innerText = `Chào ${currentFullName},`;
 
         const sessions = JSON.parse(localStorage.getItem('sessions')) || [];

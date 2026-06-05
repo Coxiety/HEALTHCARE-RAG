@@ -1,0 +1,28 @@
+# Python packages (install via: pip install -r requirementLib.txt)
+pyyaml
+requests
+fastapi
+uvicorn
+spacy
+nltk
+chromadb
+sentence-transformers
+rank-bm25
+scikit-learn
+datasets
+pandas
+tabulate
+transformers
+torch
+seqeval
+accelerate
+datasketch
+
+# After pip install:
+# python -m spacy download en_core_web_sm
+
+# System deps (install separately, not via pip):
+# Python 3.10+
+# JDK 21+
+# Maven
+# Ollama

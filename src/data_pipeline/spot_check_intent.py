@@ -39,12 +39,10 @@ def spot_check(input_path: str, output_path: str, n: int) -> None:
     labels = sorted(df["intent_label"].unique())
     per_class = n // len(labels)
 
-    sample = (
-        df.groupby("intent_label", group_keys=False)
-        .apply(lambda g: g.sample(min(per_class, len(g)), random_state=42))
-        .sample(frac=1, random_state=42)
-        .reset_index(drop=True)
-    )
+    sampled_dfs = []
+    for label, group in df.groupby("intent_label"):
+        sampled_dfs.append(group.sample(min(per_class, len(group)), random_state=42))
+    sample = pd.concat(sampled_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
 
     print(f"\n=== Spot Check — {len(sample)} questions ===")
     print("Keys:  1 = correct   0 = wrong   s = skip   q = quit\n")

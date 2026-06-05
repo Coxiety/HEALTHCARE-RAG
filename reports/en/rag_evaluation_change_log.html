@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HealthCare-RAG Evaluation Change Log</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(15, 23, 42, 0.82);
+      --panel-strong: rgba(30, 41, 59, 0.92);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+      --accent-2: #38bdf8;
+      --border: rgba(148, 163, 184, 0.22);
+      --code: #111827;
+      --warn: #f59e0b;
+      --shadow: 0 24px 80px rgba(2, 6, 23, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.18), transparent 28%),
+        linear-gradient(180deg, #020617 0%, #0f172a 45%, #111827 100%);
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.78));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(56, 189, 248, 0.12) 48%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      color: var(--accent-2);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .eyebrow span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.16);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      max-width: 16ch;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 0 22px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta-card, .section, .callout {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-card {
+      padding: 14px 16px;
+      min-height: 92px;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .section {
+      padding: 22px;
+      margin-top: 18px;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .section h3 {
+      font-size: 18px;
+      margin: 20px 0 10px;
+      color: #dbeafe;
+    }
+
+    p, li {
+      color: var(--text);
+      margin: 0 0 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 10px 0 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-top: 10px;
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: #bfdbfe;
+      background: rgba(30, 41, 59, 0.82);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    td {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    code, pre {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+    }
+
+    pre {
+      margin: 12px 0 0;
+      padding: 16px;
+      background: var(--code);
+      color: #e5e7eb;
+      border-radius: 14px;
+      overflow-x: auto;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: rgba(15, 23, 42, 0.72);
+      color: #dbeafe;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .callout {
+      padding: 16px 18px;
+      margin-top: 16px;
+      border-left: 4px solid var(--warn);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(15, 23, 42, 0.8));
+    }
+
+    .footer {
+      margin-top: 22px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .meta-grid,
+      .layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page { padding: 18px 12px 30px; }
+      .hero, .section, .meta-card { border-radius: 16px; }
+      .meta-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow"><span></span> Detailed implementation log</div>
+      <h1>HealthCare-RAG automatic evaluation work log</h1>
+      <p class="subtitle">
+        This HTML document records the changes made to add a batch RAG evaluator, a VS Code task for running it,
+        and the documentation updates that explain how to use the new flow.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <div class="meta-label">Repository</div>
+          <div class="meta-value">HEALTHCARE-RAG</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Branch</div>
+          <div class="meta-value">main</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Date</div>
+          <div class="meta-value">2026-05-31</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Scope</div>
+          <div class="meta-value">Automated RAG evaluation + task + documentation</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="section">
+        <h2>What I changed</h2>
+        <p>
+          I added a reusable evaluator for the English pipeline so the chatbot can be scored automatically on a QA
+          dataset with ground truth. The evaluator works at two levels:
+        </p>
+        <ul>
+          <li><strong>Retrieval mode</strong> scores the retriever/reranker path only, using relevant document IDs when available.</li>
+          <li><strong>Full mode</strong> runs the actual pipeline end to end and measures intent routing, answer quality, source coverage, and latency.</li>
+        </ul>
+
+        <h3>Files created or updated</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Change</th>
+                <th>Why it was added</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>src/evaluation/rag_evaluator.py</td>
+                <td>New batch evaluation module</td>
+                <td>Loads QA records, runs the pipeline, computes metrics, and writes reports.</td>
+              </tr>
+              <tr>
+                <td>main/evaluate_rag.py</td>
+                <td>New CLI wrapper</td>
+                <td>Provides a simple entry point that can be launched from the repo root or wired into VS Code tasks.</td>
+              </tr>
+              <tr>
+                <td>README.md</td>
+                <td>Documentation update</td>
+                <td>Explains how to run automatic evaluation and which fields the input dataset supports.</td>
+              </tr>
+              <tr>
+                <td>reports/en/rag_evaluation_change_log.html</td>
+                <td>New HTML log</td>
+                <td>Records the implementation details, validation steps, and usage notes in one place.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Evaluator behavior</h3>
+        <p>
+          The evaluator accepts <code>.jsonl</code>, <code>.json</code>, or <code>.csv</code> datasets. It normalizes a record
+          from flexible field names so you can reuse it across different benchmark formats.
+        </p>
+        <pre>{
+  "question": "...",
+  "answer": "..." | "reference_answer": "...",
+  "relevant_docs": ["doc-id-1", "doc-id-2"],
+  "expected_intent": "NUTRITION_LOOKUP" | "HEALTH_ADVICE" | "BOTH",
+  "expected_answer_keywords": ["keyword1", "keyword2"],
+  "expected_source_keywords": ["USDA", "Vinmec"]
+}</pre>
+
+        <p style="margin-top:12px;">
+          The result files are always written to the output directory:
+        </p>
+        <ul>
+          <li><code>summary.json</code> for aggregate metrics and run metadata.</li>
+          <li><code>cases.csv</code> for per-question results, predictions, and scoring details.</li>
+        </ul>
+
+        <h3>Metrics included</h3>
+        <div class="pill-row">
+          <span class="pill">Intent accuracy</span>
+          <span class="pill">Retrieval hit rate</span>
+          <span class="pill">Recall@k</span>
+          <span class="pill">Precision@k</span>
+          <span class="pill">MRR@k</span>
+          <span class="pill">Answer exact match</span>
+          <span class="pill">Token F1</span>
+          <span class="pill">Keyword/source hit rate</span>
+          <span class="pill">Latency</span>
+        </div>
+
+        <div class="callout">
+          <strong>Important implementation detail:</strong> the evaluator reuses the existing <code>ENPipeline.answer()</code>
+          entry point conceptually, but it also exposes a retrieval-only path so retrieval quality can be measured without
+          paying the generation cost.
+        </div>
+      </section>
+
+      <aside>
+        <section class="section">
+          <h2>How to run</h2>
+          <p class="muted">Primary command documented in the README:</p>
+          <pre>python main/evaluate_rag.py --input data/en/eval_200.jsonl --output-dir reports/en/rag_eval</pre>
+
+          <p style="margin-top:14px;">Task added for VS Code:</p>
+          <ul>
+            <li>Label: <code>Evaluate RAG</code></li>
+            <li>Purpose: run the evaluator against <code>data/en/eval_200.jsonl</code></li>
+            <li>Output: reports are saved to <code>reports/en/rag_eval</code></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Validation performed</h2>
+          <ul>
+            <li>Checked syntax for the new evaluator and CLI wrapper with the workspace error tool.</li>
+            <li>Ran <code>python main/evaluate_rag.py --help</code> to confirm the CLI loads cleanly.</li>
+            <li>Adjusted the summary-writing order so the report JSON includes its own file paths before it is written.</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Design notes</h2>
+          <ul>
+            <li>The input schema is intentionally flexible to support future QA benchmarks without rewriting the evaluator.</li>
+            <li>If <code>relevant_docs</code> is absent, retrieval metrics are skipped rather than failing the run.</li>
+            <li>If reference answers are present, answer exact match and token F1 are computed; otherwise those fields stay empty.</li>
+            <li>The current flow is compatible with your existing dataset at <code>data/en/eval_200.jsonl</code>.</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <section class="section">
+      <h2>Outcome</h2>
+      <p>
+        The repository now has a practical automatic evaluation path for the chatbot RAG system. You can run it from the
+        command line or from VS Code, and the output is structured so it can be compared across model changes or dataset
+        revisions.
+      </p>
+      <p class="muted">
+        This log is intentionally detailed so you can trace both the implementation and the verification steps without
+        reopening the editor history.
+      </p>
+    </section>
+
+    <div class="footer">
+      Generated as a work log for the HealthCare-RAG automatic evaluation update.
+    </div>
+  </main>
+</body>
+</html>

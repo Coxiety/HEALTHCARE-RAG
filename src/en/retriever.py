@@ -12,9 +12,11 @@ Contract: retrieve(query, top_k) -> list[RetrievedChunk]
 from __future__ import annotations
 
 import json
+import re
 
 import numpy as np
 from rank_bm25 import BM25Okapi
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -61,6 +63,8 @@ class TFIDFRetriever:
 
 class BM25Retriever:
     CORPUS_PATH = "data/en/corpus.jsonl"
+    _TOKEN_RE = re.compile(r"[a-z0-9]+")
+    _STOP_WORDS = ENGLISH_STOP_WORDS
 
     def __init__(self):
         self._bm25: BM25Okapi | None = None
@@ -68,7 +72,8 @@ class BM25Retriever:
 
     @staticmethod
     def _tokenize(text: str) -> list[str]:
-        return text.lower().split()
+        tokens = BM25Retriever._TOKEN_RE.findall(text.lower())
+        return [token for token in tokens if token not in BM25Retriever._STOP_WORDS]
 
     def _build_index(self) -> None:
         self._corpus = []
@@ -108,11 +113,11 @@ class DenseRetriever:
 
 
 # ---------------------------------------------------------------------------
-# Hybrid RRF — BM25 + Dense, Reciprocal Rank Fusion k=60
+# Hybrid RRF — BM25 + Dense, Reciprocal Rank Fusion k=10
 # ---------------------------------------------------------------------------
 
 class HybridRetriever:
-    RRF_K = 60
+    RRF_K = 10
 
     def __init__(self, bm25: BM25Retriever, dense: DenseRetriever):
         self.bm25  = bm25

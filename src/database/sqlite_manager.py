@@ -43,17 +43,26 @@ class SqliteManager:
 
     def find_food(self, vi_name: str) -> sqlite3.Row | None:
         keyword = self._resolve_keyword(vi_name)
-        sql = """
-            SELECT fdc_id, description, data_type
-            FROM foods
-            WHERE LOWER(description) LIKE ?
+        words = [w.strip().lower() for w in keyword.split() if w.strip()]
+        if not words:
+            return None
+        where_clauses = [ "LOWER(f.description) LIKE ?" for _ in words ]
+        params = [ f"%{w}%" for w in words ]
+        sql = f"""
+            SELECT f.fdc_id, f.description, f.data_type
+            FROM foods f
+            LEFT JOIN food_nutrients fn ON f.fdc_id = fn.fdc_id
+            WHERE {" AND ".join(where_clauses)}
+            GROUP BY f.fdc_id
             ORDER BY
-                CASE WHEN data_type = 'foundation_food' THEN 0 ELSE 1 END,
-                LENGTH(description) ASC
+                CASE WHEN LOWER(f.description) LIKE '%sausage%' OR LOWER(f.description) LIKE '%frankfurter%' OR LOWER(f.description) LIKE '%lunchmeat%' OR LOWER(f.description) LIKE '%salami%' OR LOWER(f.description) LIKE '%bologna%' OR LOWER(f.description) LIKE '%hot dog%' THEN 1 ELSE 0 END ASC,
+                CASE WHEN f.data_type = 'foundation_food' THEN 0 ELSE 1 END,
+                COUNT(fn.nutrient_id) DESC,
+                LENGTH(f.description) ASC
             LIMIT 1
         """
         with self._connect() as conn:
-            return conn.execute(sql, (f"%{keyword}%",)).fetchone()
+            return conn.execute(sql, params).fetchone()
 
     def get_nutrient(self, fdc_id: int, nutrient_name: str) -> dict | None:
         sql = """
@@ -90,17 +99,26 @@ class SqliteManager:
 
     def lookup_en(self, food_name: str, nutrient_name: str | None = None) -> dict | None:
         """Direct English food name lookup — no VN mapping step."""
-        sql = """
-            SELECT fdc_id, description, data_type
-            FROM foods
-            WHERE LOWER(description) LIKE ?
+        words = [w.strip().lower() for w in food_name.split() if w.strip()]
+        if not words:
+            return None
+        where_clauses = [ "LOWER(f.description) LIKE ?" for _ in words ]
+        params = [ f"%{w}%" for w in words ]
+        sql = f"""
+            SELECT f.fdc_id, f.description, f.data_type
+            FROM foods f
+            LEFT JOIN food_nutrients fn ON f.fdc_id = fn.fdc_id
+            WHERE {" AND ".join(where_clauses)}
+            GROUP BY f.fdc_id
             ORDER BY
-                CASE WHEN data_type = 'foundation_food' THEN 0 ELSE 1 END,
-                LENGTH(description) ASC
+                CASE WHEN LOWER(f.description) LIKE '%sausage%' OR LOWER(f.description) LIKE '%frankfurter%' OR LOWER(f.description) LIKE '%lunchmeat%' OR LOWER(f.description) LIKE '%salami%' OR LOWER(f.description) LIKE '%bologna%' OR LOWER(f.description) LIKE '%hot dog%' THEN 1 ELSE 0 END ASC,
+                CASE WHEN f.data_type = 'foundation_food' THEN 0 ELSE 1 END,
+                COUNT(fn.nutrient_id) DESC,
+                LENGTH(f.description) ASC
             LIMIT 1
         """
         with self._connect() as conn:
-            food = conn.execute(sql, (f"%{food_name.lower()}%",)).fetchone()
+            food = conn.execute(sql, params).fetchone()
         if food is None:
             return None
         result = {"fdc_id": food["fdc_id"], "food_description": food["description"]}

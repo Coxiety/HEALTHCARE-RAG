@@ -1,4 +1,4 @@
-"""Reranker using cross-encoder/ms-marco-MiniLM-L-6-v2 (pretrained, no fine-tune).
+"""Reranker using a configurable cross-encoder checkpoint.
 
 Usage in pipeline:
     reranker = Reranker()
@@ -15,12 +15,13 @@ from src.database.vector_store import RetrievedChunk
 class Reranker:
     MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
-    def __init__(self):
+    def __init__(self, model_name_or_path: str | None = None):
+        self.model_name_or_path = model_name_or_path or self.MODEL_NAME
         self._model: CrossEncoder | None = None
 
     def _get_model(self) -> CrossEncoder:
         if self._model is None:
-            self._model = CrossEncoder(self.MODEL_NAME)
+            self._model = CrossEncoder(self.model_name_or_path)
         return self._model
 
     def rerank(
