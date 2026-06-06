@@ -28,3 +28,7 @@ accelerate
 
 # Data quality evaluation
 datasketch
+
+# RAGAS end-to-end evaluation
+ragas==0.1.21
+langchain-community
