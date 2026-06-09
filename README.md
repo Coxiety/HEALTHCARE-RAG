@@ -64,23 +64,15 @@ ner_model_path: "models/ner_bert/"
 classifier_model_path: "models/classifier_bert/"
 
 # --- LLM Generator ---
-llm_backend: "ollama"           # "ollama" or "gemini"
-llm_model: "llama3.1:8b"        # e.g., "llama3.1:8b" (Ollama) or "gemini-2.5-flash" (Gemini)
+llm_model: "llama3.1:8b"        # local Ollama model
 
 # --- Query Rewriter ---
-rewriter_backend: "gemini"      # "gemini" or "ollama"
-rewriter_model: "gemini-2.5-flash"
+rewriter_model: "llama3.1:8b"
 
 # --- Retrieval ---
 top_k: 5
 similarity_threshold: 0.5
 ```
-
-> **Note on Gemini API**: If using `gemini` for either the rewriter or generator, make sure to set your API key in the environment:
-> ```bash
-> export GEMINI_API_KEY="your-api-key"
-> ```
-> *If the API key is not found, the system will automatically fall back to using `ollama` for the query rewriter.*
 
 ---
 
@@ -139,17 +131,9 @@ mvn spring-boot:run
 ```
 Access the web UI at `http://localhost:8081`.
 
----
-
 ## Evaluation and Testing
 
-### 1. Test Gemini/Ollama Integration
-You can verify the integration of your models, including the query rewriter and fallback mechanisms, by running the test script:
-```bash
-python main/test_gemini.py
-```
-
-### 2. Run Automatic RAG Evaluation
+### 1. Run Automatic RAG Evaluation
 Run evaluation on a test dataset (e.g. `eval_200.jsonl`):
 ```bash
 python -m src.evaluation.rag_evaluator --input data/en/eval_200.jsonl --output-dir reports/en/rag_eval
@@ -165,10 +149,9 @@ The evaluator outputs `summary.json` and `cases.csv` containing performance and 
 │   ├── en/               # English RAG pipeline (processor, classifier, NER, retriever, etc.)
 │   ├── data_pipeline/    # Data indexing and chunking
 │   ├── database/         # SQLite manager and Vector Store (Chroma)
-│   └── generation/       # LLM Generator (Ollama/Gemini wrappers)
+│   └── generation/       # LLM Generator (Ollama wrappers)
 ├── main/
 │   ├── build_usda_db.py  # Builds the USDA SQLite database from CSVs
-│   ├── test_gemini.py    # Test suite for Gemini and general pipeline verification
 │   └── rag_server.py     # FastAPI Server
 ├── notebooks/en/         # Jupyter Notebooks for training model parts
 ├── data/                 # Raw/processed data (Chroma DB files, USDA, etc.)

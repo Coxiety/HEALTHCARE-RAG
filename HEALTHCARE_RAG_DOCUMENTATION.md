@@ -3,7 +3,7 @@
 ## 1. Giới thiệu Tổng quan
 Hệ thống **HEALTHCARE-RAG** là một ứng dụng áp dụng kỹ thuật Retrieval-Augmented Generation (RAG) kết hợp giữa tra cứu dinh dưỡng có cấu trúc và tư vấn sức khỏe dựa trên các tài liệu y khoa. 
 
-Hệ thống được thiết kế với kiến trúc phân lớp rõ ràng, kết hợp linh hoạt giữa các mô hình học sâu nhỏ chạy local (Ollama, Hugging Face) và các API mạnh mẽ (Google Gemini).
+Hệ thống được thiết kế với kiến trúc phân lớp rõ ràng, kết hợp linh hoạt giữa các mô hình học sâu nhỏ chạy local (Ollama, Hugging Face).
 
 ## 2. Kiến trúc và Cách hoạt động của Pipeline (EN Pipeline)
 Cốt lõi của hệ thống xử lý ngôn ngữ nằm ở thư mục `src/en/`. Quy trình xử lý một câu hỏi (query) từ người dùng đi qua các bước sau:
@@ -11,7 +11,7 @@ Cốt lõi của hệ thống xử lý ngôn ngữ nằm ở thư mục `src/en/
 ### 2.1. Query Rewriter (Xử lý ngữ cảnh đa lượt)
 - Khi người dùng đặt câu hỏi, nếu có lịch sử trò chuyện (history), hệ thống sẽ chạy module **Query Rewriter** để giải quyết hiện tượng đồng tham chiếu (co-reference resolution).
 - **Ví dụ:** Lượt 1: *"Can you tell me about Apple?"* -> Lượt 2: *"What is its protein content?"*. Rewriter sẽ viết lại thành: *"What is the protein content of Apple?"*.
-- **Mô hình sử dụng:** Hỗ trợ Gemini API hoặc mô hình LLM local thông qua Ollama (Mặc định cấu hình dùng `llama3.1:8b`).
+- **Mô hình sử dụng:** Sử dụng mô hình LLM local thông qua Ollama (Mặc định cấu hình dùng `llama3.1:8b`).
 
 ### 2.2. Query Classification (Phân loại ý định)
 - Câu hỏi sau khi được làm rõ sẽ được đưa qua `QueryClassifier` (`src/en/classifier.py`).
@@ -49,7 +49,7 @@ Khối này chia làm hai luồng tùy thuộc vào Intent đã được phân l
   - Phải tuân theo số liệu của USDA, không tự bịa số.
   - Nếu so sánh thực phẩm, phải dùng Bảng Markdown (Markdown Table).
   - Không được trả lời tư vấn bệnh lý nếu không tìm thấy trong tài liệu truy xuất (Tránh Hallucination trong lĩnh vực y tế).
-- **Xử lý LLM:** Chạy qua Google Gemini API, hoặc Ollama (với `llama3.1:8b`). Có cơ chế tự động Fallback về các LLM cục bộ nếu API Gemini gặp sự cố.
+- **Xử lý LLM:** Chạy qua Ollama (với `llama3.1:8b`).
 
 ---
 
