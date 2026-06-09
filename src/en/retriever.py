@@ -1,10 +1,10 @@
-"""Retrieval baselines for the EN pipeline.
+"""Retrieval components for the EN pipeline.
 
 Classes:
   TFIDFRetriever   — sparse baseline (sklearn TF-IDF)
-  BM25Retriever    — sparse variant (rank_bm25)
-  DenseRetriever   — dense baseline via ChromaDB (vanilla or fine-tuned)
-  HybridRetriever  — BM25 + Dense with Reciprocal Rank Fusion (k=60)
+  BM25Retriever    — sparse retrieval (rank_bm25)
+  DenseRetriever   — dense retrieval via ChromaDB
+  HybridRetriever  — BM25 + Dense with Reciprocal Rank Fusion (k=10)
 
 Contract: retrieve(query, top_k) -> list[RetrievedChunk]
 """
@@ -16,15 +16,14 @@ import re
 
 import numpy as np
 from rank_bm25 import BM25Okapi
-from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from src.database.vector_store import RetrievedChunk, VectorStore
 
 
 # ---------------------------------------------------------------------------
-# TF-IDF (sparse baseline — MVP)
+# TF-IDF (sparse baseline)
 # ---------------------------------------------------------------------------
 
 class TFIDFRetriever:
@@ -57,7 +56,7 @@ class TFIDFRetriever:
 
 
 # ---------------------------------------------------------------------------
-# BM25 (sparse variant)
+# BM25 (sparse retrieval)
 # Loads corpus from data/en/corpus.jsonl — TV2 replace file, schema unchanged.
 # ---------------------------------------------------------------------------
 

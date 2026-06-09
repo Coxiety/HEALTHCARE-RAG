@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
 
-    List<ChatMessage> findTop50ByUserIdOrderByCreatedAtDesc(Long userId);
-
     List<ChatMessage> findBySessionIdOrderByCreatedAtAsc(String sessionId);
 
     @Query("SELECT m FROM ChatMessage m WHERE m.user.id = :userId AND m.role = 'user' " +

@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const sidebar           = document.getElementById('sidebar');
     const menuToggle        = document.getElementById('menu-toggle');
-    const searchHistoryBtn  = document.getElementById('search-history-btn');
     const chatInput         = document.getElementById('chat-input');
     const sendBtn           = document.getElementById('send-btn');
     const welcomeArea       = document.getElementById('welcome-area');
@@ -21,10 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm         = document.getElementById('login-form');
     const registerForm      = document.getElementById('register-form');
     const profilePopup      = document.getElementById('profile-popup');
-    const accountList       = document.getElementById('account-list');
-    const dashboardPanel    = document.getElementById('dashboard-panel');
-    const dashboardToggle   = document.getElementById('dashboard-toggle-btn');
-    const closeDashboard    = document.getElementById('close-dashboard');
     const newChatBtn        = document.getElementById('new-chat-btn');
     const themeToggle       = document.getElementById('theme-toggle');
 
@@ -38,12 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
 
     menuToggle.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
-
-    if (searchHistoryBtn) {
-        searchHistoryBtn.addEventListener('click', () => {
-            alert('Tính năng Tìm kiếm đoạn chat đang được phát triển!');
-        });
-    }
 
     // New chat — session mới, reset màn hình welcome
     newChatBtn.addEventListener('click', () => {
@@ -106,10 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!el) return;
         if (fullName) {
             const hour = new Date().getHours();
-            const greeting = hour < 12 ? 'Chào buổi sáng' : hour < 18 ? 'Chào buổi chiều' : 'Chào buổi tối';
+            const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
             el.textContent = `${greeting}, ${fullName}!`;
         } else {
-            el.textContent = 'Xin chào!';
+            el.textContent = 'Hello!';
         }
     }
 
@@ -136,41 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const textColor = isLight ? 'ffffff' : '131314';
         document.getElementById('popup-avatar').src =
             `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername)}&background=${bgColor}&color=${textColor}`;
-        document.getElementById('popup-fullname').innerText = `Chào ${currentFullName},`;
-
-        const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
-        accountList.innerHTML = '';
-        sessions.forEach(session => {
-            if (session.username === currentUsername) return;
-            const div = document.createElement('div');
-            div.className = 'account-item';
-            div.innerHTML = `
-                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(session.username)}&background=random" alt="Avatar">
-                <div class="account-info">
-                    <span class="acc-name">${session.fullName || session.username}</span>
-                    <span class="acc-user">${session.username}</span>
-                </div>`;
-            div.onclick = () => {
-                localStorage.setItem('token', session.token);
-                localStorage.setItem('userId', session.userId);
-                localStorage.setItem('username', session.username);
-                localStorage.setItem('fullName', session.fullName);
-                localStorage.removeItem('sessionId');
-                updateAvatarUI();
-                updateGreeting();
-                profilePopup.classList.remove('active');
-                messagesWrapper.innerHTML = '';
-                if (welcomeArea) welcomeArea.style.display = 'block';
-                loadSessions();
-            };
-            accountList.appendChild(div);
-        });
+        document.getElementById('popup-fullname').innerText = `Hello ${currentFullName},`;
     }
-
-    document.getElementById('add-account-btn').addEventListener('click', () => {
-        profilePopup.classList.remove('active');
-        authModal.classList.add('active');
-    });
 
     document.getElementById('logout-btn').addEventListener('click', () => {
         localStorage.clear();
@@ -223,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch {
             msgEl.className = 'auth-msg error-msg';
-            msgEl.innerText = 'Lỗi kết nối Server!';
+            msgEl.innerText = 'Connection to server failed!';
         }
     });
 
@@ -240,31 +196,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (res.ok) {
                 const data = await res.json();
-                let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
-                sessions = sessions.filter(s => s.username !== data.username);
-                sessions.push(data);
-                localStorage.setItem('sessions', JSON.stringify(sessions));
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('fullName', data.fullName || data.username);
                 msgEl.className = 'auth-msg success-msg';
-                msgEl.innerText = 'Đăng nhập thành công!';
+                msgEl.innerText = 'Login successful!';
                 setTimeout(async () => {
                     authModal.classList.remove('active');
                     updateAvatarUI();
                     updateGreeting();
                     loginForm.reset();
-                    msgEl.innerText = '';
                     await loadSessions();
-                    await loadChatHistory();
+                    const currentSessionId = localStorage.getItem('sessionId');
+                    if (currentSessionId) {
+                        await loadSession(currentSessionId);
+                    } else {
+                        if (welcomeArea) welcomeArea.style.display = 'block';
+                    }
                 }, 800);
             } else {
                 msgEl.className = 'auth-msg error-msg';
-                msgEl.innerText = 'Tài khoản hoặc mật khẩu không chính xác!';
+                msgEl.innerText = 'Incorrect username or password!';
             }
         } catch {
-            msgEl.innerHTML = '<span class="error-msg">Lỗi kết nối Server!</span>';
+            msgEl.innerHTML = '<span class="error-msg">Connection to server failed!</span>';
         }
     });
 
@@ -284,10 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function intentToLabel(intent) {
         const map = {
-            'NUTRITION_LOOKUP': 'Tra cứu dinh dưỡng',
-            'HEALTH_ADVICE': 'Tư vấn sức khỏe',
-            'BOTH': 'Dinh dưỡng & Sức khỏe',
-            'GREETING': 'Chào hỏi'
+            'NUTRITION_LOOKUP': 'Nutrition Lookup',
+            'HEALTH_ADVICE': 'Health Advice',
+            'BOTH': 'Nutrition & Health',
+            'GREETING': 'Greeting'
         };
         return map[intent] || intent;
     }
@@ -374,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
             srcSection.className = 'sources-section';
             srcSection.innerHTML = `
                 <div class="sources-title">
-                    <span class="material-symbols-outlined">source</span>Nguồn tham khảo
+                    <span class="material-symbols-outlined">source</span>Sources
                 </div>`;
             data.sources.forEach(src => {
                 const item = document.createElement('div');
@@ -501,99 +457,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ==========================================
-    // MODULE 6: CHAT HISTORY (load lần đầu đăng nhập)
-    // ==========================================
-
-    async function loadChatHistory() {
-        const token  = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
-        if (!token || !userId) return;
-
-        try {
-            const res = await fetch(`/api/chat/history/${userId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (res.status === 401 || res.status === 403) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('userId');
-                updateAvatarUI();
-                updateGreeting();
-                return;
-            }
-            if (!res.ok) return;
-            const messages = await res.json();
-            if (!messages || messages.length === 0) return;
-
-            if (welcomeArea) welcomeArea.style.display = 'none';
-            renderMessages(messages);
-            scrollToBottom();
-        } catch (err) {
-            console.warn('Không tải được lịch sử chat:', err);
-        }
-    }
-
-    // Tải sessions và history nếu đã đăng nhập sẵn
+    // Tải sessions và cuộc hội thoại hiện tại nếu đã đăng nhập sẵn
     if (localStorage.getItem('token')) {
         loadSessions();
-        loadChatHistory();
-    }
-
-    // ==========================================
-    // MODULE 7: DASHBOARD PANEL
-    // ==========================================
-
-    dashboardToggle.addEventListener('click', async () => {
-        dashboardPanel.classList.toggle('hidden');
-        if (!dashboardPanel.classList.contains('hidden')) {
-            await loadDashboard();
-        }
-    });
-
-    closeDashboard.addEventListener('click', () => {
-        dashboardPanel.classList.add('hidden');
-    });
-
-    async function loadDashboard() {
-        const token  = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
-        const list   = document.getElementById('dashboard-list');
-
-        if (!token || !userId) {
-            list.innerHTML = '<p class="dash-empty">Vui lòng đăng nhập để xem nhật ký.</p>';
-            return;
-        }
-
-        list.innerHTML = '<p class="dash-empty">Đang tải...</p>';
-
-        try {
-            const res = await fetch(`/api/chat/dashboard/${userId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!res.ok) throw new Error('Lỗi server');
-            const records = await res.json();
-            list.innerHTML = '';
-
-            if (records.length === 0) {
-                list.innerHTML = '<p class="dash-empty">Chưa có dữ liệu dinh dưỡng nào.<br>Hãy hỏi về một món ăn!</p>';
-                return;
-            }
-
-            records.forEach(r => {
-                const d = r.createdAt ? new Date(r.createdAt) : null;
-                const dateStr = d ? d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
-                const item = document.createElement('div');
-                item.className = 'dash-item';
-                item.innerHTML = `
-                    <div>
-                        <div class="dash-food-name">${escapeHtml(r.foodName || '')}</div>
-                        <div class="dash-date">${dateStr}</div>
-                    </div>
-                    <div class="dash-calories">${escapeHtml(r.calories || '')}</div>`;
-                list.appendChild(item);
-            });
-        } catch (err) {
-            list.innerHTML = '<p class="dash-empty">Không tải được dữ liệu.</p>';
+        const currentSessionId = localStorage.getItem('sessionId');
+        if (currentSessionId) {
+            loadSession(currentSessionId);
+        } else {
+            if (welcomeArea) welcomeArea.style.display = 'block';
         }
     }
 
@@ -609,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         if (!token) {
-            alert('Bạn cần Đăng nhập để AI có thể lưu lại chế độ dinh dưỡng nhé!');
+            alert('You need to Log In so the AI can save your nutrition logs!');
             authModal.classList.add('active');
             return;
         }
@@ -643,10 +514,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('userId');
                 updateAvatarUI();
-                throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!');
+                throw new Error('Session expired. Please log in again!');
             }
 
-            if (!response.ok) throw new Error(`Lỗi máy chủ: ${response.status}`);
+            if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
             const data = await response.json();
             loadingMsg.remove();
@@ -655,14 +526,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 messagesWrapper.appendChild(createRichAiBubble(data));
                 loadSessions(); // cập nhật sidebar nếu đây là tin nhắn đầu của session mới
             } else {
-                messagesWrapper.appendChild(createMessageBubble('ai', 'Xin lỗi, tôi chưa hiểu ý bạn.'));
+                messagesWrapper.appendChild(createMessageBubble('ai', 'Sorry, I did not understand you.'));
             }
 
         } catch (error) {
             console.error('Lỗi Chat API:', error);
             loadingMsg.remove();
-            messagesWrapper.appendChild(createMessageBubble('ai', error.message || 'Lỗi kết nối đến máy chủ AI!', true));
-            if (error.message && error.message.includes('đăng nhập lại')) {
+            messagesWrapper.appendChild(createMessageBubble('ai', error.message || 'Error connecting to the AI server!', true));
+            if (error.message && error.message.includes('log in again')) {
                 authModal.classList.add('active');
             }
         } finally {

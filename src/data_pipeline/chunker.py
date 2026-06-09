@@ -58,19 +58,3 @@ class Chunker:
                 all_chunks.extend(self.chunk_file(os.path.join(dir_path, filename)))
         return all_chunks
 
-
-if __name__ == "__main__":
-    chunker = Chunker(chunk_size=500, chunk_overlap=100)
-
-    sample = (
-        "Người bệnh đái tháo đường type 2 cần kiểm soát chặt chẽ lượng carbohydrate nạp vào. "
-        "Thực phẩm có chỉ số đường huyết thấp như gạo lứt, khoai lang, yến mạch và các loại đậu "
-        "là lựa chọn tốt hơn so với cơm trắng, bánh mì trắng hay đường tinh luyện. "
-        "Rau xanh không tinh bột như bông cải xanh, rau muống, dưa leo nên chiếm phần lớn bữa ăn. "
-        "Protein nạc từ ức gà, cá, đậu phụ giúp no lâu mà không làm tăng đường huyết đột ngột."
-    )
-
-    chunks = chunker.chunk_text(sample, source="test_article.txt")
-    print(f"Số chunks: {len(chunks)}")
-    for i, c in enumerate(chunks):
-        print(f"\n[{i+1}] ({len(c['text'])} ký tự) {c['text'][:80]}...")

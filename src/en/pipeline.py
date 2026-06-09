@@ -52,14 +52,81 @@ class ENPipeline:
         self.retriever = HybridRetriever(bm25, dense)
         self.reranker = Reranker(cfg.get("reranker_model"))
         self.db = SqliteManager(cfg["sqlite_path"])
-        self.generator = Generator(model=cfg["llm_model"])
+
+        self.rewriter_backend = cfg.get("rewriter_backend", "ollama")
+        self.rewriter_model = cfg.get("rewriter_model", "gemini-2.5-flash")
+
+        # Initialize Gemini Client if needed
+        self.genai_client = None
+        if self.rewriter_backend == "gemini" or cfg.get("llm_backend") == "gemini":
+            try:
+                import os
+                from google import genai
+                api_key = os.environ.get("GEMINI_API_KEY") or cfg.get("gemini_api_key")
+                if api_key:
+                    self.genai_client = genai.Client(api_key=api_key)
+                else:
+                    self.genai_client = genai.Client()
+                print(f"[ENPipeline] Gemini client initialized successfully.")
+            except Exception as e:
+                print(f"[ENPipeline] Warning: Could not initialize Gemini client ({e}). Falling back to Ollama.")
+                self.rewriter_backend = "ollama"
+
+        self.generator = Generator(
+            model=cfg["llm_model"],
+            backend=cfg.get("llm_backend", "ollama"),
+            genai_client=self.genai_client
+        )
         self.top_k = cfg.get("top_k", 5)
 
     def _condense_query(self, query: str, history: list[dict]) -> str:
-        """Sử dụng LLM để viết lại câu hỏi dựa trên lịch sử hội thoại."""
+        """Sử dụng LLM (Gemini hoặc Ollama) để viết lại câu hỏi dựa trên lịch sử hội thoại."""
         if not history:
             return query
 
+        if self.rewriter_backend == "gemini" and self.genai_client:
+            try:
+                from google.genai import types
+
+                rewriter_system_prompt = (
+                    "You are a back-end query rewriter layer for a nutrition chatbot.\n"
+                    "Your only job is to look at the recent conversation history and the user's latest message.\n"
+                    "If the user's message contains pronouns (it, its, they, that, those) or is a contextual follow-up "
+                    "(e.g., 'How about X?', 'Its nutrition values', 'Is it safe?'), rewrite it into a single, fully "
+                    "independent, explicit question (in English).\n"
+                    "Do NOT answer the question. Do NOT include introductory text. Only output the rewritten question string."
+                )
+
+                formatted_history = ""
+                for turn in history[-4:]:  # Lấy tối đa 4 lượt hội thoại gần nhất
+                    role = "User" if turn["role"] == "user" else "Bot"
+                    formatted_history += f"{role}: {turn['content']}\n"
+
+                prompt = f"""CONVERSATION HISTORY:
+{formatted_history}
+
+LATEST USER MESSAGE:
+{query}
+
+REWRITTEN QUESTION:"""
+
+                response = self.genai_client.models.generate_content(
+                    model=self.rewriter_model,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction=rewriter_system_prompt,
+                        temperature=0.0
+                    )
+                )
+                condensed = response.text.strip() if response.text else ""
+                if condensed:
+                    if (condensed.startswith('"') and condensed.endswith('"')) or (condensed.startswith("'") and condensed.endswith("'")):
+                        condensed = condensed[1:-1].strip()
+                    return condensed
+            except Exception as e:
+                print(f"[ENPipeline] Gemini rewriter failed: {e}. Falling back to Ollama.")
+
+        # Fallback to Ollama
         history_text = ""
         for msg in history[-5:]:  # lấy tối đa 5 tin nhắn gần nhất
             history_text += f"{msg['role'].capitalize()}: {msg['content']}\n"
@@ -75,9 +142,10 @@ class ENPipeline:
         condensed = self.generator._call_ollama_generate(prompt)
         return condensed.strip() if condensed else query
 
+
     def answer(self, query: str, history: list[dict] = None) -> dict:
-        history = history or []
         search_query = self._condense_query(query, history)
+        print(f"[DEBUG] Original Query: '{query}' -> Condensed/Rewritten Query: '{search_query}'")
 
         intent = self.clf.classify(search_query)
         entities = self.ner.predict(search_query)
@@ -101,6 +169,6 @@ class ENPipeline:
             candidates = self.retriever.retrieve(search_query, top_k=20)
             chunks = self.reranker.rerank(search_query, candidates, top_k=self.top_k)
 
-        result = self.generator.generate(query, nutrition, chunks, intent, history=history)
+        result = self.generator.generate(search_query, nutrition, chunks, intent, history=history)
         result.update({"intent": intent, "entities": entities})
         return result

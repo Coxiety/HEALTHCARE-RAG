@@ -1,9 +1,8 @@
 [CmdletBinding()]
 param(
-    [string]$RequirementsFile = "requirementLib.txt",
+    [string]$RequirementsFile = "requirements.txt",
     [string]$VenvDir = ".venv",
     [string]$PythonExecutable = "python",
-    [switch]$DownloadSpaCyModel,
     [switch]$UpgradePip
 )
 
@@ -43,11 +42,6 @@ if ($UpgradePip) {
 
 Write-Host "Installing packages from $RequirementsFile ..."
 & $PythonExe -m pip install -r $RequirementsPath
-
-if ($DownloadSpaCyModel) {
-    Write-Host "Downloading spaCy model en_core_web_sm ..."
-    & $PythonExe -m spacy download en_core_web_sm
-}
 
 Write-Host ""
 Write-Host "Setup complete."

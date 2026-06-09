@@ -52,18 +52,3 @@ class Embedder:
         self.vector_store.add(chunks)
         return len(chunks)
 
-
-if __name__ == "__main__":
-    vs = VectorStore()
-
-    if vs.count() > 0:
-        print(f"ChromaDB already has {vs.count()} chunks. Skipping.")
-    else:
-        embedder = Embedder(vs)
-        n = embedder.embed_jsonl("data/medical_knowledge.jsonl")
-        print(f"Embedded {n} chunks.")
-
-    print("\nTest query: 'tiểu đường nên ăn gì'")
-    results = vs.query("tiểu đường nên ăn gì", top_k=3)
-    for r in results:
-        print(f"  [{r.score:.3f}] {r.text[:70]}...")

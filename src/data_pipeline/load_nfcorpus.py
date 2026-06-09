@@ -15,7 +15,7 @@ import zipfile
 import requests
 import yaml
 
-from src.database.vector_store import VectorStore
+from src.database.vector_store import RetrievedChunk, VectorStore
 
 NFCORPUS_URL = "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip"
 RAW_DIR      = "data/nfcorpus"
