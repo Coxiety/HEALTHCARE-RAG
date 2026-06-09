@@ -12,53 +12,48 @@ from src.en.retriever import BM25Retriever, DenseRetriever, HybridRetriever
 from src.en.reranker import Reranker
 from src.generation.generator import Generator
 
-# NER misses food names (trained on BC5CDR Chemical/Disease only) — regex/keyword fallback
-def clean_food_name(text: str) -> str:
-    # Remove prep/number prefix like "100g of", "3 oz of", "3-ounce serving of"
-    t = text.lower()
-    t = re.sub(r'\b\d+(?:\s*(?:g|gram|grams|oz|ounce|ounces|lbs|kg|serving|servings|piece|pieces))?\b', '', t)
-    
-    # Define keywords/stopwords to discard (question words, helper verbs, articles, general RAG words, nutrients, etc.)
-    stopwords = {
-        # Question / helper / search words
-        "what", "how", "why", "when", "where", "who", "which", "whom", "whose",
-        "is", "are", "was", "were", "be", "been", "being",
-        "do", "does", "did", "has", "have", "had", "can", "could", "will", "would", "should", "shall", "may", "might", "must",
-        "give", "me", "show", "tell", "find", "lookup", "search", "get", "check", "estimate", "estimated", "calculate", "calculated", "provide", "provided", "list", "listed",
-        # Articles & prepositions & conjunctions
-        "a", "an", "the", "in", "of", "for", "with", "between", "and", "or", "vs", "versus", "compared", "to", "at", "by", "from", "on", "about", "into", "through", "during", "under", "over", "like", "as",
-        # Pronouns
-        "i", "you", "he", "she", "it", "we", "they", "him", "her", "us", "them", "my", "your", "his", "its", "our", "their", "this", "that", "these", "those",
-        # Nutrients
-        "protein", "proteins", "calorie", "calories", "fat", "fats", "lipid", "lipids", "carbs", "carb", "carbohydrate", 
-        "carbohydrates", "fiber", "fibers", "energy", "cholesterol", "sugar", "sugars", "sodium", "vitamin", "vitamins",
-        "kcal", "g", "mg", "microgram", "micrograms", "gram", "grams", "ounce", "ounces", "serving", "servings", "piece", "pieces", "portion", "portions",
-        # Quantity / amount words
-        "many", "much", "some", "any", "few", "little", "more", "most", "all", "both", "each", "every", "other", "another",
-        # Rephrasing / metadata / filler noise words
-        "approximate", "approximately", "amount", "amounts", "typical", "typically", "average", "source", "sources", "content", "contents", "approx", 
-        "estimated", "estimate", "type", "types", "kind", "kinds", "sort", "sorts", "one", "two", "three", "value", "values", "nutrition", "nutrient", "nutrients", "nutritional", "info", "information",
-        "fact", "facts", "data", "found", "contain", "contains", "contained", "containing", "recommend", "recommends", "recommended", "suggest", "suggests", "suggested",
-        "good", "bad", "healthy", "unhealthy", "best", "worst", "better", "health", "body", "human", "people", "person",
-        "specifically", "particular", "particularly", "exact", "exactly", "general", "generally", "usually", "common", "commonly", "normal", "normally",
-        "high", "low", "rich", "poor", "eat", "eating", "consume", "consuming", "diet", "meal", "food", "foods", "drink", "drinks", "make", "makes", "made",
-        "cooked", "raw", "braised", "roasted", "fried", "boiled", "baked", "steamed", "grilled", "fresh", "frozen", "dried", "canned", "skinless", "boneless", "meat", "only"
-    }
-    
-    t = re.sub(r'[^\w\s]', ' ', t)
-    words = [w.strip() for w in t.split() if w.strip()]
-    cleaned_words = [w for w in words if w not in stopwords]
-    return " ".join(cleaned_words)
+import spacy
 
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    import sys
+    print("[RAG Server] Downloading spaCy model 'en_core_web_sm'...", file=sys.stderr)
+    import subprocess
+    subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
+
+_EXCLUDED_NOUNS = {
+    # Nutrients & Generic Medical
+    "protein", "proteins", "calorie", "calories", "fat", "fats", "lipid", "lipids", "carbs", "carb", "carbohydrate", 
+    "carbohydrates", "fiber", "fibers", "energy", "cholesterol", "sugar", "sugars", "sodium", "vitamin", "vitamins",
+    "calcium", "iron", "potassium", "magnesium", "zinc", "phosphorus", "folate", "antioxidant", "glucose", "fructose", "lactose",
+    "disease", "condition", "blood", "pressure", "inflammation", "symptom", "treatment",
+    
+    # Generic measurements/words
+    "amount", "amounts", "grams", "gram", "ounces", "ounce", "serving", "servings", "piece", "pieces", "portion", "portions",
+    "people", "person", "body", "health", "diet", "meal", "food", "foods", "drink", "drinks", "water",
+    "type", "types", "kind", "kinds", "sort", "sorts", "value", "values", "nutrition", "nutrient", "nutrients",
+    "info", "information", "fact", "facts", "data", "source", "sources", "content", "contents", "benefit", "risk"
+}
 
 def _extract_foods_from_query(query: str) -> list[str]:
-    """Extract food names from query when NER returns no FOOD entities."""
-    parts = re.split(r'\b(?:vs|compared\s+to|and|or)\b|[,/]', query, flags=re.IGNORECASE)
+    """Extract food names from query using spaCy Noun Chunks."""
+    doc = nlp(query)
     foods = []
-    for part in parts:
-        cleaned = clean_food_name(part)
-        if cleaned:
-            foods.append(cleaned)
+    for chunk in doc.noun_chunks:
+        root_lemma = chunk.root.lemma_.lower()
+        if root_lemma in _EXCLUDED_NOUNS or chunk.root.pos_ == "PRON":
+            continue
+        
+        text = chunk.text.lower()
+        # Remove common determiners
+        if text.startswith("a "): text = text[2:]
+        elif text.startswith("an "): text = text[3:]
+        elif text.startswith("the "): text = text[4:]
+        
+        if text and text not in foods:
+            foods.append(text)
     return foods
 
 
@@ -105,6 +100,7 @@ class ENPipeline:
             "Rules:\n"
             "1. If the follow-up question contains pronouns (e.g., 'it', 'its', 'they', 'this', 'that') or is a contextual query (e.g., 'what about calories?', 'how about fat?'), you MUST rewrite it to explicitly include the food/context from the history (for example, replace 'its' with 'salmon').\n"
             "2. If the follow-up question is already a standalone question that is fully explicit and contains no pronouns, output the follow-up question EXACTLY as it is without adding any unnecessary context.\n"
+            "3. If the follow-up question introduces a completely new topic or food (e.g. 'Is garlic help lower blood pressure?'), do NOT carry over context from the previous questions. Treat it as a new question and output it EXACTLY as it is.\n"
             "Do NOT answer the question. Only output the rephrased standalone question.\n\n"
             f"Chat History:\n{history_text}"
             f"Follow-up Question: {query}\n\n"

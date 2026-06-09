@@ -10,11 +10,13 @@ chromadb
 sentence-transformers
 rank-bm25
 scikit-learn
+spacy
 
 # === Training (only needed to train/fine-tune models) ===
 transformers
 torch
 seqeval
+evaluate
 accelerate
 datasets
 pandas
