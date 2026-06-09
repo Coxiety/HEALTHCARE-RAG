@@ -1,119 +1,160 @@
 # HealthCare-RAG
 
-English-language Retrieval-Augmented Generation system for nutrition and health Q&A.
+English-language's Retrieval-Augmented Generation system for nutrition and health Q&A, featuring intelligent query rewriting, hybrid search, rerankers, and dual LLM support (local Ollama or cloud-based Google Gemini).
 
 ---
 
 ## Architecture
 
 ```
-[User Query]
-      │
-      ▼
-[Preprocessor]        NLTK / spaCy
-      │
-      ▼
-[Classifier BERT]     3-class: NUTRITION_LOOKUP · HEALTH_ADVICE · BOTH
-      │
-      ▼
-[NER BioBERT]         FOOD · DISEASE · NUTRIENT · SYMPTOM
-      │
-      ├── NUTRITION ──▶ USDA SQLite (13,661 foods)
-      │
-      └── HEALTH ────▶ Retriever
-                        TF-IDF · BM25 · Dense · Dense fine-tuned · Hybrid RRF
-                              │
-                              ▼
-                        Reranker (cross-encoder/ms-marco-MiniLM)
-                              │
-                              ▼
-[Generator]           Ollama llama3.1:8b
+                                      [User Query]
+                                           │
+                                           ▼
+                                [Query Rewriter (Gemini/Ollama)]
+                                           │
+                                           ▼
+                                    [Preprocessor]
+                                           │
+                                           ▼
+                                    [Classifier BERT] (3-class: NUTRITION_LOOKUP, HEALTH_ADVICE, BOTH)
+                                           │
+                                           ▼
+                                     [NER BioBERT] (FOOD, DISEASE, NUTRIENT, SYMPTOM)
+                                           │
+                                           ├─► NUTRITION ──► USDA SQLite (13,661 foods)
+                                           │
+                                           └─► HEALTH ─────► Retriever (BM25 + Dense Hybrid RRF)
+                                                                 │
+                                                                 ▼
+                                                             [Reranker] (cross-encoder/ms-marco-MiniLM)
+                                                                 │
+                                                                 ▼
+                                                      [Generator (Ollama/Gemini)]
+                                                                 │
+                                                                 ▼
+                                                              [Answer]
 ```
 
 ---
 
-## Retrieval Eval — NFCorpus 323 test queries
+## Key Features
 
-| Method | MRR |
-|---|---|
-| TF-IDF | 0.38 |
-| BM25 | 0.47 |
-| Dense (vanilla) | 0.50 |
-| Dense fine-tuned | 0.47 |
-| Hybrid RRF | 0.50 |
-| Hybrid + Reranker | **0.55** |
+1. **Context-Aware Query Rewriting**: Resolves pronouns and contextual references in chat history (e.g. converting "Is it healthy?" after a discussion about "apple" into "Is apple healthy for human consumption?"). Supports Google Gemini (with the new `google-genai` SDK) and local Ollama, with automated failover from Gemini to Ollama.
+2. **Hybrid Retrieval**: Combines sparse BM25 retrieval with dense vector search (ChromaDB using fine-tuned `all-MiniLM-L6-v2` embeddings).
+3. **Re-Ranking**: Filters and re-orders the top retrieved passages using `ms-marco-MiniLM-L-6-v2` cross-encoder.
+4. **Structured Knowledge Base**: Fast local SQLite lookups for USDA nutrition facts.
+5. **Flexible LLM Engine**: Can be configured to run entirely locally with Ollama or leverage Google Gemini APIs for superior performance.
 
-## Automatic RAG Evaluation
+---
 
-Run batch evaluation on a QA dataset with ground truth:
+## Configuration (`configs/config.yaml`)
 
+Configure your model paths, database locations, and LLM backends in `configs/config.yaml`:
+
+```yaml
+# --- Paths ---
+sqlite_path: "data/usda_food.db"
+chroma_persist_dir: "data/chroma_db"
+chroma_collection: "nfcorpus"
+
+# --- Models ---
+embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+reranker_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+ner_model_path: "models/ner_bert/"
+classifier_model_path: "models/classifier_bert/"
+
+# --- LLM Generator ---
+llm_backend: "ollama"           # "ollama" or "gemini"
+llm_model: "llama3.1:8b"        # e.g., "llama3.1:8b" (Ollama) or "gemini-2.5-flash" (Gemini)
+
+# --- Query Rewriter ---
+rewriter_backend: "gemini"      # "gemini" or "ollama"
+rewriter_model: "gemini-2.5-flash"
+
+# --- Retrieval ---
+top_k: 5
+similarity_threshold: 0.5
+```
+
+> **Note on Gemini API**: If using `gemini` for either the rewriter or generator, make sure to set your API key in the environment:
+> ```bash
+> export GEMINI_API_KEY="your-api-key"
+> ```
+> *If the API key is not found, the system will automatically fall back to using `ollama` for the query rewriter.*
+
+---
+
+## Setup & Installation
+
+**Requirements:** Python 3.10+, JDK 21+, Maven, [Ollama](https://ollama.com) (if running locally).
+
+### 1. Auto Setup (Windows PowerShell)
+Run the setup script from the root directory:
 ```powershell
-python main/evaluate_rag.py --input data/en/eval_200.jsonl --output-dir reports/en/rag_eval
+.\setup_project.ps1 -UpgradePip
+```
+This script will initialize the virtual environment `.venv` and install all necessary dependencies listed in `requirements.txt`.
+
+### 2. Manual Setup
+Alternatively, set up manually:
+```bash
+# Create and activate environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Pull local LLM model (if using Ollama)
+ollama pull llama3.1:8b
 ```
 
-Supported fields in the input file:
-- `question` required
-- `answer` or `reference_answer` for answer scoring
-- `relevant_docs` for retrieval scoring
-- `expected_intent`, `expected_answer_keywords`, `expected_source_keywords` for routing and keyword checks
+### 3. Downloads
+Download the required model weights and database from the shared folder and extract them to their respective locations:
+*   [Download Link (Google Drive)](https://drive.google.com/drive/folders/1N42YIeaPXBH9S9hyRiGw42SHcyzTvn8L?usp=sharing)
 
-The evaluator writes `summary.json` and `cases.csv` to the output directory. In `full` mode it measures intent accuracy, retrieval metrics, answer exact match, token F1, keyword/source hits, and latency. In `retrieval` mode it skips generation and only scores retrieval.
+| File / Folder | Target Path |
+|---|---|
+| `ner_bert.zip` | `models/ner_bert/` (Extract here) |
+| `classifier_bert.zip` | `models/classifier_bert/` (Extract here) |
+| `embedding_domain.zip` | `models/embedding_domain/` (Extract here) |
+| `usda_food.db` | `data/usda_food.db` |
 
 ---
 
-## Models
+## Running the Application
 
-| Component | Model | Status |
-|---|---|---|
-| NER | `dmis-lab/biobert-base-cased-v1.2` fine-tuned on BC5CDR | ✅ F1 = 0.893 |
-| Embedding | `sentence-transformers/all-MiniLM-L6-v2` fine-tuned on NFCorpus triplets | ✅ MRR = 0.47 |
-| Classifier | `bert-base-uncased` + 3-class head | ✅ F1 = 1.000 |
-| Reranker | `cross-encoder/ms-marco-MiniLM-L-6-v2` (pretrained) | ✅ |
-| LLM | `llama3.1:8b` via Ollama | ✅ |
+To run the full system with a web user interface, start the backend and frontend services:
+
+```bash
+# 1. Start Ollama (if using local LLM)
+ollama serve
+
+# 2. Start RAG Backend Server (FastAPI)
+python main/rag_server.py
+
+# 3. Start Frontend App (Spring Boot)
+cd chatbot
+mvn spring-boot:run
+```
+Access the web UI at `http://localhost:8081`.
 
 ---
 
-## Datasets
+## Evaluation and Testing
 
-| Dataset | Purpose | Size |
-|---|---|---|
-| USDA FoodData Central | Nutrition lookup | 13,661 foods |
-| NFCorpus (BEIR) | RAG corpus + retrieval eval | 3,633 docs · 323 test queries |
-| BC5CDR (`tner/bc5cdr`) | NER training — BIO tags | 16,423 sentences |
-| Synthetic intent | Classifier training | 1,500 questions (500 × 3 class) |
-
----
-
-## Training Notebooks
-
-All notebooks run on **Google Colab GPU**. Workflow: upload data to Drive → open notebook → train → download zip → extract to `models/`.
-
-| Notebook | Input (upload to Drive) | Output |
-|---|---|---|
-| `notebooks/en/training_ner.ipynb` | `data/en/bc5cdr_bio.jsonl` | `models/ner_bert/` |
-| `notebooks/en/training_embedding.ipynb` | `data/en/triplets.jsonl` | `models/embedding_domain/` |
-| `notebooks/en/training_classifier.ipynb` | `data/en/intent_data.csv` | `models/classifier_bert/` |
-| `notebooks/en/training_reranker.ipynb` | repo mounted/copied on Colab/Kaggle | `models/reranker_domain/final/` |
-
-> **Note:** `bc5cdr_bio.jsonl` and `triplets.jsonl` are not tracked by git (too large).
-> `intent_data.csv` is tracked — `git pull` is enough for the classifier notebook.
-
-### Training Script
-
-| Script | Input | Output |
-|---|---|---|
-| `main/train_reranker.py` | `data/en/corpus.jsonl`, `data/nfcorpus/queries.jsonl`, `data/nfcorpus/qrels/train.tsv`, `data/nfcorpus/qrels/dev.tsv` | `models/reranker_domain/final/` |
-
-After training the reranker, set `reranker_model` in `configs/config.yaml` to the saved folder if you want the pipeline to load it by default.
-
-After downloading, extract to the corresponding `models/` subfolder:
-
+### 1. Test Gemini/Ollama Integration
+You can verify the integration of your models, including the query rewriter and fallback mechanisms, by running the test script:
+```bash
+python main/test_gemini.py
 ```
-models/
-├── ner_bert/            ← extract ner_bert.zip here
-├── embedding_domain/    ← extract embedding_domain.zip here
-└── classifier_bert/     ← extract classifier_bert.zip here
+
+### 2. Run Automatic RAG Evaluation
+Run evaluation on a test dataset (e.g. `eval_200.jsonl`):
+```bash
+python -m src.evaluation.rag_evaluator --input data/en/eval_200.jsonl --output-dir reports/en/rag_eval
 ```
+The evaluator outputs `summary.json` and `cases.csv` containing performance and accuracy metrics.
 
 ---
 
@@ -121,101 +162,18 @@ models/
 
 ```
 ├── src/
-│   ├── en/               # EN pipeline
-│   ├── data_pipeline/    # data loading, chunking, embedding, synthesis
-│   ├── database/         # sqlite_manager, vector_store
-│   └── generation/       # Ollama generator
+│   ├── en/               # English RAG pipeline (processor, classifier, NER, retriever, etc.)
+│   ├── data_pipeline/    # Data indexing and chunking
+│   ├── database/         # SQLite manager and Vector Store (Chroma)
+│   └── generation/       # LLM Generator (Ollama/Gemini wrappers)
 ├── main/
-│   ├── rag_server.py     # FastAPI server (port 8000)
-│   └── build_usda_db.py  # Build USDA SQLite from CSV
-├── notebooks/en/
-│   ├── training_ner.ipynb
-│   ├── training_embedding.ipynb
-│   ├── training_classifier.ipynb
-│   ├── eval_retrieval.ipynb
-│   └── eval_synthetic_intent.ipynb
-├── data/en/
-│   ├── intent_data.csv   # tracked — 1,500 synthetic intent questions
-│   ├── corpus.jsonl      # tracked — 3,633 NFCorpus docs
-│   ├── bc5cdr_bio.jsonl  # NOT tracked — share manually for NER training
-│   └── triplets.jsonl    # NOT tracked — share manually for embedding training
-├── models/               # NOT tracked — extract from training zip
-├── reports/en/           # eval charts + ablation results
+│   ├── build_usda_db.py  # Builds the USDA SQLite database from CSVs
+│   ├── test_gemini.py    # Test suite for Gemini and general pipeline verification
+│   └── rag_server.py     # FastAPI Server
+├── notebooks/en/         # Jupyter Notebooks for training model parts
+├── data/                 # Raw/processed data (Chroma DB files, USDA, etc.)
+├── models/               # Model weights directory (NER, Classifier, etc.)
+├── reports/              # Benchmark and evaluation reports
 ├── chatbot/              # Spring Boot UI (port 8081)
-└── configs/config.yaml
-```
-
----
-
-## Downloads
-
-Pre-trained models and USDA database (required to run):
-
-**[Google Drive](https://drive.google.com/drive/folders/1N42YIeaPXBH9S9hyRiGw42SHcyzTvn8L?usp=sharing)**
-
-| File | Extract to |
-|---|---|
-| `ner_bert.zip` | `models/ner_bert/` |
-| `classifier_bert.zip` | `models/classifier_bert/` |
-| `embedding_domain.zip` | `models/embedding_domain/` |
-| `usda_food.db` | `data/usda_food.db` |
-
----
-
-## Setup
-
-**Requirements:** Python 3.10+, JDK 21+, Maven, [Ollama](https://ollama.com)
-
-Backend accounts are stored in a file-based H2 database that is now resolved by the server itself, so login data survives restarts even if you launch the app from a different working directory.
-
-One-command setup from the repo root:
-
-```powershell
-.\setup_project.ps1 -DownloadSpaCyModel -UpgradePip
-```
-
-If you have multiple Python versions installed, pass `-PythonExecutable` with the exact `python.exe` you want the script to use.
-
-What it does:
-- creates `.venv` if it does not exist
-- installs packages from `requirementLib.txt`
-- downloads `en_core_web_sm` for spaCy
-
-Manual setup if you want to do it step by step:
-
-```bash
-conda create -n nutrition-rag python=3.10
-conda activate nutrition-rag
-pip install -r requirementLib.txt
-python -m spacy download en_core_web_sm
-ollama pull llama3.1:8b
-```
-
-To reuse the same pattern in another project, copy `setup_project.ps1` and your requirements file into that project, then run the script from that project's root.
-
-Build USDA database (requires raw CSV in `FoodData_Central_csv_*/`):
-
-```bash
-python main/build_usda_db.py
-```
-
-Download and index NFCorpus (~50 MB, runs once):
-
-```bash
-python -m src.data_pipeline.load_nfcorpus
-```
-
----
-
-## Running
-
-```bash
-# Terminal 1
-ollama serve
-
-# Terminal 2
-python main/rag_server.py        # FastAPI at http://localhost:8000
-
-# Terminal 3
-cd chatbot && mvn spring-boot:run # UI at http://localhost:8081
+└── configs/config.yaml   # Main configuration file
 ```
