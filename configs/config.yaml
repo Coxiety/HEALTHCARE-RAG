@@ -12,9 +12,13 @@ chroma_collection: "nfcorpus"
 embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
 reranker_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
 llm_model: "llama3.1:8b"
-llm_backend: "ollama"
+llm_backend: "ollama"           # "ollama" or "gemini" (main response generator)
 ner_model_path: "models/ner_bert/"
 classifier_model_path: "models/classifier_bert/"
+
+# --- Query Rewriter Options ---
+rewriter_backend: "gemini"      # "gemini" or "ollama"
+rewriter_model: "gemini-2.5-flash"
 
 # --- Retrieval ---
 top_k: 5

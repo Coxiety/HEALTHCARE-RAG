@@ -1,30 +1,20 @@
-# Core
+# === Runtime (required to run the RAG server) ===
 pyyaml
 requests
+google-genai
 fastapi
 uvicorn
 
-# NLP
-spacy
-nltk
-# after: python -m spacy download en_core_web_sm
-
-# Vector search & retrieval
+# NLP & Retrieval
 chromadb
 sentence-transformers
 rank-bm25
 scikit-learn
 
-# Data loading
-datasets
-pandas
-tabulate
-
-# Training (TV1 Training 1, TV2 Training 2, TV3 Training 3)
+# === Training (only needed to train/fine-tune models) ===
 transformers
 torch
 seqeval
 accelerate
-
-# Data quality evaluation
-datasketch
+datasets
+pandas

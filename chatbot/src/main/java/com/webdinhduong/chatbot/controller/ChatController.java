@@ -125,21 +125,21 @@ public class ChatController {
 
         } catch (ResourceAccessException e) {
             log.error("Không kết nối được RAG server tại {}", ragApiUrl, e);
-            aiResponse = "Hệ thống AI chưa khởi động. Hãy chạy lệnh: python main/rag_server.py";
+            aiResponse = "AI system has not started. Please run: python main/rag_server.py";
         } catch (Exception e) {
-            log.error("Lỗi khi gọi RAG server", e);
-            aiResponse = "Hệ thống AI gặp lỗi. Vui lòng thử lại sau.";
+            log.error("Error calling RAG server", e);
+            aiResponse = "AI system error. Please try again later.";
         }
 
         if (aiResponse == null) {
-            aiResponse = "Xin lỗi, tôi chưa hiểu ý bạn.";
+            aiResponse = "Sorry, I did not understand you.";
         }
 
         if (savedFoodName != null && user != null) {
             FoodRecord record = new FoodRecord();
             record.setUser(user);
             record.setFoodName(savedFoodName);
-            record.setCalories(savedCalories != null ? savedCalories : "Đang cập nhật từ AI...");
+            record.setCalories(savedCalories != null ? savedCalories : "Updating from AI...");
             foodRecordRepository.save(record);
         }
 
@@ -175,7 +175,7 @@ public class ChatController {
             if (title != null && title.length() > 50) title = title.substring(0, 50) + "...";
             Map<String, Object> entry = new java.util.HashMap<>();
             entry.put("sessionId", m.getSessionId());
-            entry.put("title",     title != null ? title : "(Cuộc hội thoại)");
+            entry.put("title",     title != null ? title : "(Conversation)");
             entry.put("createdAt", m.getCreatedAt().toString());
             return entry;
         }).collect(Collectors.toList());
@@ -188,19 +188,7 @@ public class ChatController {
         return ResponseEntity.ok(chatMessageRepository.findBySessionIdOrderByCreatedAtAsc(sessionId));
     }
 
-    // API lịch sử chat (50 tin nhắn gần nhất, mọi session)
-    @GetMapping("/history/{userId}")
-    public ResponseEntity<List<ChatMessage>> getHistory(@PathVariable Long userId) {
-        List<ChatMessage> msgs = chatMessageRepository.findTop50ByUserIdOrderByCreatedAtDesc(userId);
-        java.util.Collections.reverse(msgs);
-        return ResponseEntity.ok(msgs);
-    }
 
-    // API Dashboard
-    @GetMapping("/dashboard/{userId}")
-    public ResponseEntity<List<FoodRecord>> getDashboard(@PathVariable Long userId) {
-        return ResponseEntity.ok(foodRecordRepository.findByUserIdOrderByCreatedAtDesc(userId));
-    }
 
     @SuppressWarnings("unchecked")
     private Map<String, Object> callRagModel(String userMessage, List<Map<String, String>> history) {

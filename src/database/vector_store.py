@@ -119,17 +119,3 @@ class VectorStore:
         client = self._get_client()
         client.delete_collection(self.collection_name)
         self._collection = None  # reset cache để get_or_create tạo lại
-
-
-if __name__ == "__main__":
-    vs = VectorStore()
-
-    vs.add([
-        {"id": "t1", "text": "Người bị tiểu đường nên hạn chế tinh bột và đường.", "source": "test"},
-        {"id": "t2", "text": "Cá hồi giàu omega-3, tốt cho tim mạch và não bộ.", "source": "test"},
-        {"id": "t3", "text": "Rau xanh cung cấp chất xơ, vitamin và khoáng chất.", "source": "test"},
-    ])
-
-    print(f"Tổng chunks: {vs.count()}")
-    for r in vs.query("tiểu đường nên ăn gì", top_k=2):
-        print(f"  [{r.score:.3f}] {r.text[:60]}...")

@@ -1,13 +1,11 @@
 import re
-import nltk
 
-nltk.download("stopwords", quiet=True)
-from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 
 class Preprocessor:
     def __init__(self):
-        self._stop = set(stopwords.words("english"))
+        self._stop = ENGLISH_STOP_WORDS
 
     def preprocess(self, text: str) -> str:
         text = text.lower().strip()

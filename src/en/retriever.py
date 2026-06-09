@@ -1,10 +1,9 @@
-"""Retrieval baselines for the EN pipeline.
+"""Retrieval components for the EN pipeline.
 
 Classes:
-  TFIDFRetriever   — sparse baseline (sklearn TF-IDF)
-  BM25Retriever    — sparse variant (rank_bm25)
-  DenseRetriever   — dense baseline via ChromaDB (vanilla or fine-tuned)
-  HybridRetriever  — BM25 + Dense with Reciprocal Rank Fusion (k=60)
+  BM25Retriever    — sparse retrieval (rank_bm25)
+  DenseRetriever   — dense retrieval via ChromaDB
+  HybridRetriever  — BM25 + Dense with Reciprocal Rank Fusion (k=10)
 
 Contract: retrieve(query, top_k) -> list[RetrievedChunk]
 """
@@ -17,47 +16,12 @@ import re
 import numpy as np
 from rank_bm25 import BM25Okapi
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 from src.database.vector_store import RetrievedChunk, VectorStore
 
 
 # ---------------------------------------------------------------------------
-# TF-IDF (sparse baseline — MVP)
-# ---------------------------------------------------------------------------
-
-class TFIDFRetriever:
-    def __init__(self, vector_store: VectorStore):
-        self.vs = vector_store
-        self._index = None
-        self._chunks: list[dict] | None = None
-        self.vectorizer = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2))
-
-    def _build_index(self) -> None:
-        self._chunks = self.vs.get_all_chunks()
-        texts = [c["text"] for c in self._chunks]
-        self._index = self.vectorizer.fit_transform(texts)
-
-    def retrieve(self, query: str, top_k: int = 5) -> list[RetrievedChunk]:
-        if self._index is None:
-            self._build_index()
-        qvec = self.vectorizer.transform([query])
-        scores = cosine_similarity(qvec, self._index).flatten()
-        top_idx = np.argsort(scores)[::-1][:top_k]
-        return [
-            RetrievedChunk(
-                text=self._chunks[i]["text"],
-                source=self._chunks[i].get("source", ""),
-                score=float(scores[i]),
-            )
-            for i in top_idx
-            if scores[i] > 0
-        ]
-
-
-# ---------------------------------------------------------------------------
-# BM25 (sparse variant)
+# BM25 (sparse retrieval)
 # Loads corpus from data/en/corpus.jsonl — TV2 replace file, schema unchanged.
 # ---------------------------------------------------------------------------
 

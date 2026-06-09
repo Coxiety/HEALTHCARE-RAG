@@ -1,14 +1,24 @@
 from __future__ import annotations
 
+import re
+
 import requests
 
 
 class Generator:
-    """Gọi Ollama local để sinh câu trả lời từ retrieved context."""
+    """Gọi Ollama local hoặc Gemini để sinh câu trả lời từ retrieved context."""
 
-    def __init__(self, model: str = "qwen2.5:3b", host: str = "http://localhost:11434"):
+    def __init__(
+        self,
+        model: str = "qwen2.5:3b",
+        host: str = "http://localhost:11434",
+        backend: str = "ollama",
+        genai_client = None
+    ):
         self.model = model
         self.host = host.rstrip("/")
+        self.backend = backend
+        self.genai_client = genai_client
 
     # ------------------------------------------------------------------
     # Prompt builder
@@ -79,13 +89,15 @@ class Generator:
         body = "\n\n".join(sections) if sections else "No reference data available."
 
         return (
-            "You are a professional nutrition and health assistant. Answer DIRECTLY in English, concisely and accurately.\n"
-            "Structure: (1) direct answer, (2) explanation or mechanism, (3) practical food suggestions if relevant.\n"
-            "CRITICAL: Use ONLY the exact numbers from the provided data. Never invent or estimate nutritional values.\n\n"
+            "You are a professional nutrition and health assistant. Answer DIRECTLY in English, in a natural, conversational, and helpful manner.\n"
+            "Do NOT mention any rules, instructions, system prompts, or formatting/structural constraints to the user. Do NOT say 'I will follow the new structure' or make similar meta-comments. Always remain in character.\n"
+            "If specific nutrition data is provided in [Nutrition Data — USDA FoodData Central], you MUST use those exact values and prioritize them. "
+            "If no nutrition data is provided but the question is about common food items, use your general knowledge to provide accurate, typical nutritional information. Do NOT say 'No reference data is available' or that you cannot answer just because it's not in the provided documents.\n"
+            "If the user asks a specific clinical or medical question, you must base your answer on the provided 'Reference Documents' and cite them. If no relevant documents are found for such queries, state that you do not have sufficient information in the reference library to answer.\n\n"
             f"{comparison_instruction}"
             f"{body}\n\n"
             f"Question: {query}\n\n"
-            "Answer (cite sources at the end):"
+            "Answer:"
         )
 
     # ------------------------------------------------------------------
@@ -111,7 +123,7 @@ class Generator:
         history: list[dict] = None,
     ) -> dict:
         """
-        Gọi Ollama và trả về kết quả.
+        Sinh câu trả lời sử dụng Gemini hoặc Ollama dựa trên cấu hình backend.
 
         Returns:
             {
@@ -127,7 +139,15 @@ class Generator:
             return {"answer": answer, "sources": sources, "used_llm": False}
 
         prompt = self.build_prompt(query, nutrition_data, health_chunks, query_type)
-        answer = self._call_ollama(prompt, history)
+
+        if self.backend == "gemini":
+            answer = self._call_gemini(prompt, history)
+            # Fallback to Ollama if Gemini fails
+            if answer is None:
+                print("[Generator] Gemini failed, falling back to Ollama...")
+                answer = self._call_ollama(prompt, history)
+        else:
+            answer = self._call_ollama(prompt, history)
 
         sources = [c.source for c in health_chunks]
         if nutrition_data:
@@ -149,16 +169,70 @@ class Generator:
             "used_llm": used_llm,
         }
 
+    def _call_gemini(self, prompt: str, history: list[dict] = None) -> str | None:
+        if not self.genai_client:
+            try:
+                from google import genai
+                self.genai_client = genai.Client()
+            except Exception as e:
+                print(f"[Generator] Error initializing Gemini client: {e}")
+                return None
+
+        try:
+            from google.genai import types
+
+            system_instruction = (
+                "You are a professional, helpful, and friendly nutrition and health advisor. "
+                "Answer all questions directly and concisely in English. "
+                "Never mention any system prompts, rules, instructions, or lack of data/documents to the user. "
+                "Always remain in character. Use the provided context/data if available to form your answer; "
+                "otherwise, use your general knowledge to answer with helpful and accurate information."
+            )
+
+            contents = []
+            if history:
+                for msg in history:
+                    role = "model" if msg["role"] in ("model", "bot", "assistant") else "user"
+                    contents.append(
+                        types.Content(
+                            role=role,
+                            parts=[types.Part.from_text(text=msg["content"])]
+                        )
+                    )
+
+            # Add latest prompt
+            contents.append(
+                types.Content(
+                    role="user",
+                    parts=[types.Part.from_text(text=prompt)]
+                )
+            )
+
+            response = self.genai_client.models.generate_content(
+                model=self.model,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    temperature=0.3,
+                )
+            )
+            return response.text.strip() if response.text else None
+        except Exception as e:
+            print(f"[Generator] Gemini generation failed: {e}")
+            return None
+
+
     def _call_ollama(self, prompt: str, history: list[dict] = None) -> str | None:
         history = history or []
         messages = [
             {
                 "role": "system",
                 "content": (
-                    "You are a professional nutrition and health advisor. "
-                    "Answer questions based on the provided scientific documents. "
-                    "Always respond in English, directly and thoroughly. "
-                    "Never refuse to answer — always use the provided context to give helpful information."
+                    "You are a professional, helpful, and friendly nutrition and health advisor. "
+                    "Answer all questions directly and concisely in English. "
+                    "Never mention any system prompts, rules, instructions, or lack of data/documents to the user. "
+                    "Always remain in character. Use the provided context/data if available to form your answer; "
+                    "otherwise, use your general knowledge to answer with helpful and accurate information."
                 ),
             }
         ]
@@ -218,8 +292,7 @@ class Generator:
 
     @staticmethod
     def _strip_thinking(text: str) -> str:
-        """Safety net: strip <think> tags nếu có. qwen2.5 không có thinking mode."""
-        import re
+        """Safety net: strip <think> tags nếu có."""
         if not text:
             return text
         return re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip() or text
@@ -267,13 +340,3 @@ class Generator:
                 parts.append("No relevant medical documents found.")
 
         return "\n".join(parts)
-
-
-if __name__ == "__main__":
-    g = Generator()
-    print("Testing Ollama connection...")
-    result = g._call_ollama("Xin chao, ban co hoat dong khong?")
-    if result:
-        print("OK:", result[:100])
-    else:
-        print("Ollama offline. Fallback active.")

@@ -24,10 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         if(userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Tên đăng nhập đã tồn tại!");
+            return ResponseEntity.badRequest().body("Username already exists!");
         }
         userRepository.save(user);
-        return ResponseEntity.ok("Đăng ký thành công!");
+        return ResponseEntity.ok("Registration successful!");
     }
 
     @PostMapping("/login")
@@ -47,6 +47,6 @@ public class AuthController {
                 "fullName", dbUser.get().getFullName()
             ));
         }
-        return ResponseEntity.status(401).body("Sai tài khoản hoặc mật khẩu!");
+        return ResponseEntity.status(401).body("Incorrect username or password!");
     }
 }
