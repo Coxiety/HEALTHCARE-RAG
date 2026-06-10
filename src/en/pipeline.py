@@ -17,7 +17,8 @@ def clean_food_name(text: str) -> str:
     # Remove prep/number prefix like "100g of", "3 oz of", "3-ounce serving of"
     t = text.lower()
     t = re.sub(r'\b\d+(?:\s*(?:g|gram|grams|oz|ounce|ounces|lbs|kg|serving|servings|piece|pieces))?\b', '', t)
-    t = re.sub(r'\b(?:of|for|in|about|what|how|compare|with)\b', '', t)
+    # Remove question words and nutrition keywords
+    t = re.sub(r'\b(?:of|for|in|about|what|how|compare|with|many|much|protein|proteins|carbs|carbohydrate|carbohydrates|fat|fats|lipid|lipids|calories|energy|sugar|sugars|vitamin|vitamins|mineral|minerals|nutrition|nutritional|value|is|are|does|do|has|have|the|a|an)\b', '', t)
     t = re.sub(r'[^\w\s]', ' ', t)
     words = [w.strip() for w in t.split() if w.strip()]
     return " ".join(words)
@@ -164,6 +165,9 @@ REWRITTEN QUESTION:"""
                         nutrition.append(nut_data)
                 if not nutrition:
                     nutrition = None
+                elif len(nutrition) == 1:
+                    # Nếu chỉ có 1 món ăn, bung list ra thành dict để khớp với điều kiện fast-path trong generator.py
+                    nutrition = nutrition[0]
 
         if intent in ("HEALTH_ADVICE", "BOTH"):
             candidates = self.retriever.retrieve(search_query, top_k=20)

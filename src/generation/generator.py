@@ -132,11 +132,7 @@ class Generator:
                 "used_llm": True/False
             }
         """
-        # NUTRITION_LOOKUP với data USDA: trả thẳng, không qua LLM (chỉ áp dụng khi có đúng 1 thực phẩm đầy đủ thông tin)
-        if query_type == "NUTRITION_LOOKUP" and nutrition_data and isinstance(nutrition_data, dict) and nutrition_data.get("nutrients_per_100g"):
-            answer = self._format_nutrition_answer(nutrition_data)
-            sources = [f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})"]
-            return {"answer": answer, "sources": sources, "used_llm": False}
+        # Đã loại bỏ fast-path: Tất cả NUTRITION_LOOKUP giờ đây đều sẽ được đẩy qua LLM để AI có thể đưa ra nhận xét và lời khuyên.
 
         prompt = self.build_prompt(query, nutrition_data, health_chunks, query_type)
 
