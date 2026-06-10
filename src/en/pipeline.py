@@ -12,26 +12,48 @@ from src.en.retriever import BM25Retriever, DenseRetriever, HybridRetriever
 from src.en.reranker import Reranker
 from src.generation.generator import Generator
 
-# NER misses food names (trained on BC5CDR Chemical/Disease only) — regex/keyword fallback
-def clean_food_name(text: str) -> str:
-    # Remove prep/number prefix like "100g of", "3 oz of", "3-ounce serving of"
-    t = text.lower()
-    t = re.sub(r'\b\d+(?:\s*(?:g|gram|grams|oz|ounce|ounces|lbs|kg|serving|servings|piece|pieces))?\b', '', t)
-    # Remove question words and nutrition keywords
-    t = re.sub(r'\b(?:of|for|in|about|what|how|compare|with|many|much|protein|proteins|carbs|carbohydrate|carbohydrates|fat|fats|lipid|lipids|calories|energy|sugar|sugars|vitamin|vitamins|mineral|minerals|nutrition|nutritional|value|is|are|does|do|has|have|the|a|an)\b', '', t)
-    t = re.sub(r'[^\w\s]', ' ', t)
-    words = [w.strip() for w in t.split() if w.strip()]
-    return " ".join(words)
+import spacy
 
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    import sys
+    print("[RAG Server] Downloading spaCy model 'en_core_web_sm'...", file=sys.stderr)
+    import subprocess
+    subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
+
+_EXCLUDED_NOUNS = {
+    # Nutrients & Generic Medical
+    "protein", "proteins", "calorie", "calories", "fat", "fats", "lipid", "lipids", "carbs", "carb", "carbohydrate", 
+    "carbohydrates", "fiber", "fibers", "energy", "cholesterol", "sugar", "sugars", "sodium", "vitamin", "vitamins",
+    "calcium", "iron", "potassium", "magnesium", "zinc", "phosphorus", "folate", "antioxidant", "glucose", "fructose", "lactose",
+    "disease", "condition", "blood", "pressure", "inflammation", "symptom", "treatment",
+    
+    # Generic measurements/words
+    "amount", "amounts", "grams", "gram", "ounces", "ounce", "serving", "servings", "piece", "pieces", "portion", "portions",
+    "people", "person", "body", "health", "diet", "meal", "food", "foods", "drink", "drinks", "water",
+    "type", "types", "kind", "kinds", "sort", "sorts", "value", "values", "nutrition", "nutrient", "nutrients",
+    "info", "information", "fact", "facts", "data", "source", "sources", "content", "contents", "benefit", "risk"
+}
 
 def _extract_foods_from_query(query: str) -> list[str]:
-    """Extract food names from query when NER returns no FOOD entities."""
-    parts = re.split(r'\b(?:vs|compared\s+to|and)\b|[,/]', query, flags=re.IGNORECASE)
+    """Extract food names from query using spaCy Noun Chunks."""
+    doc = nlp(query)
     foods = []
-    for part in parts:
-        cleaned = clean_food_name(part)
-        if cleaned:
-            foods.append(cleaned)
+    for chunk in doc.noun_chunks:
+        root_lemma = chunk.root.lemma_.lower()
+        if root_lemma in _EXCLUDED_NOUNS or chunk.root.pos_ == "PRON":
+            continue
+        
+        text = chunk.text.lower()
+        # Remove common determiners
+        if text.startswith("a "): text = text[2:]
+        elif text.startswith("an "): text = text[3:]
+        elif text.startswith("the "): text = text[4:]
+        
+        if text and text not in foods:
+            foods.append(text)
     return foods
 
 
@@ -54,80 +76,19 @@ class ENPipeline:
         self.reranker = Reranker(cfg.get("reranker_model"))
         self.db = SqliteManager(cfg["sqlite_path"])
 
-        self.rewriter_backend = cfg.get("rewriter_backend", "ollama")
-        self.rewriter_model = cfg.get("rewriter_model", "gemini-2.5-flash")
-
-        # Initialize Gemini Client if needed
-        self.genai_client = None
-        if self.rewriter_backend == "gemini" or cfg.get("llm_backend") == "gemini":
-            try:
-                import os
-                from google import genai
-                api_key = os.environ.get("GEMINI_API_KEY") or cfg.get("gemini_api_key")
-                if api_key:
-                    self.genai_client = genai.Client(api_key=api_key)
-                else:
-                    self.genai_client = genai.Client()
-                print(f"[ENPipeline] Gemini client initialized successfully.")
-            except Exception as e:
-                print(f"[ENPipeline] Warning: Could not initialize Gemini client ({e}). Falling back to Ollama.")
-                self.rewriter_backend = "ollama"
+        self.rewriter_model = cfg.get("rewriter_model", "llama3.1:8b")
 
         self.generator = Generator(
             model=cfg["llm_model"],
-            backend=cfg.get("llm_backend", "ollama"),
-            genai_client=self.genai_client
+            host=cfg.get("ollama_host", "http://localhost:11434")
         )
         self.top_k = cfg.get("top_k", 5)
 
     def _condense_query(self, query: str, history: list[dict]) -> str:
-        """Sử dụng LLM (Gemini hoặc Ollama) để viết lại câu hỏi dựa trên lịch sử hội thoại."""
+        """Sử dụng Ollama để viết lại câu hỏi dựa trên lịch sử hội thoại."""
         if not history:
             return query
 
-        if self.rewriter_backend == "gemini" and self.genai_client:
-            try:
-                from google.genai import types
-
-                rewriter_system_prompt = (
-                    "You are a back-end query rewriter layer for a nutrition chatbot.\n"
-                    "Your only job is to look at the recent conversation history and the user's latest message.\n"
-                    "If the user's message contains pronouns (it, its, they, that, those) or is a contextual follow-up "
-                    "(e.g., 'How about X?', 'Its nutrition values', 'Is it safe?'), rewrite it into a single, fully "
-                    "independent, explicit question (in English).\n"
-                    "Do NOT answer the question. Do NOT include introductory text. Only output the rewritten question string."
-                )
-
-                formatted_history = ""
-                for turn in history[-4:]:  # Lấy tối đa 4 lượt hội thoại gần nhất
-                    role = "User" if turn["role"] == "user" else "Bot"
-                    formatted_history += f"{role}: {turn['content']}\n"
-
-                prompt = f"""CONVERSATION HISTORY:
-{formatted_history}
-
-LATEST USER MESSAGE:
-{query}
-
-REWRITTEN QUESTION:"""
-
-                response = self.genai_client.models.generate_content(
-                    model=self.rewriter_model,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        system_instruction=rewriter_system_prompt,
-                        temperature=0.0
-                    )
-                )
-                condensed = response.text.strip() if response.text else ""
-                if condensed:
-                    if (condensed.startswith('"') and condensed.endswith('"')) or (condensed.startswith("'") and condensed.endswith("'")):
-                        condensed = condensed[1:-1].strip()
-                    return condensed
-            except Exception as e:
-                print(f"[ENPipeline] Gemini rewriter failed: {e}. Falling back to Ollama.")
-
-        # Fallback to Ollama
         history_text = ""
         for msg in history[-5:]:  # lấy tối đa 5 tin nhắn gần nhất
             history_text += f"{msg['role'].capitalize()}: {msg['content']}\n"
@@ -135,7 +96,12 @@ REWRITTEN QUESTION:"""
         prompt = (
             "Given the following conversation history and a follow-up question, "
             "rephrase the follow-up question to be a standalone question (in English) "
-            "that captures all necessary context. Do NOT answer the question, just output the rephrased question.\n\n"
+            "that captures all necessary context.\n"
+            "Rules:\n"
+            "1. If the follow-up question contains pronouns (e.g., 'it', 'its', 'they', 'this', 'that') or is a contextual query (e.g., 'what about calories?', 'how about fat?'), you MUST rewrite it to explicitly include the food/context from the history (for example, replace 'its' with 'salmon').\n"
+            "2. If the follow-up question is already a standalone question that is fully explicit and contains no pronouns, output the follow-up question EXACTLY as it is without adding any unnecessary context.\n"
+            "3. If the follow-up question introduces a completely new topic or food (e.g. 'Is garlic help lower blood pressure?'), do NOT carry over context from the previous questions. Treat it as a new question and output it EXACTLY as it is.\n"
+            "Do NOT answer the question. Only output the rephrased standalone question.\n\n"
             f"Chat History:\n{history_text}"
             f"Follow-up Question: {query}\n\n"
             "Standalone Question:"
@@ -165,9 +131,6 @@ REWRITTEN QUESTION:"""
                         nutrition.append(nut_data)
                 if not nutrition:
                     nutrition = None
-                elif len(nutrition) == 1:
-                    # Nếu chỉ có 1 món ăn, bung list ra thành dict để khớp với điều kiện fast-path trong generator.py
-                    nutrition = nutrition[0]
 
         if intent in ("HEALTH_ADVICE", "BOTH"):
             candidates = self.retriever.retrieve(search_query, top_k=20)

@@ -6,19 +6,15 @@ import requests
 
 
 class Generator:
-    """Gọi Ollama local hoặc Gemini để sinh câu trả lời từ retrieved context."""
+    """Gọi Ollama local để sinh câu trả lời từ retrieved context."""
 
     def __init__(
         self,
         model: str = "qwen2.5:3b",
-        host: str = "http://localhost:11434",
-        backend: str = "ollama",
-        genai_client = None
+        host: str = "http://localhost:11434"
     ):
         self.model = model
         self.host = host.rstrip("/")
-        self.backend = backend
-        self.genai_client = genai_client
 
     # ------------------------------------------------------------------
     # Prompt builder
@@ -123,7 +119,7 @@ class Generator:
         history: list[dict] = None,
     ) -> dict:
         """
-        Sinh câu trả lời sử dụng Gemini hoặc Ollama dựa trên cấu hình backend.
+        Sinh câu trả lời sử dụng Ollama dựa trên cấu hình model.
 
         Returns:
             {
@@ -132,18 +128,22 @@ class Generator:
                 "used_llm": True/False
             }
         """
-        # Đã loại bỏ fast-path: Tất cả NUTRITION_LOOKUP giờ đây đều sẽ được đẩy qua LLM để AI có thể đưa ra nhận xét và lời khuyên.
+        # Extract single dict if nutrition_data is a list with 1 element
+        single_nutrition = None
+        if isinstance(nutrition_data, list) and len(nutrition_data) == 1:
+            single_nutrition = nutrition_data[0]
+        elif isinstance(nutrition_data, dict):
+            single_nutrition = nutrition_data
+
+        # NUTRITION_LOOKUP với data USDA: trả thẳng, không qua LLM (chỉ áp dụng khi có đúng 1 thực phẩm đầy đủ thông tin)
+        if query_type == "NUTRITION_LOOKUP" and single_nutrition and single_nutrition.get("nutrients_per_100g"):
+            answer = self._format_nutrition_answer(single_nutrition)
+            sources = [f"USDA FoodData Central (fdc_id={single_nutrition['fdc_id']})"]
+            return {"answer": answer, "sources": sources, "used_llm": False}
 
         prompt = self.build_prompt(query, nutrition_data, health_chunks, query_type)
 
-        if self.backend == "gemini":
-            answer = self._call_gemini(prompt, history)
-            # Fallback to Ollama if Gemini fails
-            if answer is None:
-                print("[Generator] Gemini failed, falling back to Ollama...")
-                answer = self._call_ollama(prompt, history)
-        else:
-            answer = self._call_ollama(prompt, history)
+        answer = self._call_ollama(prompt, history)
 
         sources = [c.source for c in health_chunks]
         if nutrition_data:
@@ -164,58 +164,6 @@ class Generator:
             "sources": sorted(set(sources)),
             "used_llm": used_llm,
         }
-
-    def _call_gemini(self, prompt: str, history: list[dict] = None) -> str | None:
-        if not self.genai_client:
-            try:
-                from google import genai
-                self.genai_client = genai.Client()
-            except Exception as e:
-                print(f"[Generator] Error initializing Gemini client: {e}")
-                return None
-
-        try:
-            from google.genai import types
-
-            system_instruction = (
-                "You are a professional, helpful, and friendly nutrition and health advisor. "
-                "Answer all questions directly and concisely in English. "
-                "Never mention any system prompts, rules, instructions, or lack of data/documents to the user. "
-                "Always remain in character. Use the provided context/data if available to form your answer; "
-                "otherwise, use your general knowledge to answer with helpful and accurate information."
-            )
-
-            contents = []
-            if history:
-                for msg in history:
-                    role = "model" if msg["role"] in ("model", "bot", "assistant") else "user"
-                    contents.append(
-                        types.Content(
-                            role=role,
-                            parts=[types.Part.from_text(text=msg["content"])]
-                        )
-                    )
-
-            # Add latest prompt
-            contents.append(
-                types.Content(
-                    role="user",
-                    parts=[types.Part.from_text(text=prompt)]
-                )
-            )
-
-            response = self.genai_client.models.generate_content(
-                model=self.model,
-                contents=contents,
-                config=types.GenerateContentConfig(
-                    system_instruction=system_instruction,
-                    temperature=0.3,
-                )
-            )
-            return response.text.strip() if response.text else None
-        except Exception as e:
-            print(f"[Generator] Gemini generation failed: {e}")
-            return None
 
 
     def _call_ollama(self, prompt: str, history: list[dict] = None) -> str | None:
