@@ -207,13 +207,13 @@ class Generator:
                     "4. Multi-hop Reasoning (Chain-of-Thought): When resolving complex queries, perform logical reasoning step-by-step using both USDA Nutrition Data (for food composition/nutrients) and Reference Documents (for clinical/medical associations of those nutrients). Follow this logical chain internally:\n"
                     "   - Step 1: Identify the food's nutrient profile from the USDA data (e.g. Avocado contains monounsaturated fatty acids and dietary fiber).\n"
                     "   - Step 2: Correlate those specific nutrients with the clinical outcomes in the Reference Documents (e.g. monounsaturated fats improve insulin sensitivity and lower LDL cholesterol).\n"
-                    "   - Step 3: Combine these steps to form a cohesive, scientifically grounded answer. Cite reference documents using their bracketed document ID (e.g., [MED-711], [MED-712]) at the end of sentences based on those documents.\n\n"
+                    "   - Step 3: Combine these steps to form a cohesive, scientifically grounded answer. Cite reference documents where appropriate.\n\n"
                     "Example of Multi-hop Reasoning:\n"
                     "   Question: Is salmon good for cardiovascular health?\n"
                     "   USDA Data: Salmon has high levels of Omega-3 fatty acids (EPA/DHA).\n"
-                    "   References: [MED-10] Omega-3 fatty acids from fish reduce cardiovascular risk by lowering blood pressure and triglycerides.\n"
-                    "   Reasoning: 1. Salmon contains high Omega-3 fatty acids. 2. References [MED-10] link Omega-3 to reduced cardiovascular risk. 3. Therefore, eating salmon supports cardiovascular health.\n"
-                    "   Answer: Yes, salmon is excellent for cardiovascular health [MED-10]. It is highly rich in Omega-3 fatty acids (EPA and DHA), which reduce cardiovascular risk by lowering blood pressure and triglycerides [MED-10].\n\n"
+                    "   References: Omega-3 fatty acids from fish reduce cardiovascular risk by lowering blood pressure and triglycerides.\n"
+                    "   Reasoning: 1. Salmon contains high Omega-3 fatty acids. 2. References link Omega-3 to reduced cardiovascular risk. 3. Therefore, eating salmon supports cardiovascular health.\n"
+                    "   Answer: Yes, salmon is excellent for cardiovascular health. It is highly rich in Omega-3 fatty acids (EPA and DHA), which clinical references show reduce cardiovascular risk by lowering blood pressure and triglycerides.\n\n"
                     "5. Use the provided context/data if available to form your answer; otherwise, use your general knowledge to answer with helpful and accurate information."
                 ),
             }

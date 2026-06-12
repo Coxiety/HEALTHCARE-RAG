@@ -83,8 +83,7 @@ class VectorStore:
         )
 
         chunks = []
-        for id_, doc, meta, dist in zip(
-            results["ids"][0],
+        for doc, meta, dist in zip(
             results["documents"][0],
             results["metadatas"][0],
             results["distances"][0],
@@ -96,7 +95,7 @@ class VectorStore:
             if source_name == "nfcorpus" and doc:
                 lines = doc.splitlines()
                 if lines:
-                    source_name = f"[{id_}] Article: {lines[0].strip()}"
+                    source_name = f"Article: {lines[0].strip()}"
                     
             chunks.append(RetrievedChunk(
                 text=doc,
