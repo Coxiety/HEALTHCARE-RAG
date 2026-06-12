@@ -1,0 +1,61 @@
+text,label
+What is the vitamin B12 content of salmon per 100g?,NUTRITION_LOOKUP
+Does pasteurization destroy essential vitamins in milk?,HEALTH_ADVICE
+"How much vitamin B12 is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+How much protein is in 100g of chicken breast?,NUTRITION_LOOKUP
+"How much magnesium is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+What is the protein content of salmon per 100g?,NUTRITION_LOOKUP
+Is saffron effective in treating male erectile dysfunction?,HEALTH_ADVICE
+"Give the USDA nutrition facts for chicken breast, then explain whether it helps with high cholesterol.",BOTH
+"How much iron is in chicken breast, and is it safe for someone with diabetes?",BOTH
+How much sodium is in 100g of salmon?,NUTRITION_LOOKUP
+What is the calorie content of avocado per 100g?,NUTRITION_LOOKUP
+Can ginger interact with medications?,HEALTH_ADVICE
+"How much protein, fat, and carbs are in chicken breast, and what does that mean for high cholesterol?",BOTH
+Can alpha-galactosidase supplements help reduce intestinal gas from eating beans?,HEALTH_ADVICE
+How much vitamin B12 does salmon contain per serving?,NUTRITION_LOOKUP
+How much magnesium does salmon contain per serving?,NUTRITION_LOOKUP
+Is a hypocaloric diet better than metformin for improving insulin resistance in PCOS?,HEALTH_ADVICE
+How much sugar does chicken breast contain per serving?,NUTRITION_LOOKUP
+Are there toxic risks to eating Moringa stenopetala leaves and seeds?,HEALTH_ADVICE
+"What is the calorie content of chicken breast, and should a patient with high blood pressure eat it?",BOTH
+"How much carbohydrates is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+Does a high intake of saturated fats contribute to Non-Alcoholic Fatty Liver Disease (NAFLD)?,HEALTH_ADVICE
+What is the cholesterol content of salmon per 100g?,NUTRITION_LOOKUP
+Does high egg consumption increase cardiovascular disease risk in older adults?,HEALTH_ADVICE
+"How much vitamin B12 is in chicken breast, and is it safe for someone with diabetes?",BOTH
+"How much vitamin C is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+How many calories are in 100g of chicken breast?,NUTRITION_LOOKUP
+How much omega-3 does salmon contain per serving?,NUTRITION_LOOKUP
+What is the primary danger of the amoeba Naegleria fowleri?,HEALTH_ADVICE
+How much sodium is in 100g of chicken breast?,NUTRITION_LOOKUP
+"How much fiber is in chicken breast, and is it safe for someone with diabetes?",BOTH
+What is the iron content of salmon per 100g?,NUTRITION_LOOKUP
+"What is the magnesium content of chicken breast, and should a patient with high cholesterol eat it?",BOTH
+"What is the magnesium content of chicken breast, and should a patient with diabetes eat it?",BOTH
+Why is boric acid teratogenic?,HEALTH_ADVICE
+How much magnesium is in 100g of salmon?,NUTRITION_LOOKUP
+"How much fat is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+Can Docosahexaenoic acid (DHA) derived from microalgae inhibit breast cancer cells?,HEALTH_ADVICE
+"How much potassium is in chicken breast, and is it safe for someone with diabetes?",BOTH
+Can ginger improve bone health?,HEALTH_ADVICE
+Can marinades containing hibiscus extract prevent the formation of carcinogens in fried meat?,HEALTH_ADVICE
+What is the cholesterol content of chicken breast per 100g?,NUTRITION_LOOKUP
+"What is the calorie content of chicken breast, and should a patient with high cholesterol eat it?",BOTH
+"How much protein, fat, and carbs are in chicken breast, and what does that mean for diabetes?",BOTH
+How much cholesterol does chicken breast contain per serving?,NUTRITION_LOOKUP
+How much carbohydrates does salmon contain per serving?,NUTRITION_LOOKUP
+Can ginger help with PCOS symptoms?,HEALTH_ADVICE
+Are multivitamin supplements proven to reduce the risk of breast cancer?,HEALTH_ADVICE
+How much vitamin B12 does chicken breast contain per serving?,NUTRITION_LOOKUP
+Can prenatal exposure to methylmercury affect a child's attention span later in life?,HEALTH_ADVICE
+"How much sodium is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+"What is the vitamin B12 content of chicken breast, and should a patient with high blood pressure eat it?",BOTH
+Can recurrent arthritis in childhood be linked to undiagnosed celiac disease?,HEALTH_ADVICE
+"How much sodium is in chicken breast, and is it safe for someone with diabetes?",BOTH
+"How much cholesterol is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+Can PBDE exposure impact child neurodevelopment?,HEALTH_ADVICE
+Is surgery an effective and recommended treatment for severe mastalgia?,HEALTH_ADVICE
+Is Ceylon cinnamon proven to lower postprandial glucose in people with impaired glucose tolerance?,HEALTH_ADVICE
+How much potassium is in 100g of salmon?,NUTRITION_LOOKUP
+What is the protein content of chicken breast per 100g?,NUTRITION_LOOKUP

@@ -25,17 +25,64 @@ except OSError:
 
 _EXCLUDED_NOUNS = {
     # Nutrients & Generic Medical
-    "protein", "proteins", "calorie", "calories", "fat", "fats", "lipid", "lipids", "carbs", "carb", "carbohydrate", 
+    "protein", "proteins", "calorie", "calories", "fat", "fats", "lipid", "lipids", "carbs", "carb", "carbohydrate",
     "carbohydrates", "fiber", "fibers", "energy", "cholesterol", "sugar", "sugars", "sodium", "vitamin", "vitamins",
     "calcium", "iron", "potassium", "magnesium", "zinc", "phosphorus", "folate", "antioxidant", "glucose", "fructose", "lactose",
     "disease", "condition", "blood", "pressure", "inflammation", "symptom", "treatment",
-    
+
     # Generic measurements/words
     "amount", "amounts", "grams", "gram", "ounces", "ounce", "serving", "servings", "piece", "pieces", "portion", "portions",
     "people", "person", "body", "health", "diet", "meal", "food", "foods", "drink", "drinks", "water",
     "type", "types", "kind", "kinds", "sort", "sorts", "value", "values", "nutrition", "nutrient", "nutrients",
     "info", "information", "fact", "facts", "data", "source", "sources", "content", "contents", "benefit", "risk"
 }
+
+_EXCLUDED_FOODS = {
+    "a", "an", "the", "it", "its", "they", "them", "this", "that", "which", "what", "who", "whom", "whose", "whosever",
+    "one", "ones", "someone", "something", "anything", "nothing", "everything", "some", "any", "all", "both", "each", "every",
+    "other", "another", "either", "neither", "none"
+}
+
+def _clean_food_entity(food: str) -> str | None:
+    """Clean food entities by stripping determiners, lemmatizing to singular form, and excluding non-food terms."""
+    food = food.strip().lower()
+    for prefix in ["a ", "an ", "the "]:
+        if food.startswith(prefix):
+            food = food[len(prefix):].strip()
+
+    if not food or food in _EXCLUDED_FOODS or food in _EXCLUDED_NOUNS:
+        return None
+
+    doc = nlp(food)
+    lemmatized = " ".join([token.lemma_ for token in doc]).strip().lower()
+
+    if not lemmatized or lemmatized in _EXCLUDED_FOODS or lemmatized in _EXCLUDED_NOUNS:
+        return None
+
+    return lemmatized
+
+def _resolve_generic_foods(curr_foods: list[str], historical_foods: list[str]) -> list[str]:
+    """Resolve generic food names (e.g. 'chicken') to more specific historical names (e.g. 'chicken breast')."""
+    resolved = []
+    for food in curr_foods:
+        food_lower = food.lower()
+        food_words = set(re.findall(r'\b\w+\b', food_lower))
+        if not food_words:
+            resolved.append(food)
+            continue
+
+        matched = False
+        for hist in historical_foods:
+            hist_lower = hist.lower()
+            hist_words = set(re.findall(r'\b\w+\b', hist_lower))
+            if food_words.issubset(hist_words) and food_lower != hist_lower:
+                resolved.append(hist)
+                matched = True
+                break
+        if not matched:
+            resolved.append(food)
+    return resolved
+
 
 def _extract_foods_from_query(query: str) -> list[str]:
     """Extract food names from query using spaCy Noun Chunks."""
@@ -45,13 +92,13 @@ def _extract_foods_from_query(query: str) -> list[str]:
         root_lemma = chunk.root.lemma_.lower()
         if root_lemma in _EXCLUDED_NOUNS or chunk.root.pos_ == "PRON":
             continue
-        
+
         text = chunk.text.lower()
         # Remove common determiners
         if text.startswith("a "): text = text[2:]
         elif text.startswith("an "): text = text[3:]
         elif text.startswith("the "): text = text[4:]
-        
+
         if text and text not in foods:
             foods.append(text)
     return foods
@@ -76,7 +123,11 @@ class ENPipeline:
         self.reranker = Reranker(cfg.get("reranker_model"))
         self.db = SqliteManager(cfg["sqlite_path"])
 
+        self.use_llm_rewriter = cfg.get("use_llm_rewriter", False)
         self.rewriter_model = cfg.get("rewriter_model", "llama3.1:8b")
+
+        self.lazy_rerank = cfg.get("lazy_rerank", False)
+        self.lazy_rerank_threshold = cfg.get("lazy_rerank_threshold", 0.05)
 
         self.generator = Generator(
             model=cfg["llm_model"],
@@ -111,31 +162,130 @@ class ENPipeline:
 
 
     def answer(self, query: str, history: list[dict] = None) -> dict:
-        search_query = self._condense_query(query, history)
-        print(f"[DEBUG] Original Query: '{query}' -> Condensed/Rewritten Query: '{search_query}'")
+        use_llm_rewriter = getattr(self, "use_llm_rewriter", False)
+
+        # 1. Run NER on current query
+        curr_entities = self.ner.predict(query)
+
+        # 2. Extract and aggregate historical entities from previous turns
+        historical_entities = {
+            "FOOD": [],
+            "DISEASE": [],
+            "NUTRIENT": [],
+            "SYMPTOM": []
+        }
+
+        if history:
+            # Look back through up to 5 turns (max 10 user/assistant messages)
+            for msg in reversed(history[-10:]):
+                if msg.get("role") != "user":
+                    continue
+                content = msg.get("content", "")
+                if content:
+                    ent_pred = self.ner.predict(content)
+                    for etype in ["FOOD", "DISEASE", "NUTRIENT", "SYMPTOM"]:
+                        for ent in ent_pred.get(etype, []):
+                            if ent not in historical_entities[etype]:
+                                historical_entities[etype].append(ent)
+
+        # Keep at most 5 unique items of each type
+        for etype in ["FOOD", "DISEASE", "NUTRIENT", "SYMPTOM"]:
+            historical_entities[etype] = historical_entities[etype][:5]
+
+        # Debug print current and accumulated entities
+        print(f"\n[DEBUG NER] Current Entities: {curr_entities}")
+        print(f"[DEBUG NER] Accumulated Historical Entities (last 5 turns): {historical_entities}\n")
+
+        # 3. Formulate retrieval query and entities for DB lookup
+        if use_llm_rewriter:
+            search_query = self._condense_query(query, history)
+            print(f"[DEBUG] Original Query: '{query}' -> Condensed/Rewritten Query: '{search_query}'")
+            entities_for_lookup = self.ner.predict(search_query)
+            retrieval_query = search_query
+        else:
+            search_query = query
+            entities_for_lookup = curr_entities.copy()
+
+            # Backfill missing entity types using historical entities
+            for etype in ["FOOD", "DISEASE", "NUTRIENT", "SYMPTOM"]:
+                if not entities_for_lookup.get(etype) and historical_entities[etype]:
+                    entities_for_lookup[etype] = historical_entities[etype]
+
+            # Enrich retrieval query text for Vector/BM25 retrievers
+            retrieval_query = query
+            added_words = []
+            for etype in ["FOOD", "DISEASE", "SYMPTOM"]:
+                if not curr_entities.get(etype) and historical_entities[etype]:
+                    most_recent = historical_entities[etype][0]
+                    if most_recent.lower() not in retrieval_query.lower():
+                        added_words.append(most_recent)
+            if added_words:
+                retrieval_query += " " + " ".join(added_words)
+
+        # Resolve generic food terms using historical context
+        if entities_for_lookup.get("FOOD") and historical_entities.get("FOOD"):
+            entities_for_lookup["FOOD"] = _resolve_generic_foods(
+                entities_for_lookup["FOOD"], historical_entities["FOOD"]
+            )
 
         intent = self.clf.classify(search_query)
-        entities = self.ner.predict(search_query)
         nutrition = None
         chunks = []
 
-        if intent in ("NUTRITION_LOOKUP", "BOTH"):
-            foods = entities.get("FOOD", [])
-            if not foods:
-                foods = _extract_foods_from_query(search_query)
-            if foods:
-                nutrition = []
-                for food in foods[:3]:
-                    nut_data = self.db.lookup_en(food)
-                    if nut_data:
-                        nutrition.append(nut_data)
-                if not nutrition:
-                    nutrition = None
+        # 4. Database Lookup (always run if food entities are present to support LLM reasoning)
+        foods = entities_for_lookup.get("FOOD", [])
+        cleaned_foods = []
+        for f in foods:
+            cf = _clean_food_entity(f)
+            if cf and cf not in cleaned_foods:
+                cleaned_foods.append(cf)
 
+        # Fallback to spaCy noun chunks if no clean food entities are found
+        if not cleaned_foods:
+            fallback_foods = _extract_foods_from_query(search_query)
+            for f in fallback_foods:
+                cf = _clean_food_entity(f)
+                if cf and cf not in cleaned_foods:
+                    cleaned_foods.append(cf)
+
+        if cleaned_foods:
+            nutrition = []
+            # Lookup database using top 3 candidate foods (current or historical resolved)
+            for food in cleaned_foods[:3]:
+                nut_data = self.db.lookup_en(food)
+                if nut_data:
+                    nutrition.append(nut_data)
+                else:
+                    # Append placeholder to explicitly inform LLM that the food is missing from DB
+                    nutrition.append({
+                        "food_description": food,
+                        "error": "Not found in USDA database"
+                    })
+            if not nutrition:
+                nutrition = None
+
+        # 5. Reference Document Retrieval
         if intent in ("HEALTH_ADVICE", "BOTH"):
-            candidates = self.retriever.retrieve(search_query, top_k=20)
-            chunks = self.reranker.rerank(search_query, candidates, top_k=self.top_k)
+            ret_q = search_query if use_llm_rewriter else retrieval_query
+            candidates = self.retriever.retrieve(ret_q, top_k=20)
 
-        result = self.generator.generate(search_query, nutrition, chunks, intent, history=history)
-        result.update({"intent": intent, "entities": entities})
+            # Check if we should use lazy reranking based on retrieval confidence gap
+            if self.lazy_rerank and len(candidates) > 1 and (candidates[0].score - candidates[1].score) >= self.lazy_rerank_threshold:
+                chunks = candidates[:self.top_k]
+                print(f"[DEBUG] Reranker Bypassed (Lazy Confident: Gap {candidates[0].score - candidates[1].score:.4f} >= {self.lazy_rerank_threshold})")
+            else:
+                chunks = self.reranker.rerank(ret_q, candidates, top_k=self.top_k)
+
+        # 6. Response Generation (pass active_context if bypassing LLM rewriter)
+        active_context_metadata = historical_entities if not use_llm_rewriter else None
+
+        result = self.generator.generate(
+            query=query,
+            nutrition_data=nutrition,
+            health_chunks=chunks,
+            query_type=intent,
+            history=history,
+            active_context=active_context_metadata
+        )
+        result.update({"intent": intent, "entities": curr_entities})
         return result

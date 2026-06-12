@@ -1,0 +1,62 @@
+{
+  "model_path": "models/classifier_bert",
+  "csv": "data/en/intent_v2/intent_hotpot_relabel_test.csv",
+  "rows": 71,
+  "accuracy": 0.323943661971831,
+  "macro_f1": 0.1631205673758865,
+  "classification_report": {
+    "NUTRITION_LOOKUP": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "HEALTH_ADVICE": {
+      "precision": 1.0,
+      "recall": 0.323943661971831,
+      "f1-score": 0.48936170212765956,
+      "support": 71.0
+    },
+    "BOTH": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "accuracy": 0.323943661971831,
+    "macro avg": {
+      "precision": 0.3333333333333333,
+      "recall": 0.107981220657277,
+      "f1-score": 0.1631205673758865,
+      "support": 71.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 0.323943661971831,
+      "f1-score": 0.4893617021276595,
+      "support": 71.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      23,
+      46
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "labels": [
+    "NUTRITION_LOOKUP",
+    "HEALTH_ADVICE",
+    "BOTH"
+  ]
+}

@@ -1,0 +1,72 @@
+id,question,old_expected_intent,current_predicted_intent,suggested_intent,final_label,needs_manual_review,reason
+0,Is Hibiscus sabdariffa helpful in lowering cholesterol for metabolic syndrome patients?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+1,Can ginger help alleviate nausea and vomiting during pregnancy?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+2,Does drinking grapefruit juice affect cardiovascular health and cause drug interactions?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+3,Does consumption of cooking oil and fish oil capsules affect octylphenol concentrations in breast milk?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+4,How does dietary phosphorus or phosphate additives in grain products affect cardiovascular health?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+5,Is statin use associated with improved survival rates in breast cancer patients?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+6,Can prenatal exposure to methylmercury affect a child's attention span later in life?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+7,Are there safe alternatives to NSAIDs for managing severe primary dysmenorrhea?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+8,Is surgery an effective and recommended treatment for severe mastalgia?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+9,Does Hibiscus sabdariffa have a uricosuric effect?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+10,Can high doses of Hibiscus sabdariffa extract cause testicular toxicity?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+11,Can marinades containing hibiscus extract prevent the formation of carcinogens in fried meat?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+12,Is taking Hibiscus sabdariffa safe when using diclofenac?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+13,Does common fructose consumption cause gastrointestinal distress in healthy adults?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+14,Can alpha-galactosidase supplements help reduce intestinal gas from eating beans?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+15,How effective are charcoal-containing garments at reducing flatus odor?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+16,Is abnormal lipid metabolism linked to Alzheimer's disease pathology?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+17,Does continuous low-dose aspirin increase the risk of gastroduodenal ulcers?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+18,Can saffron be used to treat mild-to-moderate depression?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+19,Is saffron effective in treating male erectile dysfunction?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+20,Does high egg consumption increase cardiovascular disease risk in older adults?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+21,How do phytoestrogens affect estrogen production in humans?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+22,Does consuming a high-soy diet alter estrogen levels in breast nipple aspirate fluid?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+23,"What is the effect of a dietary portfolio containing plant sterols, soy, and almonds on LDL cholesterol?",BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+24,Is telomere length affected by diet and micronutrients?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+25,Can adding spices to a meal improve metabolism and antioxidant status?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+26,What effect does obesity have on women with polycystic ovary syndrome (PCOS)?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+27,Does maca consumption improve health in high-altitude populations?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+28,Is a hypocaloric diet better than metformin for improving insulin resistance in PCOS?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+29,Does marjoram tea affect the hormonal profile in women with PCOS?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+30,Are high-protein diets more effective than standard diets for weight loss in PCOS?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+31,Does structured exercise training alongside diet improve fertility in obese PCOS patients?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+32,Can Docosahexaenoic acid (DHA) derived from microalgae inhibit breast cancer cells?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+33,What is the most effective home method to clean fresh produce to remove bacteria?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+34,Is boric acid powder an effective treatment for vulvovaginal candidiasis?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+35,Why is boric acid teratogenic?,HEALTH_ADVICE,NUTRITION_LOOKUP,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+36,Does consuming fiber protect against esophageal cancer?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+37,What are the dangers of ingesting concentrated hydrogen peroxide?,HEALTH_ADVICE,NUTRITION_LOOKUP,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+38,How does gamma-irradiation affect vitamins in baby-leaf spinach?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+39,Are microgreens more nutritious than mature leaves?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+40,Can Ganoderma lucidum (Lingzhi) mushroom powder cause liver damage?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+41,How does bitter melon affect prostate cancer progression?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+42,Can drinking Yerba Mate tea improve bone health in postmenopausal women?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+43,Does the Mediterranean diet influence atrial fibrillation?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+44,Do energy drinks affect blood vessels or blood clotting?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+45,How do different cooking methods affect the oxalate content of vegetables?,BOTH,BOTH,BOTH,HEALTH_ADVICE,no,manual review: asks about research/effect of cooking on oxalate; not an exact USDA nutrition lookup
+46,Is Ceylon cinnamon proven to lower postprandial glucose in people with impaired glucose tolerance?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+47,Does tea drinking cause iron deficiency?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+48,Are there toxic risks to eating Moringa stenopetala leaves and seeds?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+49,Does pasteurization destroy essential vitamins in milk?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+50,Does crushing garlic before cooking affect its antiplatelet activity?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+51,What is the primary danger of the amoeba Naegleria fowleri?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+52,Can consuming a combination of fructose and erythritol increase gastrointestinal symptoms?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+53,Are vegetarian children at risk for specific vitamin deficiencies compared to omnivores?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+54,Is krill oil more effective than fish oil in managing hyperlipidemia?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+55,Can recurrent arthritis in childhood be linked to undiagnosed celiac disease?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+56,Does a vegetarian or low animal protein diet prevent kidney stones?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+57,Does Vitamin C supplementation increase the risk of kidney stones?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+58,Are there benefits to using Aloe vera cream for second-degree burns compared to silver sulfadiazine?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+59,Are multivitamin supplements proven to reduce the risk of breast cancer?,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,no,health/research question; no explicit USDA nutrition lookup cue
+60,Does Capsaicin pose safety risks as an ingredient in cosmetics?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+61,Can high homocysteine levels and B-vitamin deficiency cause brain atrophy in the elderly?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+62,Can PBDE exposure impact child neurodevelopment?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+63,Is peppermint oil effective for treating irritable bowel syndrome (IBS)?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+64,Does placebo treatment work for IBS even if the patient knows it is a placebo?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+65,Does a high intake of saturated fats contribute to Non-Alcoholic Fatty Liver Disease (NAFLD)?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+66,Can cyanotoxins in the environment cause ALS or neurodegenerative disease?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+67,Is yeast beta-glucan effective for preventing common colds?,BOTH,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+68,Can whole grain consumption help prevent type 2 diabetes and body weight gain?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+69,Are organic foods substantially more nutritious than conventional foods?,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
+70,Is Proteus mirabilis bacteria linked to Rheumatoid Arthritis?,HEALTH_ADVICE,BOTH,HEALTH_ADVICE,HEALTH_ADVICE,yes,health/research question; no explicit USDA nutrition lookup cue
