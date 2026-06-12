@@ -44,14 +44,22 @@ _EXCLUDED_FOODS = {
 }
 
 def _clean_food_entity(food: str) -> str | None:
-    """Clean food entities by stripping determiners and excluding non-food terms."""
+    """Clean food entities by stripping determiners, lemmatizing to singular form, and excluding non-food terms."""
     food = food.strip().lower()
     for prefix in ["a ", "an ", "the "]:
         if food.startswith(prefix):
             food = food[len(prefix):].strip()
+            
     if not food or food in _EXCLUDED_FOODS or food in _EXCLUDED_NOUNS:
         return None
-    return food
+        
+    doc = nlp(food)
+    lemmatized = " ".join([token.lemma_ for token in doc]).strip().lower()
+    
+    if not lemmatized or lemmatized in _EXCLUDED_FOODS or lemmatized in _EXCLUDED_NOUNS:
+        return None
+        
+    return lemmatized
 
 def _resolve_generic_foods(curr_foods: list[str], historical_foods: list[str]) -> list[str]:
     """Resolve generic food names (e.g. 'chicken') to more specific historical names (e.g. 'chicken breast')."""
@@ -244,6 +252,12 @@ class ENPipeline:
                 nut_data = self.db.lookup_en(food)
                 if nut_data:
                     nutrition.append(nut_data)
+                else:
+                    # Append placeholder to explicitly inform LLM that the food is missing from DB
+                    nutrition.append({
+                        "food_description": food,
+                        "error": "Not found in USDA database"
+                    })
             if not nutrition:
                 nutrition = None
 

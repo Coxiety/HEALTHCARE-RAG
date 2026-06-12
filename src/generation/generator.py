@@ -22,6 +22,9 @@ class Generator:
 
     def _format_single_nutrition_data(self, data: dict) -> str:
         food_desc = data.get("food_description", "Unknown")
+        if "error" in data:
+            return f"Food: {food_desc}\n  Status: NOT FOUND in USDA FoodData Central database. Exact nutritional values are unavailable."
+            
         fdc_id    = data.get("fdc_id", "")
         text = f"Food: {food_desc}\n"
         nutrients = data.get("nutrients_per_100g")
@@ -168,9 +171,11 @@ class Generator:
         if nutrition_data:
             if isinstance(nutrition_data, list):
                 for item in nutrition_data:
-                    sources.append(f"USDA FoodData Central (fdc_id={item['fdc_id']})")
+                    if "fdc_id" in item:
+                        sources.append(f"USDA FoodData Central (fdc_id={item['fdc_id']})")
             else:
-                sources.append(f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})")
+                if "fdc_id" in nutrition_data:
+                    sources.append(f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})")
 
         if answer is None:
             answer = self._fallback_answer(query, nutrition_data, health_chunks, query_type)
@@ -204,7 +209,8 @@ class Generator:
             }
         ]
 
-        for msg in history:
+        # Limit to the last 6 messages (3 turns) to prevent token bloat and optimize local inference speed
+        for msg in history[-6:]:
             messages.append({"role": msg["role"], "content": msg["content"]})
 
         messages.append({"role": "user", "content": prompt})

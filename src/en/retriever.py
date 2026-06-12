@@ -47,7 +47,11 @@ class TFIDFRetriever:
         return [
             RetrievedChunk(
                 text=self._chunks[i]["text"],
-                source=self._chunks[i].get("source", ""),
+                source=(
+                    f"Article: {self._chunks[i]['text'].splitlines()[0].strip()}"
+                    if self._chunks[i].get("source") == "nfcorpus" and self._chunks[i]["text"]
+                    else self._chunks[i].get("source", "")
+                ),
                 score=float(scores[i]),
             )
             for i in top_idx
@@ -91,7 +95,11 @@ class BM25Retriever:
         return [
             RetrievedChunk(
                 text=self._corpus[i]["text"],
-                source=self._corpus[i].get("source", ""),
+                source=(
+                    f"Article: {self._corpus[i]['text'].splitlines()[0].strip()}"
+                    if self._corpus[i].get("source") == "nfcorpus" and self._corpus[i]["text"]
+                    else self._corpus[i].get("source", "")
+                ),
                 score=float(scores[i]) / max(max_score, 1e-9),  # normalize to [0,1]
             )
             for i in top_idx

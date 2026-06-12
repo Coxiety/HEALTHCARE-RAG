@@ -90,9 +90,16 @@ class VectorStore:
         ):
             # ChromaDB trả về cosine distance [0, 2], đổi về similarity [0, 1]
             score = max(0.0, min(1.0, 1 - dist / 2))
+            
+            source_name = meta.get("source", "unknown")
+            if source_name == "nfcorpus" and doc:
+                lines = doc.splitlines()
+                if lines:
+                    source_name = f"Article: {lines[0].strip()}"
+                    
             chunks.append(RetrievedChunk(
                 text=doc,
-                source=meta.get("source", "unknown"),
+                source=source_name,
                 score=score,
             ))
 
