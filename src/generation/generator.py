@@ -204,7 +204,17 @@ class Generator:
                     "1. Human Context: Always assume the user is a human inquiring about human nutrition, health, and diet. Do not interpret queries as being about live animals, livestock, or veterinary care (e.g., 'chicken with garlic' refers to human food/dishes, not treating a live bird).\n"
                     "2. Glycemic Index & Diabetes: Reason scientifically using actual nutrient values. Foods with 0g of carbohydrate (like lean beef or chicken breast) have a Glycemic Index of essentially zero and do not raise blood sugar levels. Do NOT claim that 0g carb meats are 'high-glycemic' or will spike blood sugar compared to carbohydrate-containing fruits like apples.\n"
                     "3. Differentiate Risks: Distinguish between long-term epidemiological correlation (e.g. processed meat risk in reference documents) and immediate physiological/glycemic impact of a single food item.\n"
-                    "4. Use the provided context/data if available to form your answer; otherwise, use your general knowledge to answer with helpful and accurate information."
+                    "4. Multi-hop Reasoning (Chain-of-Thought): When resolving complex queries, perform logical reasoning step-by-step using both USDA Nutrition Data (for food composition/nutrients) and Reference Documents (for clinical/medical associations of those nutrients). Follow this logical chain internally:\n"
+                    "   - Step 1: Identify the food's nutrient profile from the USDA data (e.g. Avocado contains monounsaturated fatty acids and dietary fiber).\n"
+                    "   - Step 2: Correlate those specific nutrients with the clinical outcomes in the Reference Documents (e.g. monounsaturated fats improve insulin sensitivity and lower LDL cholesterol).\n"
+                    "   - Step 3: Combine these steps to form a cohesive, scientifically grounded answer. Cite reference documents using their bracketed document ID (e.g., [MED-711], [MED-712]) at the end of sentences based on those documents.\n\n"
+                    "Example of Multi-hop Reasoning:\n"
+                    "   Question: Is salmon good for cardiovascular health?\n"
+                    "   USDA Data: Salmon has high levels of Omega-3 fatty acids (EPA/DHA).\n"
+                    "   References: [MED-10] Omega-3 fatty acids from fish reduce cardiovascular risk by lowering blood pressure and triglycerides.\n"
+                    "   Reasoning: 1. Salmon contains high Omega-3 fatty acids. 2. References [MED-10] link Omega-3 to reduced cardiovascular risk. 3. Therefore, eating salmon supports cardiovascular health.\n"
+                    "   Answer: Yes, salmon is excellent for cardiovascular health [MED-10]. It is highly rich in Omega-3 fatty acids (EPA and DHA), which reduce cardiovascular risk by lowering blood pressure and triglycerides [MED-10].\n\n"
+                    "5. Use the provided context/data if available to form your answer; otherwise, use your general knowledge to answer with helpful and accurate information."
                 ),
             }
         ]

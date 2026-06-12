@@ -1,0 +1,31 @@
+{
+  "mode": "full",
+  "top_k": 5,
+  "total_input_rows": 71,
+  "evaluated_rows": 5,
+  "counts": {
+    "with_reference_answer": 5,
+    "with_relevant_docs": 5,
+    "with_expected_intent": 5,
+    "with_expected_answer_keywords": 5,
+    "with_expected_source_keywords": 5
+  },
+  "metrics": {
+    "avg_latency_sec": 9.714,
+    "intent_accuracy": 0.6,
+    "retrieval_hit_rate": 0.6,
+    "retrieval_recall_at_k": 0.4,
+    "retrieval_precision_at_k": 0.2,
+    "retrieval_mrr_at_k": 1.0,
+    "answer_exact_match_rate": 0.0,
+    "answer_token_f1": 0.1738,
+    "answer_keyword_hit_rate": 1.0,
+    "source_keyword_hit_rate": 0.6
+  },
+  "input_path": "data\\en\\eval_hotpot_nutrition.jsonl",
+  "output_dir": "reports\\en\\rag_eval_hotpot",
+  "config_path": "configs/config.yaml",
+  "corpus_path": "data/en/corpus.jsonl",
+  "summary_path": "reports\\en\\rag_eval_hotpot\\summary.json",
+  "cases_path": "reports\\en\\rag_eval_hotpot\\cases.csv"
+}

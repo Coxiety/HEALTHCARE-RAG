@@ -118,7 +118,7 @@ class ENPipeline:
             cfg["embedding_model"],
         )
         bm25 = BM25Retriever()
-        dense = DenseRetriever(self.vs)
+        dense = DenseRetriever(self.vs, threshold=cfg.get("similarity_threshold", 0.5))
         self.retriever = HybridRetriever(bm25, dense)
         self.reranker = Reranker(cfg.get("reranker_model"))
         self.db = SqliteManager(cfg["sqlite_path"])

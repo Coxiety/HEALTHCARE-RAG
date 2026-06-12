@@ -96,7 +96,7 @@ class BM25Retriever:
             RetrievedChunk(
                 text=self._corpus[i]["text"],
                 source=(
-                    f"Article: {self._corpus[i]['text'].splitlines()[0].strip()}"
+                    f"[{self._corpus[i]['id']}] Article: {self._corpus[i]['text'].splitlines()[0].strip()}"
                     if self._corpus[i].get("source") == "nfcorpus" and self._corpus[i]["text"]
                     else self._corpus[i].get("source", "")
                 ),
@@ -112,11 +112,13 @@ class BM25Retriever:
 # ---------------------------------------------------------------------------
 
 class DenseRetriever:
-    def __init__(self, vector_store: VectorStore):
+    def __init__(self, vector_store: VectorStore, threshold: float = 0.5):
         self.vs = vector_store
+        self.threshold = threshold
 
     def retrieve(self, query: str, top_k: int = 5) -> list[RetrievedChunk]:
-        return self.vs.query(query, top_k=top_k)
+        raw_hits = self.vs.query(query, top_k=top_k)
+        return [h for h in raw_hits if h.score >= self.threshold]
 
 
 # ---------------------------------------------------------------------------
