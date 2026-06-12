@@ -55,6 +55,27 @@ async def ask(req: AskRequest):
     history_dicts = [h.model_dump() for h in req.history]
     result = await run_in_threadpool(_en_pipeline.answer, req.message, history_dicts)
     ner_entities = result.get("entities", {})
+    
+    # Debug print to terminal
+    print(f"\n[DEBUG RAG Server] ========== REQUEST PROCESSED ==========")
+    print(f"User Message:       '{req.message}'")
+    print(f"Classified Intent:  {result.get('intent', '')}")
+    print(f"Extracted Entities (BERT NER):")
+    print(f"  - FOOD:      {ner_entities.get('FOOD', [])}")
+    print(f"  - DISEASE:   {ner_entities.get('DISEASE', [])}")
+    print(f"  - NUTRIENT:  {ner_entities.get('NUTRIENT', [])}")
+    print(f"  - SYMPTOM:   {ner_entities.get('SYMPTOM', [])}")
+    
+    # If NUTRITION_LOOKUP but NER found no food, mention the spaCy fallback
+    if result.get("intent") in ("NUTRITION_LOOKUP", "BOTH") and not ner_entities.get("FOOD"):
+        from src.en.pipeline import _extract_foods_from_query
+        fallback_foods = _extract_foods_from_query(req.message)
+        print(f"  -> [Fallback spaCy Noun Chunks used for DB lookup]: {fallback_foods}")
+        
+    print(f"Used LLM:           {result.get('used_llm', True)}")
+    print(f"Sources:            {sorted(set(result.get('sources', [])))}")
+    print(f"==========================================================\n")
+    
     return {
         "answer":   result.get("answer", ""),
         "intent":   result.get("intent", ""),

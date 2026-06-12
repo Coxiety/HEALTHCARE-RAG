@@ -1,0 +1,12 @@
+Loading base model...
+Loading fine-tuned model...
+
+--- Base Model Predictions ---
+Query: Do Cholesterol Statin Drugs Cause Breast Cancer?
+Positive doc score: 9.5371
+Negative doc score: -11.2633
+
+--- Fine-Tuned Model Predictions ---
+Query: Do Cholesterol Statin Drugs Cause Breast Cancer?
+Positive doc score: 4.3052
+Negative doc score: 0.9526
