@@ -25,6 +25,8 @@ rewriter_model: "llama3.1:8b"
 # --- Retrieval ---
 top_k: 5
 similarity_threshold: 0.5
+lazy_rerank: true
+lazy_rerank_threshold: 0.05
 
 # --- Chunking ---
 chunk_size: 500

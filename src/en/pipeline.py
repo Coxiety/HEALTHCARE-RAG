@@ -126,6 +126,9 @@ class ENPipeline:
         self.use_llm_rewriter = cfg.get("use_llm_rewriter", False)
         self.rewriter_model = cfg.get("rewriter_model", "llama3.1:8b")
 
+        self.lazy_rerank = cfg.get("lazy_rerank", False)
+        self.lazy_rerank_threshold = cfg.get("lazy_rerank_threshold", 0.05)
+
         self.generator = Generator(
             model=cfg["llm_model"],
             host=cfg.get("ollama_host", "http://localhost:11434")
@@ -265,7 +268,13 @@ class ENPipeline:
         if intent in ("HEALTH_ADVICE", "BOTH"):
             ret_q = search_query if use_llm_rewriter else retrieval_query
             candidates = self.retriever.retrieve(ret_q, top_k=20)
-            chunks = self.reranker.rerank(ret_q, candidates, top_k=self.top_k)
+            
+            # Check if we should use lazy reranking based on retrieval confidence gap
+            if self.lazy_rerank and len(candidates) > 1 and (candidates[0].score - candidates[1].score) >= self.lazy_rerank_threshold:
+                chunks = candidates[:self.top_k]
+                print(f"[DEBUG] Reranker Bypassed (Lazy Confident: Gap {candidates[0].score - candidates[1].score:.4f} >= {self.lazy_rerank_threshold})")
+            else:
+                chunks = self.reranker.rerank(ret_q, candidates, top_k=self.top_k)
 
         # 6. Response Generation (pass active_context if bypassing LLM rewriter)
         active_context_metadata = historical_entities if not use_llm_rewriter else None
