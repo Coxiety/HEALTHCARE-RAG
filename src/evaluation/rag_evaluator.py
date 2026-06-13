@@ -323,7 +323,7 @@ def _evaluate_full_case(
     nutrition_data = None
     chunks: list[Any] = []
 
-    if predicted_intent == "NUTRITION_LOOKUP":
+    if predicted_intent in ("NUTRITION_LOOKUP", "BOTH"):
         foods = entities.get("FOOD", [])
         if not foods:
             extracted = _extract_food_from_query(case.question)
