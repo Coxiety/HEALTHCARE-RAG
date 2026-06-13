@@ -1,0 +1,62 @@
+{
+  "model_path": "models/classifier_bert",
+  "csv": "data/en/intent_v2/intent_hard_test.csv",
+  "rows": 60,
+  "accuracy": 0.8833333333333333,
+  "macro_f1": 0.8796475392220073,
+  "classification_report": {
+    "NUTRITION_LOOKUP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 20.0
+    },
+    "HEALTH_ADVICE": {
+      "precision": 1.0,
+      "recall": 0.65,
+      "f1-score": 0.7878787878787878,
+      "support": 20.0
+    },
+    "BOTH": {
+      "precision": 0.7407407407407407,
+      "recall": 1.0,
+      "f1-score": 0.851063829787234,
+      "support": 20.0
+    },
+    "accuracy": 0.8833333333333333,
+    "macro avg": {
+      "precision": 0.9135802469135802,
+      "recall": 0.8833333333333333,
+      "f1-score": 0.8796475392220073,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.9135802469135802,
+      "recall": 0.8833333333333333,
+      "f1-score": 0.8796475392220073,
+      "support": 60.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      20,
+      0,
+      0
+    ],
+    [
+      0,
+      13,
+      7
+    ],
+    [
+      0,
+      0,
+      20
+    ]
+  ],
+  "labels": [
+    "NUTRITION_LOOKUP",
+    "HEALTH_ADVICE",
+    "BOTH"
+  ]
+}

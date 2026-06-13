@@ -1,0 +1,61 @@
+{
+  "name": "synthetic_val",
+  "loss": 0.007443117485804992,
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "confusion_matrix": [
+    [
+      56,
+      0,
+      0
+    ],
+    [
+      0,
+      56,
+      0
+    ],
+    [
+      0,
+      0,
+      56
+    ]
+  ],
+  "classification_report": {
+    "NUTRITION_LOOKUP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 56.0
+    },
+    "HEALTH_ADVICE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 56.0
+    },
+    "BOTH": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 56.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 168.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 168.0
+    }
+  },
+  "labels": [
+    "NUTRITION_LOOKUP",
+    "HEALTH_ADVICE",
+    "BOTH"
+  ]
+}

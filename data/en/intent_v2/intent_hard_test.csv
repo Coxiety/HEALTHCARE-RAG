@@ -1,0 +1,61 @@
+text,label
+Does ginger interact with medications?,HEALTH_ADVICE
+"Show me the calories, protein, fat, and carbs in 100g of chicken breast.",NUTRITION_LOOKUP
+Can ginger lower blood sugar?,HEALTH_ADVICE
+How much fat does chicken breast contain per serving?,NUTRITION_LOOKUP
+Does continuous low-dose aspirin increase the risk of gastroduodenal ulcers?,HEALTH_ADVICE
+Can Ganoderma lucidum (Lingzhi) mushroom powder cause liver damage?,HEALTH_ADVICE
+How much protein does salmon contain per serving?,NUTRITION_LOOKUP
+Is peppermint oil effective for treating irritable bowel syndrome (IBS)?,HEALTH_ADVICE
+"How many calories are in 100g of chicken breast, and is it good for high cholesterol?",BOTH
+How much fat is in 100g of chicken breast?,NUTRITION_LOOKUP
+"What is the vitamin B12 content of chicken breast, and should a patient with diabetes eat it?",BOTH
+"What is the carbohydrates content of chicken breast, and should a patient with high blood pressure eat it?",BOTH
+Can ginger improve cholesterol levels?,HEALTH_ADVICE
+Does ginger lower blood sugar?,HEALTH_ADVICE
+"What is the carbohydrates content of chicken breast, and should a patient with diabetes eat it?",BOTH
+Does ginger help with PCOS symptoms?,HEALTH_ADVICE
+"What is the sugar content of chicken breast, and should a patient with diabetes eat it?",BOTH
+"What is the vitamin C content of chicken breast, and should a patient with diabetes eat it?",BOTH
+"How much omega-3 is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+How many calories are in 100g of avocado?,NUTRITION_LOOKUP
+"How much magnesium is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+What is the most effective home method to clean fresh produce to remove bacteria?,HEALTH_ADVICE
+How much calcium does chicken breast contain per serving?,NUTRITION_LOOKUP
+How much vitamin B12 is in 100g of salmon?,NUTRITION_LOOKUP
+How much sugar is in 100g of salmon?,NUTRITION_LOOKUP
+Is ginger risky for people with diabetes?,HEALTH_ADVICE
+Can ginger help prevent type 2 diabetes?,HEALTH_ADVICE
+Can ginger cause liver damage?,HEALTH_ADVICE
+How much calcium does salmon contain per serving?,NUTRITION_LOOKUP
+"How many calories are in 100g of chicken breast, and is it good for diabetes?",BOTH
+Can ginger affect blood pressure?,HEALTH_ADVICE
+Can whole grain consumption help prevent type 2 diabetes and body weight gain?,HEALTH_ADVICE
+"How much calcium is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+Does structured exercise training alongside diet improve fertility in obese PCOS patients?,HEALTH_ADVICE
+Can saffron be used to treat mild-to-moderate depression?,HEALTH_ADVICE
+"Show me the calories, protein, fat, and carbs in 100g of avocado.",NUTRITION_LOOKUP
+Are there benefits to using Aloe vera cream for second-degree burns compared to silver sulfadiazine?,HEALTH_ADVICE
+"How many calories are in chicken breast, and is it safe for someone with diabetes?",BOTH
+What is the calcium content of chicken breast per 100g?,NUTRITION_LOOKUP
+How much iron is in 100g of chicken breast?,NUTRITION_LOOKUP
+How much sodium does salmon contain per serving?,NUTRITION_LOOKUP
+How much sugar is in 100g of chicken breast?,NUTRITION_LOOKUP
+How much iron does chicken breast contain per serving?,NUTRITION_LOOKUP
+How much potassium does salmon contain per serving?,NUTRITION_LOOKUP
+"How much fiber is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+How much magnesium is in 100g of chicken breast?,NUTRITION_LOOKUP
+"How much carbohydrates is in chicken breast, and is it safe for someone with diabetes?",BOTH
+Is krill oil more effective than fish oil in managing hyperlipidemia?,HEALTH_ADVICE
+Does maca consumption improve health in high-altitude populations?,HEALTH_ADVICE
+"What is the potassium content of chicken breast, and should a patient with high cholesterol eat it?",BOTH
+"How much vitamin C is in chicken breast, and is it safe for someone with diabetes?",BOTH
+Does crushing garlic before cooking affect its antiplatelet activity?,HEALTH_ADVICE
+How much fiber is in 100g of chicken breast?,NUTRITION_LOOKUP
+What are the USDA nutrition facts for chicken breast?,NUTRITION_LOOKUP
+"What is the protein content of chicken breast, and should a patient with diabetes eat it?",BOTH
+What is the vitamin C content of salmon per 100g?,NUTRITION_LOOKUP
+"How much iron is in chicken breast, and is it safe for someone with high cholesterol?",BOTH
+"How much iron is in chicken breast, and is it safe for someone with high blood pressure?",BOTH
+"What is the iron content of chicken breast, and should a patient with high blood pressure eat it?",BOTH
+"What is the protein content of chicken breast, and should a patient with high cholesterol eat it?",BOTH
