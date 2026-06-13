@@ -239,6 +239,9 @@ class Generator:
             resp.raise_for_status()
             data = resp.json()
             answer = data.get("message", {}).get("content", "").strip()
+            prompt_tokens = data.get("prompt_eval_count", 0)
+            completion_tokens = data.get("eval_count", 0)
+            print(f"[OLLAMA STATS] Input: {prompt_tokens} tokens | Output: {completion_tokens} tokens | Total: {prompt_tokens + completion_tokens} tokens")
             return self._strip_thinking(answer) or None
         except Exception:
             return None
@@ -263,6 +266,9 @@ class Generator:
             resp.raise_for_status()
             data = resp.json()
             answer = data.get("response", "").strip()
+            prompt_tokens = data.get("prompt_eval_count", 0)
+            completion_tokens = data.get("eval_count", 0)
+            print(f"[OLLAMA GENERATE STATS] Input: {prompt_tokens} tokens | Output: {completion_tokens} tokens | Total: {prompt_tokens + completion_tokens} tokens")
             if not answer:
                 answer = data.get("thinking", "").strip()
             return self._strip_thinking(answer) or None
