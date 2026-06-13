@@ -43,9 +43,26 @@ _EXCLUDED_FOODS = {
     "other", "another", "either", "neither", "none"
 }
 
+_MEASUREMENT_PATTERN = re.compile(
+    r'^'
+    r'(?:'
+        r'(?:\d+(?:\.\d+)?|\d+\s*/\s*\d+|half|halves|quarter|quarters|third|thirds|fourth|fourths|one|two|three|four|five|six|seven|eight|nine|ten|a|an)'
+        r'(?:\s*(?:g|gram|grams|kg|kilogram|kilograms|oz|ounce|ounces|lb|lbs|pound|pounds|ml|milliliter|milliliters|l|liter|liters|cup|cups|glass|glasses|bowl|bowls|plate|plates|serving|servings|portion|portions|slice|slices|piece|pieces|tbsp|tablespoon|tablespoons|tsp|teaspoon|teaspoons|can|cans|bottle|bottles|pack|packs|packet|packets)\b)?'
+    r'|'
+        r'(?:g|gram|grams|kg|kilogram|kilograms|oz|ounce|ounces|lb|lbs|pound|pounds|ml|milliliter|milliliters|l|liter|liters|cup|cups|glass|glasses|bowl|bowls|plate|plates|serving|servings|portion|portions|slice|slices|piece|pieces|tbsp|tablespoon|tablespoons|tsp|teaspoon|teaspoons|can|cans|bottle|bottles|pack|packs|packet|packets)\b'
+    r')'
+    r'(?:\s+of)?'
+    r'\s+',
+    re.IGNORECASE
+)
+
 def _clean_food_entity(food: str) -> str | None:
-    """Clean food entities by stripping determiners, lemmatizing to singular form, and excluding non-food terms."""
+    """Clean food entities by stripping measurements/quantities, determiners, lemmatizing, and excluding non-food terms."""
     food = food.strip().lower()
+    
+    # Strip leading measurement/quantity prefixes (e.g. "100g", "1 cup of", "half of")
+    food = _MEASUREMENT_PATTERN.sub("", food).strip()
+    
     for prefix in ["a ", "an ", "the "]:
         if food.startswith(prefix):
             food = food[len(prefix):].strip()
@@ -133,7 +150,7 @@ class ENPipeline:
             model=cfg["llm_model"],
             host=cfg.get("ollama_host", "http://localhost:11434")
         )
-        self.top_k = cfg.get("top_k", 5)
+        self.top_k = cfg.get("top_k", 3)
 
     def _condense_query(self, query: str, history: list[dict]) -> str:
         """Sử dụng Ollama để viết lại câu hỏi dựa trên lịch sử hội thoại."""
@@ -232,37 +249,38 @@ class ENPipeline:
         nutrition = None
         chunks = []
 
-        # 4. Database Lookup (always run if food entities are present to support LLM reasoning)
-        foods = entities_for_lookup.get("FOOD", [])
-        cleaned_foods = []
-        for f in foods:
-            cf = _clean_food_entity(f)
-            if cf and cf not in cleaned_foods:
-                cleaned_foods.append(cf)
-        
-        # Fallback to spaCy noun chunks if no clean food entities are found
-        if not cleaned_foods:
-            fallback_foods = _extract_foods_from_query(search_query)
-            for f in fallback_foods:
+        # 4. Database Lookup (run for NUTRITION_LOOKUP and BOTH)
+        if (intent in ("NUTRITION_LOOKUP", "BOTH")):
+            foods = entities_for_lookup.get("FOOD", [])
+            cleaned_foods = []
+            for f in foods:
                 cf = _clean_food_entity(f)
                 if cf and cf not in cleaned_foods:
                     cleaned_foods.append(cf)
+            
+            # Fallback to spaCy noun chunks if no clean food entities are found
+            if not cleaned_foods:
+                fallback_foods = _extract_foods_from_query(search_query)
+                for f in fallback_foods:
+                    cf = _clean_food_entity(f)
+                    if cf and cf not in cleaned_foods:
+                        cleaned_foods.append(cf)
 
-        if cleaned_foods:
-            nutrition = []
-            # Lookup database using top 3 candidate foods (current or historical resolved)
-            for food in cleaned_foods[:3]:
-                nut_data = self.db.lookup_en(food)
-                if nut_data:
-                    nutrition.append(nut_data)
-                else:
-                    # Append placeholder to explicitly inform LLM that the food is missing from DB
-                    nutrition.append({
-                        "food_description": food,
-                        "error": "Not found in USDA database"
-                    })
-            if not nutrition:
-                nutrition = None
+            if cleaned_foods:
+                nutrition = []
+                # Lookup database using top 3 candidate foods (current or historical resolved)
+                for food in cleaned_foods[:3]:
+                    nut_data = self.db.lookup_en(food)
+                    if nut_data:
+                        nutrition.append(nut_data)
+                    else:
+                        # Append placeholder to explicitly inform LLM that the food is missing from DB
+                        nutrition.append({
+                            "food_description": food,
+                            "error": "Not found in USDA database"
+                        })
+                if not nutrition:
+                    nutrition = None
 
         # 5. Reference Document Retrieval
         if intent in ("HEALTH_ADVICE", "BOTH"):

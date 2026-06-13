@@ -23,7 +23,7 @@ rewriter_backend: "ollama"
 rewriter_model: "llama3.1:8b"
 
 # --- Retrieval ---
-top_k: 5
+top_k: 3
 similarity_threshold: 0.5
 lazy_rerank: true
 lazy_rerank_threshold: 0.05

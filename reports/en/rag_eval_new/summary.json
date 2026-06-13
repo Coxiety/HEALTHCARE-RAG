@@ -11,18 +11,18 @@
     "with_expected_source_keywords": 0
   },
   "metrics": {
-    "avg_latency_sec": 117.0623,
+    "avg_latency_sec": 109.4713,
     "retrieval_hit_rate": 0.3333,
     "retrieval_recall_at_k": 0.0159,
     "retrieval_precision_at_k": 0.1666,
     "retrieval_mrr_at_k": 0.5,
     "answer_exact_match_rate": 0.0,
-    "answer_token_f1": 0.033
+    "answer_token_f1": 0.0349
   },
   "input_path": "data\\en\\eval_200.jsonl",
-  "output_dir": "reports\\en\\rag_eval",
+  "output_dir": "reports\\en\\rag_eval_new",
   "config_path": "configs/config.yaml",
   "corpus_path": "data/en/corpus.jsonl",
-  "summary_path": "reports\\en\\rag_eval\\summary.json",
-  "cases_path": "reports\\en\\rag_eval\\cases.csv"
+  "summary_path": "reports\\en\\rag_eval_new\\summary.json",
+  "cases_path": "reports\\en\\rag_eval_new\\cases.csv"
 }

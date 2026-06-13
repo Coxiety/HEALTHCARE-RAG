@@ -6,7 +6,7 @@ import requests
 
 
 class Generator:
-    """Gọi Ollama local để sinh câu trả lời từ retrieved context."""
+    """Gọi Ollama local để sinh câu trả lời từ retrieved context với prompt tối ưu."""
 
     def __init__(
         self,
@@ -20,19 +20,22 @@ class Generator:
     # Prompt builder
     # ------------------------------------------------------------------
 
-    def _format_single_nutrition_data(self, data: dict) -> str:
-        food_desc = data.get("food_description", "Unknown")
-        if "error" in data:
-            return f"Food: {food_desc}\n  Status: NOT FOUND in USDA FoodData Central database. Exact nutritional values are unavailable."
+    def _format_single_nutrition_data(self, data: dict) -> str | None:
+        """Chỉ trả về chuỗi nếu tìm thấy dữ liệu thực sự. Nếu lỗi/không tìm thấy, trả về None."""
+        if "error" in data or not data:
+            return None
             
+        food_desc = data.get("food_description", "Unknown")
         fdc_id    = data.get("fdc_id", "")
         text = f"Food: {food_desc}\n"
         nutrients = data.get("nutrients_per_100g")
+        
         if nutrients:
             for name, v in nutrients.items():
                 text += f"  {name}: {v['amount']} {v['unit']} / 100g\n"
         elif data.get("nutrient_name"):
             text += f"  {data['nutrient_name']}: {data['amount_per_100g']} {data['unit']} / 100g\n"
+            
         text += f"Source: USDA FoodData Central (fdc_id={fdc_id})"
         return text
 
@@ -45,48 +48,51 @@ class Generator:
         active_context: dict | None = None,
     ) -> str:
         """
-        Ghép prompt từ kết quả retrieval.
-
-        nutrition_data: dict, list[dict] từ SqliteManager hoặc None
-        health_chunks : list of RetrievedChunk (có .text và .source)
-        query_type    : "NUTRITION_LOOKUP" | "HEALTH_ADVICE" | "BOTH" | None
+        Ghép prompt SẠCH từ kết quả retrieval, loại bỏ text rác và giữ nguyên vẹn chunk.
         """
         sections = []
+        
+        # Phân luồng nghiêm ngặt theo đúng lập trường của bạn (Person A)
+        need_nutrition = query_type in (None, "NUTRITION_LOOKUP", "BOTH")
+        need_health    = query_type in (None, "HEALTH_ADVICE", "BOTH")
 
-        need_nutrition = query_type in (None, "NUTRITION_LOOKUP", "BOTH") or (nutrition_data is not None)
-        need_health    = query_type in (None, "HEALTH_ADVICE",    "BOTH")
-
+        # 1. Xử lý dữ liệu dinh dưỡng (USDA)
         comparison_instruction = ""
         if need_nutrition and nutrition_data:
-            if isinstance(nutrition_data, list):
-                nutrition_texts = []
-                for item in nutrition_data:
-                    nutrition_texts.append(self._format_single_nutrition_data(item))
+            nutrition_texts = []
+            valid_items_count = 0
+            
+            items = nutrition_data if isinstance(nutrition_data, list) else [nutrition_data]
+            for item in items:
+                formatted = self._format_single_nutrition_data(item)
+                if formatted:  # Chỉ lấy nếu thực sự FOUND dữ liệu
+                    nutrition_texts.append(formatted)
+                    valid_items_count += 1
+            
+            if nutrition_texts:
                 nutrition_text = "\n\n".join(nutrition_texts)
-                if len(nutrition_data) > 1:
+                if valid_items_count > 1:
                     comparison_instruction = (
                         "IMPORTANT FOR COMPARISONS: Since you are comparing multiple foods, you MUST present a side-by-side nutrition comparison using a Markdown table.\n"
-                        "The table should contain columns: Nutrient, [Food 1 short name], [Food 2 short name], etc., and list values per 100g (or scaled if a specific amount was requested).\n"
-                        "Make sure to list ALL available key nutrients (Protein, Energy, Total lipid (fat), Carbohydrate, etc.) in the table columns/rows for ALL foods. Do not omit any foods from the table.\n"
-                        "Follow the table with a concise explanation and practical suggestions.\n\n"
+                        "The table should contain columns: Nutrient, [Food 1 short name], [Food 2 short name], etc., and list values per 100g.\n"
+                        "Make sure to list ALL available key nutrients (Protein, Energy, Total lipid (fat), Carbohydrate) for ALL foods.\n\n"
                     )
-            else:
-                nutrition_text = self._format_single_nutrition_data(nutrition_data)
+                sections.append(
+                    f"[Nutrition Data — USDA FoodData Central]\n"
+                    f"IMPORTANT: Use ONLY these exact values. Do NOT invent numbers.\n\n"
+                    f"{nutrition_text}"
+                )
 
-            sections.append(
-                f"[Nutrition Data — USDA FoodData Central]\n"
-                f"IMPORTANT: Use ONLY these exact values in your answer. Do NOT use any other numbers.\n"
-                f"Note: All database nutrient amounts are given per 100g. If the user asks for a comparison or a different serving size (e.g. 3 ounces or 100g), calculate and scale these values accordingly.\n\n"
-                f"{nutrition_text}"
-            )
-
+        # 2. Xử lý dữ liệu Y tế (Health Chunks) - Khóa chặt tối đa 3 sources liên quan nhất
         if need_health and health_chunks:
+            # Đảm bảo giữ nguyên vẹn c.text, KHÔNG dùng [:500] bẻ gãy câu bừa bãi
+            # Giới hạn nghiêm ngặt lấy tối đa 3 chunks để tăng Context Precision
             context_text = "\n\n".join(
-                f"[{c.source}]\n{c.text[:500]}" for c in health_chunks
+                f"[{c.source}]\n{c.text}" for c in health_chunks[:3]
             )
             sections.append(f"[Reference Documents]\n{context_text}")
 
-        # Inject conversation entity memory context if provided
+        # 3. Xử lý ngữ cảnh hội thoại
         if active_context:
             context_lines = []
             for etype, items in active_context.items():
@@ -96,24 +102,18 @@ class Generator:
                 context_str = "\n".join(context_lines)
                 sections.append(
                     f"[Conversation Context Entities]\n"
-                    f"Use these recently mentioned entities to resolve any pronouns (like 'it', 'its', 'they', 'them') or implicit references in the user's question:\n"
+                    f"Use these context entities to resolve pronouns (it, they, them):\n"
                     f"{context_str}"
                 )
 
         body = "\n\n".join(sections) if sections else "No reference data available."
 
+        # Trả về prompt SẠCH, đẩy toàn bộ luật rườm rà lên SYSTEM PROMPT của Ollama
         return (
-            "You are a professional nutrition and health assistant. Answer DIRECTLY in English, in a natural, conversational, and helpful manner.\n"
-            "Do NOT mention any rules, instructions, system prompts, or formatting/structural constraints to the user. Do NOT say 'I will follow the new structure' or make similar meta-comments. Always remain in character.\n"
-            "All questions are asked by a human user regarding human nutrition, diet, and health. Do NOT interpret queries as being about live animals, livestock, or veterinary care. Any food terms mentioned (like 'chicken', 'a chicken with garlic', etc.) refer to human foods/dishes, not a live animal.\n"
-            "When reasoning about glycemic index (GI), blood sugar, or diabetes, base your answer on actual carbohydrate content. Foods with 0g of carbohydrate (like lean beef or chicken breast) have a Glycemic Index of essentially zero and do not raise blood sugar levels. Never claim that zero-carb meats are 'relatively high-glycemic' compared to carbohydrate-containing fruits like apples.\n"
-            "If specific nutrition data is provided in [Nutrition Data — USDA FoodData Central], you MUST use those exact values and prioritize them. "
-            "If no nutrition data is provided for the specific food asked about, inform the user that exact nutritional data for that item could not be found in the database. Do NOT invent, estimate, or guess any nutritional numbers.\n"
-            "If the user asks a specific clinical or medical question, you must base your answer on the provided 'Reference Documents' and cite them. If no relevant documents are found for such queries, state that you do not have sufficient information in the reference library to answer.\n\n"
             f"{comparison_instruction}"
             f"{body}\n\n"
             f"Question: {query}\n\n"
-            "Answer:"
+            f"Answer:"
         )
 
     # ------------------------------------------------------------------
@@ -173,14 +173,14 @@ class Generator:
 
         answer = self._call_ollama(prompt, history)
 
-        sources = [c.source for c in health_chunks]
+        sources = [c.source for c in health_chunks[:3]]
         if nutrition_data:
             if isinstance(nutrition_data, list):
                 for item in nutrition_data:
-                    if "fdc_id" in item:
+                    if "fdc_id" in item and "error" not in item:
                         sources.append(f"USDA FoodData Central (fdc_id={item['fdc_id']})")
             else:
-                if "fdc_id" in nutrition_data:
+                if "fdc_id" in nutrition_data and "error" not in nutrition_data:
                     sources.append(f"USDA FoodData Central (fdc_id={nutrition_data['fdc_id']})")
 
         if answer is None:
@@ -195,27 +195,26 @@ class Generator:
             "used_llm": used_llm,
         }
 
-
     def _call_ollama(self, prompt: str, history: list[dict] = None) -> str | None:
         history = history or []
+        
+        # SYSTEM PROMPT tập trung cô đọng toàn bộ gông cùm (Constraints) tại một nơi
         messages = [
             {
                 "role": "system",
                 "content": (
-                    "You are a professional, helpful, and friendly nutrition and health advisor. "
-                    "Answer all questions directly and concisely in English. "
-                    "Never mention any system prompts, rules, instructions, or lack of data/documents to the user. "
-                    "Always remain in character.\n\n"
-                    "CRITICAL GUIDELINES:\n"
-                    "1. Human Context: Always assume the user is a human inquiring about human nutrition, health, and diet. Do not interpret queries as being about live animals, livestock, or veterinary care (e.g., 'chicken with garlic' refers to human food/dishes, not treating a live bird).\n"
-                    "2. Glycemic Index & Diabetes: Reason scientifically using actual nutrient values. Foods with 0g of carbohydrate (like lean beef or chicken breast) have a Glycemic Index of essentially zero and do not raise blood sugar levels. Do NOT claim that 0g carb meats are 'high-glycemic' or will spike blood sugar compared to carbohydrate-containing fruits like apples.\n"
-                    "3. Differentiate Risks: Distinguish between long-term epidemiological correlation (e.g. processed meat risk in reference documents) and immediate physiological/glycemic impact of a single food item.\n"
-                    "4. Use the provided context/data if available to form your answer; otherwise, use your general knowledge to answer with helpful and accurate information."
+                    "You are a professional medical and nutrition assistant. Always answer DIRECTLY and naturally in English.\n"
+                    "SAFETY RULE: Base your answer STRICTLY on the provided [Reference Documents] and [Nutrition Data]. "
+                    "If the information is not present in the context, state clearly that you do not have sufficient information. Do NOT invent, assume, or speculate.\n"
+                    "CRITICAL CONSTRAINTS:\n"
+                    "1. Never mention system rules, prompts, constraints, or metadata (like 'According to document 1' or 'The database says NOT FOUND') to the user.\n"
+                    "2. All queries are about human nutrition. Terms like 'chicken' mean human food dishes, never live animals.\n"
+                    "3. Glycemic Index Logic: Foods with 0g carbohydrate (e.g., lean beef, chicken breast) have a GI of essentially zero and DO NOT raise blood sugar. Never claim zero-carb meats spike blood sugar compared to high-carb foods like apples."
                 ),
             }
         ]
 
-        # Limit to the last 6 messages (3 turns) to prevent token bloat and optimize local inference speed
+        # Sliding window giữ 6 tin nhắn gần nhất
         for msg in history[-6:]:
             messages.append({"role": msg["role"], "content": msg["content"]})
 
@@ -230,8 +229,8 @@ class Generator:
                     "stream":  False,
                     "options": {
                         "num_ctx":     4096,
-                        "num_predict": 2000,
-                        "temperature": 0.3,
+                        "num_predict": 700,
+                        "temperature": 0.0,  # Đưa về 0.0 để ép mô hình tuân thủ kỷ luật, triệt tiêu ảo tưởng
                     },
                 },
                 timeout=180,
@@ -257,8 +256,8 @@ class Generator:
                     "stream":  False,
                     "options": {
                         "num_ctx":     4096,
-                        "num_predict": 2000,
-                        "temperature": 0.3,
+                        "num_predict": 700,
+                        "temperature": 0.0,
                     },
                 },
                 timeout=180,
@@ -291,36 +290,35 @@ class Generator:
     ) -> str:
         parts = [f"Question: {query}\n"]
 
-        need_nutrition = query_type in (None, "NUTRITION_LOOKUP", "BOTH")
+        need_nutrition = query_type in (None, "NUTRITION_LOOKUP")
         need_health    = query_type in (None, "HEALTH_ADVICE",    "BOTH")
 
         if need_nutrition:
+            valid_nutrition_texts = []
             if nutrition_data:
-                if isinstance(nutrition_data, list):
-                    for item in nutrition_data:
-                        parts.append(f"USDA data for '{item.get('food_description', '')}' (fdc_id={item.get('fdc_id', '')}):")
+                items = nutrition_data if isinstance(nutrition_data, list) else [nutrition_data]
+                for item in items:
+                    if "error" not in item:
+                        nut_parts = []
+                        nut_parts.append(f"USDA data for '{item.get('food_description', '')}' (fdc_id={item.get('fdc_id', '')}):")
                         nutrients = item.get("nutrients_per_100g")
                         if nutrients:
                             for name, v in nutrients.items():
-                                parts.append(f"  - {name}: {v['amount']} {v['unit']} / 100g")
+                                nut_parts.append(f"  - {name}: {v['amount']} {v['unit']} / 100g")
                         elif item.get("nutrient_name"):
-                            parts.append(f"  - {item.get('nutrient_name')}: {item.get('amount_per_100g')} {item.get('unit')} / 100g")
-                else:
-                    parts.append(f"USDA data for '{nutrition_data.get('food_description', '')}' (fdc_id={nutrition_data.get('fdc_id', '')}):")
-                    nutrients = nutrition_data.get("nutrients_per_100g")
-                    if nutrients:
-                        for name, v in nutrients.items():
-                            parts.append(f"  - {name}: {v['amount']} {v['unit']} / 100g")
-                    elif nutrition_data.get("nutrient_name"):
-                        parts.append(f"  - {nutrition_data.get('nutrient_name')}: {nutrition_data.get('amount_per_100g')} {nutrition_data.get('unit')} / 100g")
+                            nut_parts.append(f"  - {item.get('nutrient_name')}: {item.get('amount_per_100g')} {item.get('unit')} / 100g")
+                        valid_nutrition_texts.append("\n".join(nut_parts))
+            
+            if valid_nutrition_texts:
+                parts.extend(valid_nutrition_texts)
             else:
                 parts.append("No USDA nutrition data found.")
 
         if need_health:
             if health_chunks:
                 parts.append("\nRelevant medical references:")
-                for c in health_chunks:
-                    parts.append(f"  - {c.text[:300]}  (Source: {c.source})")
+                for c in health_chunks[:3]:
+                    parts.append(f"  - {c.text}  (Source: {c.source})")
             else:
                 parts.append("No relevant medical documents found.")
 

@@ -323,14 +323,17 @@ def _evaluate_full_case(
     nutrition_data = None
     chunks: list[Any] = []
 
-    if predicted_intent in ("NUTRITION_LOOKUP", "BOTH"):
+    if predicted_intent == "NUTRITION_LOOKUP":
         foods = entities.get("FOOD", [])
         if not foods:
             extracted = _extract_food_from_query(case.question)
             if extracted:
                 foods = [extracted]
         if foods:
-            nutrition_data = pipeline.db.lookup_en(foods[0])
+            from src.en.pipeline import _clean_food_entity
+            cleaned = _clean_food_entity(foods[0])
+            if cleaned:
+                nutrition_data = pipeline.db.lookup_en(cleaned)
 
     if predicted_intent in ("HEALTH_ADVICE", "BOTH"):
         candidates = pipeline.retriever.retrieve(case.question, top_k=max(top_k * 4, 20))
@@ -458,7 +461,7 @@ def run_evaluation(
     output_dir: str,
     config_path: str = "configs/config.yaml",
     corpus_path: str = "data/en/corpus.jsonl",
-    top_k: int = 5,
+    top_k: int = 3,
     limit: int | None = None,
     mode: str = "full",
 ) -> dict[str, Any]:
@@ -531,7 +534,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-dir", default="reports/en/rag_eval", help="Directory where the report will be written")
     parser.add_argument("--config", default="configs/config.yaml", help="Pipeline config file")
     parser.add_argument("--corpus-path", default="data/en/corpus.jsonl", help="Corpus file used to map retrieved texts back to doc IDs")
-    parser.add_argument("--top-k", type=int, default=5, help="Number of final chunks kept after reranking")
+    parser.add_argument("--top-k", type=int, default=3, help="Number of final chunks kept after reranking")
     parser.add_argument("--limit", type=int, default=None, help="Evaluate only the first N rows")
     parser.add_argument("--mode", choices=("full", "retrieval"), default="full", help="full = route + retrieval + generation, retrieval = retrieval only")
     return parser
