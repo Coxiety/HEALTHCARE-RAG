@@ -52,16 +52,18 @@ class CRF(nn.Module):
 
     def forward(self, emissions, tags, mask):
         device = self.transitions.device
-        emissions = emissions.to(device)
-        tags = tags.to(device)
-        mask = mask.to(device)
-        
-        emissions = emissions.transpose(0, 1)
-        tags = tags.transpose(0, 1)
-        mask = mask.transpose(0, 1)
-        score = self._compute_score(emissions, tags, mask)
-        partition = self._compute_partition(emissions, mask)
-        return torch.sum(partition - score)
+        device_type = "cuda" if emissions.is_cuda else "cpu"
+        with torch.amp.autocast(device_type=device_type, enabled=False):
+            emissions = emissions.to(device).float()
+            tags = tags.to(device)
+            mask = mask.to(device)
+            
+            emissions = emissions.transpose(0, 1)
+            tags = tags.transpose(0, 1)
+            mask = mask.transpose(0, 1)
+            score = self._compute_score(emissions, tags, mask)
+            partition = self._compute_partition(emissions, mask)
+            return torch.mean(partition - score)
 
     def _compute_score(self, emissions, tags, mask):
         seq_len, batch_size, _ = emissions.shape
@@ -88,35 +90,37 @@ class CRF(nn.Module):
 
     def decode(self, emissions, mask):
         device = self.transitions.device
-        emissions = emissions.to(device)
-        mask = mask.to(device)
-        
-        emissions = emissions.transpose(0, 1)
-        mask = mask.transpose(0, 1)
-        seq_len, batch_size, num_tags = emissions.shape
-        viterbi = self.start_transitions + emissions[0]
-        backpointers = []
-        for i in range(1, seq_len):
-            max_viterbi, argmax_viterbi = torch.max(viterbi.unsqueeze(1) + self.transitions.unsqueeze(0), dim=2)
-            viterbi = torch.where(mask[i].unsqueeze(1), max_viterbi + emissions[i], viterbi)
-            backpointers.append(argmax_viterbi)
-        viterbi = viterbi + self.end_transitions.unsqueeze(0)
-        
-        best_paths = []
-        for b in range(batch_size):
-            seq_l = mask[:, b].sum().item()
-            if seq_l == 0:
-                best_paths.append([])
-                continue
-            last_viterbi = viterbi[b]
-            best_tag = torch.argmax(last_viterbi).item()
-            path = [best_tag]
-            for i in range(int(seq_l) - 2, -1, -1):
-                best_tag = backpointers[i][b][best_tag].item()
-                path.append(best_tag)
-            path.reverse()
-            best_paths.append(path)
-        return best_paths
+        device_type = "cuda" if emissions.is_cuda else "cpu"
+        with torch.amp.autocast(device_type=device_type, enabled=False):
+            emissions = emissions.to(device).float()
+            mask = mask.to(device)
+            
+            emissions = emissions.transpose(0, 1)
+            mask = mask.transpose(0, 1)
+            seq_len, batch_size, num_tags = emissions.shape
+            viterbi = self.start_transitions + emissions[0]
+            backpointers = []
+            for i in range(1, seq_len):
+                max_viterbi, argmax_viterbi = torch.max(viterbi.unsqueeze(1) + self.transitions.unsqueeze(0), dim=2)
+                viterbi = torch.where(mask[i].unsqueeze(1), max_viterbi + emissions[i], viterbi)
+                backpointers.append(argmax_viterbi)
+            viterbi = viterbi + self.end_transitions.unsqueeze(0)
+            
+            best_paths = []
+            for b in range(batch_size):
+                seq_l = mask[:, b].sum().item()
+                if seq_l == 0:
+                    best_paths.append([])
+                    continue
+                last_viterbi = viterbi[b]
+                best_tag = torch.argmax(last_viterbi).item()
+                path = [best_tag]
+                for i in range(int(seq_l) - 2, -1, -1):
+                    best_tag = backpointers[i][b][best_tag].item()
+                    path.append(best_tag)
+                path.reverse()
+                best_paths.append(path)
+            return best_paths
 
 class BertCRFForTokenClassification(BertPreTrainedModel):
     def __init__(self, config):
@@ -127,6 +131,28 @@ class BertCRFForTokenClassification(BertPreTrainedModel):
         self.classifier = nn.Linear(config.hidden_size, config.num_labels)
         self.crf = CRF(config.num_labels)
         self.post_init()
+
+    def _init_weights(self, module):
+        """Override HF weight init to handle CRF properly."""
+        if isinstance(module, CRF):
+            # CRF transitions need small uniform init, NOT the default normal
+            nn.init.uniform_(module.transitions, -0.1, 0.1)
+            nn.init.uniform_(module.start_transitions, -0.1, 0.1)
+            nn.init.uniform_(module.end_transitions, -0.1, 0.1)
+        else:
+            # Use the default BertPreTrainedModel init for everything else
+            super()._init_weights(module)
+
+    def reinit_head(self):
+        """Re-initialize classifier + CRF after from_pretrained loading.
+        
+        Call this after from_pretrained() which may corrupt MISSING params.
+        """
+        nn.init.xavier_uniform_(self.classifier.weight)
+        nn.init.zeros_(self.classifier.bias)
+        nn.init.uniform_(self.crf.transitions, -0.1, 0.1)
+        nn.init.uniform_(self.crf.start_transitions, -0.1, 0.1)
+        nn.init.uniform_(self.crf.end_transitions, -0.1, 0.1)
 
     def forward(self, input_ids=None, attention_mask=None, token_type_ids=None, position_ids=None, head_mask=None, inputs_embeds=None, labels=None, output_attentions=None, output_hidden_states=None, return_dict=None):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
@@ -144,6 +170,12 @@ class BertCRFForTokenClassification(BertPreTrainedModel):
         sequence_output = outputs[0]
         sequence_output = self.dropout(sequence_output)
         emissions = self.classifier(sequence_output)
+
+        # Clamp emissions to prevent partition function overflow in CRF.
+        # Early in training the classifier can produce extreme values that
+        # cause logsumexp over long sequences to explode.
+        emissions = torch.clamp(emissions, min=-5.0, max=5.0)
+
         loss = None
         if labels is not None:
             mask = (labels != -100) & (attention_mask == 1)
@@ -181,19 +213,44 @@ class NERModel:
             self._fallback = _SpacyFallback()
 
     def predict(self, text: str) -> dict[str, list[str]]:
+        STRICT_BLACKLIST = {
+            "x-ray", "x-rays", "dental", "doctor", "doctors", "america", 
+            "america's", "study", "studies", "scientific", "patient", "patients",
+            "people", "person", "human", "humans", "child", "children", "health",
+            "effect", "effects", "risk", "risks", "use", "uses", "user", "users"
+        }
+
         if self._fallback is not None:
-            return self._fallback.predict(text)
-        
-        # Truncate text to a safe length (e.g. 150 words) to avoid exceeding BERT's 512 token limit
-        words = text.split()
-        if len(words) > 150:
-            text = " ".join(words[:150])
-            
-        try:
-            return self._run_manual_bert(text)
-        except Exception:
-            # Graceful fallback to spaCy keyword matcher if BERT model fails
-            return _SpacyFallback().predict(text)
+            raw_result = self._fallback.predict(text)
+        else:
+            # Truncate text to a safe length (e.g. 150 words) to avoid exceeding BERT's 512 token limit
+            words = text.split()
+            if len(words) > 150:
+                text = " ".join(words[:150])
+                
+            try:
+                raw_result = self._run_manual_bert(text)
+            except Exception as e:
+                # Log error for visibility
+                print(f"[ERROR NER BERT] Fallback activated due to: {e}")
+                raw_result = _SpacyFallback().predict(text)
+
+        # Post-processing filter to clean and validate entities
+        clean_result = {"FOOD": [], "DISEASE": [], "NUTRIENT": [], "SYMPTOM": []}
+        for etype, entities in raw_result.items():
+            for ent in entities:
+                clean_word = ent.lower().strip("’'.,!?\"()[]:-")
+                
+                if clean_word in STRICT_BLACKLIST:
+                    continue
+                if len(clean_word) <= 1:
+                    continue
+                if clean_word.isdigit():
+                    continue
+                
+                clean_result[etype].append(ent)
+                
+        return clean_result
 
     def _run_manual_bert(self, text: str) -> dict[str, list[str]]:
         import torch
@@ -307,7 +364,10 @@ _SYMPTOM_TOKENS: set[str] = {
 
 class _SpacyFallback:
     def predict(self, text: str) -> dict[str, list[str]]:
-        words = set(text.lower().split())
+        import re
+        # Clean punctuation (excluding hyphens) to avoid trailing punctuation issues
+        cleaned = re.sub(r"[^\w\s-]", " ", text.lower())
+        words = set(cleaned.split())
         return {
             "FOOD":     list(words & _FOOD_TOKENS),
             "DISEASE":  list(words & _DISEASE_TOKENS),

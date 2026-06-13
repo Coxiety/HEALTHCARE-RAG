@@ -11,14 +11,14 @@
     "with_expected_source_keywords": 71
   },
   "metrics": {
-    "avg_latency_sec": 7.1244,
+    "avg_latency_sec": 7.4155,
     "intent_accuracy": 0.4789,
-    "retrieval_hit_rate": 0.9155,
-    "retrieval_recall_at_k": 0.912,
-    "retrieval_precision_at_k": 0.0645,
-    "retrieval_mrr_at_k": 0.9531,
+    "retrieval_hit_rate": 0.9437,
+    "retrieval_recall_at_k": 0.9401,
+    "retrieval_precision_at_k": 0.0655,
+    "retrieval_mrr_at_k": 0.9545,
     "answer_exact_match_rate": 0.0,
-    "answer_token_f1": 0.1601,
+    "answer_token_f1": 0.1652,
     "answer_keyword_hit_rate": 1.0,
     "source_keyword_hit_rate": 0.0
   },
