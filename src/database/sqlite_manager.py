@@ -28,6 +28,28 @@ class SqliteManager:
         words = [w.strip().lower() for w in food_name.split() if w.strip()]
         if not words:
             return None
+
+        # 1. Try finding with all keywords first
+        row = self._find_food_by_words(words)
+        if row:
+            return row
+
+        # 2. Fallback: if search failed and we have multiple words,
+        # try filtering out common adjectives (green, red, organic, fresh...)
+        if len(words) > 1:
+            adjectives = {
+                "green", "red", "yellow", "white", "black", "blue", "purple", "brown",
+                "organic", "fresh", "raw", "ripe", "sweet", "sour", "delicious", "hot", "cold"
+            }
+            fallback_words = [w for w in words if w not in adjectives]
+            if fallback_words and len(fallback_words) < len(words):
+                row = self._find_food_by_words(fallback_words)
+                if row:
+                    return row
+
+        return None
+
+    def _find_food_by_words(self, words: list[str]) -> sqlite3.Row | None:
         where_clauses = ["LOWER(f.description) LIKE ?" for _ in words]
         params = [f"%{w}%" for w in words]
         sql = f"""

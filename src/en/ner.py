@@ -275,6 +275,21 @@ class NERModel:
         decoded_paths = self.model.crf.decode(logits, mask)
         predictions = decoded_paths[0]
         
+        # Debug printing token emissions
+        try:
+            print("\n=== [DEBUG NER BioBERT-CRF EMISSIONS] ===")
+            id2label = self.model.config.id2label
+            tokens = self.tokenizer.convert_ids_to_tokens(inputs["input_ids"][0].tolist())
+            for idx, (token, pred_id) in enumerate(zip(tokens, predictions)):
+                token_logits = logits[0, idx].tolist()
+                logit_dict = {id2label.get(i, f"Tag_{i}"): round(val, 4) for i, val in enumerate(token_logits)}
+                sorted_logits = sorted(logit_dict.items(), key=lambda x: x[1], reverse=True)
+                pred_label = id2label.get(pred_id, "O")
+                print(f"Token #{idx:02d}: {token:<15} | Viterbi Pred: {pred_label:<10} | Top-3 Logits: {sorted_logits[:3]}")
+            print("==========================================\n")
+        except Exception as e:
+            print(f"[DEBUG NER ERROR] Failed to print token emissions: {e}")
+        
         offset_mapping = inputs["offset_mapping"][0].tolist()[:len(predictions)]
         
         entities = []
